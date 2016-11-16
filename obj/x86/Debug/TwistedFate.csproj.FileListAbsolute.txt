@@ -1,0 +1,16 @@
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\LeagueSharp.Common.dll
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\LeagueSharp.dll
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\SharpDX.dll
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\LeagueSharp.Data.dll
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\clipper_library.dll
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\LeagueSharp.Common.pdb
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\LeagueSharp.Data.pdb
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\clipper_library.pdb
+C:\Users\Admin\Documents\Apdo\Twisted Fate\obj\x86\Debug\TwistedFate.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\GrossGore's Fate.exe.config
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\GrossGore's Fate.exe
+C:\Users\Admin\Documents\Apdo\Twisted Fate\bin\Debug\GrossGore's Fate.pdb
+C:\Users\Admin\Documents\Apdo\Twisted Fate\obj\x86\Debug\GrossGore's Fate.exe
+C:\Users\Admin\Documents\Apdo\Twisted Fate\obj\x86\Debug\GrossGore's Fate.pdb

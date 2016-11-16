@@ -93,29 +93,26 @@ namespace TwistedFate
             Config.AddSubMenu(SowMenu);
 
             //Q
-            var q = new Menu("Q - Wildcards", "Q");
+            var q = new Menu("Q Spell", "Q");
             {
                 q.AddItem(
-                    new MenuItem("CastQ", "Cast Q Enemy").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Press)));
+                    new MenuItem("CastQ", "Force Q Cast to Champ").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Press)));
                 q.AddItem(
-                    new MenuItem("CastQClear", "Force Q Clear)").SetValue(new KeyBind("X".ToCharArray()[0], KeyBindType.Press)));
+                    new MenuItem("CastQClear", "Force Q to LaneClear)").SetValue(new KeyBind("X".ToCharArray()[0], KeyBindType.Press)));
                 Config.AddSubMenu(q);
             }
 
             //W
-            var w = new Menu("W - Pick a card", "W");
+            var w = new Menu("Pick a Card Helper", "W");
             {
                 w.AddItem(
-                    new MenuItem("SelectYellow", "Select Yellow").SetValue(new KeyBind("W".ToCharArray()[0],
+                    new MenuItem("SelectYellow", "Gold Card").SetValue(new KeyBind("W".ToCharArray()[0],
                         KeyBindType.Press)));
                 w.AddItem(
-                    new MenuItem("SelectBlue", "Select Blue").SetValue(new KeyBind("E".ToCharArray()[0],
+                    new MenuItem("SelectBlue", "Blue Card").SetValue(new KeyBind("E".ToCharArray()[0],
                         KeyBindType.Press)));
                 w.AddItem(
-                    new MenuItem("SelectRed", "Select Red").SetValue(new KeyBind("T".ToCharArray()[0],
-                        KeyBindType.Press)));
-                w.AddItem(
-                    new MenuItem("SelectHarass", "Quick W-W (Harass)").SetValue(new KeyBind("U".ToCharArray()[0],
+                    new MenuItem("SelectRed", "Red Card").SetValue(new KeyBind("T".ToCharArray()[0],
                         KeyBindType.Press)));
                 Config.AddSubMenu(w);
             }
@@ -141,7 +138,7 @@ namespace TwistedFate
             AntiGapcloser.OnEnemyGapcloser += Gapcloser_OnGapCloser;
             Interrupter2.OnInterruptableTarget += InterruptableSpell_OnInterruptableTarget;
 
-            Game.PrintChat("<font color='#FFFFFF'>V2 Best TF EUW : Be Gross Gore!</font>.");
+            Game.PrintChat("<font color='#FFFFFF'>Best TF EUW : </font><font color='#121212'>Be Gross Gore!</font>.");
         }
 
         private static void InterruptableSpell_OnInterruptableTarget(Obj_AI_Hero sender, Interrupter2.InterruptableTargetEventArgs args)
@@ -228,11 +225,11 @@ namespace TwistedFate
                 CardSelector.StartSelecting(Cards.Red);
             }
 
-            if (Config.Item("SelectHarass").GetValue<KeyBind>().Active
+            if (SOW.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
                 && _tmagic != null
                 && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 175)
             {
-                CardSelector.StartSelecting(Cards.Random);
+                CardSelector.StartSelecting(Cards.First);
             }
         }
 

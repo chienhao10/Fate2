@@ -18,7 +18,7 @@ namespace TwistedFate
         Yellow,
         Blue,
         None,
-        Random,
+        First,
     }
 
     public enum SelectStatus
@@ -103,7 +103,7 @@ namespace TwistedFate
                 SendWPacket();
             }
             else
-            if (Select == Cards.Random)
+            if (Select == Cards.First)
             {
                 SendWPacket();
             }
