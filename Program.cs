@@ -96,9 +96,9 @@ namespace TwistedFate
             var q = new Menu("Q Spell", "Q");
             {
                 q.AddItem(
-                    new MenuItem("CastQ", "Force Q Cast to Champ").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Press)));
+                    new MenuItem("CastQ", "Use Q - Champions (Hold)").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Press)));
                 q.AddItem(
-                    new MenuItem("CastQClear", "Force Q to LaneClear)").SetValue(new KeyBind("X".ToCharArray()[0], KeyBindType.Press)));
+                    new MenuItem("CastQClear", "Use Q - LaneClear (Hold)").SetValue(new KeyBind("X".ToCharArray()[0], KeyBindType.Press)));
                 Config.AddSubMenu(q);
             }
 
@@ -138,7 +138,7 @@ namespace TwistedFate
             AntiGapcloser.OnEnemyGapcloser += Gapcloser_OnGapCloser;
             Interrupter2.OnInterruptableTarget += InterruptableSpell_OnInterruptableTarget;
 
-            Game.PrintChat("<font color='#FFFFFF'>Best TF EUW : </font><font color='#121212'>Be Gross Gore!</font>.");
+            Game.PrintChat("<font color='#FFFFFF'>Best Twisted Fate - </font><font color='#FF2247'>Be Gross Gore!</font>");
         }
 
         private static void InterruptableSpell_OnInterruptableTarget(Obj_AI_Hero sender, Interrupter2.InterruptableTargetEventArgs args)
@@ -309,7 +309,11 @@ namespace TwistedFate
 
             //Prioritize W-AA on enemy instead of last-hit
             var mode = new Orbwalking.OrbwalkingMode[] { Orbwalking.OrbwalkingMode.Mixed, Orbwalking.OrbwalkingMode.Combo };
-            if (HasACard != "none" && !HeroManager.Enemies.Contains(args.Target) && SOW.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+            var _tmagic = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
+            if (HasACard != "none" && !HeroManager.Enemies.Contains(args.Target)
+                && SOW.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
+                && _tmagic != null
+                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 300)
             {
                 args.Process = false;
                 var target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(Player), TargetSelector.DamageType.Magical);
