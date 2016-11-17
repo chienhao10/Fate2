@@ -129,7 +129,7 @@ namespace TwistedFate
             AntiGapcloser.OnEnemyGapcloser += Gapcloser_OnGapCloser;
             Interrupter2.OnInterruptableTarget += InterruptableSpell_OnInterruptableTarget;
 
-            Game.PrintChat("<font color='#FFFFFF'>Best Twisted Fate - </font><font color='#FF2247'>Be Gross Gore!</font>");
+            Game.PrintChat("<font color='#FFFFFF'></font><font color='#FF2247'>Gross Gore's Fate!</font>");
         }
 
         private static void InterruptableSpell_OnInterruptableTarget(Obj_AI_Hero sender, Interrupter2.InterruptableTargetEventArgs args)
@@ -184,7 +184,7 @@ namespace TwistedFate
             }
         }
 
-        private static void LogicAutoQ()
+        private static void Auto_q_cc()
         {
             var qTarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
 
@@ -195,7 +195,7 @@ namespace TwistedFate
             }
         }
 
-        private static void CardHelper()
+        private static void PickACard_helper()
         {
             var _combo = Config.Item("Combo").GetValue<KeyBind>().Active;
             var _tmagic = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
@@ -301,10 +301,11 @@ namespace TwistedFate
             //Prioritize W-AA on enemy instead of last-hit
             var mode = new Orbwalking.OrbwalkingMode[] { Orbwalking.OrbwalkingMode.Mixed, Orbwalking.OrbwalkingMode.Combo };
             var _tmagic = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
+
             if (HasACard != "none" && !HeroManager.Enemies.Contains(args.Target)
                 && SOW.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
                 && _tmagic != null
-                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 350)
+                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 400)
             {
                 args.Process = false;
                 var target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(Player), TargetSelector.DamageType.Magical);
@@ -495,7 +496,7 @@ namespace TwistedFate
             Q.Cast(bestPosition.To3D(), true);
         }
 
-        private static void QEnemy()
+        private static void Auto_q_immobile()
         {
             if (Config.Item("CastQ").GetValue<KeyBind>().Active)
             {
@@ -564,11 +565,11 @@ namespace TwistedFate
                 QClear();
             }
 
-            QEnemy();
+            Auto_q_immobile();
 
-            LogicAutoQ();
+            Auto_q_cc();
 
-            CardHelper();
+            PickACard_helper();
         }
     }
 }
