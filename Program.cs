@@ -218,7 +218,7 @@ namespace TwistedFate
 
             if (SOW.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
                 && _tmagic != null
-                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 175)
+                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 125)
             {
                 CardSelector.StartSelecting(Cards.First);
             }
@@ -304,7 +304,7 @@ namespace TwistedFate
             if (HasACard != "none" && !HeroManager.Enemies.Contains(args.Target)
                 && SOW.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
                 && _tmagic != null
-                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 400)
+                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 350)
             {
                 args.Process = false;
                 var target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(Player), TargetSelector.DamageType.Magical);
@@ -392,10 +392,13 @@ namespace TwistedFate
                 }
                 
                 //Draw R Timer
-                var buffDestiny = Player.GetBuff("destiny_marker");
-                var remainingTime = (buffDestiny.EndTime - Game.Time);
-                var remainingTimeInt = (int)Math.Round(remainingTime, MidpointRounding.ToEven);
-                Drawing.DrawText(screenPoss.X, screenPoss.Y - 75, System.Drawing.Color.Red, "R2 Timer: " + remainingTimeInt);
+                if(Player.HasBuff("destiny_marker"))
+                {
+                    var buffDestiny = Player.GetBuff("destiny_marker");
+                    var remainingTime = (buffDestiny.EndTime - Game.Time);
+                    var remainingTimeInt = (int)Math.Round(remainingTime, MidpointRounding.ToEven);
+                    Drawing.DrawText(screenPoss.X, screenPoss.Y - 75, System.Drawing.Color.Red, "R2 Timer: " + remainingTimeInt);
+                }
             }
         }
 
