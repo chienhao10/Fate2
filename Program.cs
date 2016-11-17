@@ -24,8 +24,6 @@ namespace TwistedFate
         private static Spell Q, W, R;
         private static readonly float Qangle = 28*(float) Math.PI/180;
         private static Orbwalking.Orbwalker SOW;
-        private static Vector2 PingLocation;
-        private static int LastPingT = 0;
         private static Obj_AI_Hero Player;
         private static int CastQTick;
         private static bool HasBlue { get { return Player.HasBuff("bluecardpreattack"); } }
@@ -50,28 +48,6 @@ namespace TwistedFate
             CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
         }
 
-        private static void Ping(Vector2 position)
-        {
-            if (Utils.TickCount - LastPingT < 30*1000) 
-            {
-                return;
-            }
-            
-            LastPingT = Utils.TickCount;
-            PingLocation = position;
-            SimplePing();
-
-            Utility.DelayAction.Add(150, SimplePing);
-            Utility.DelayAction.Add(300, SimplePing);
-            Utility.DelayAction.Add(400, SimplePing);
-            Utility.DelayAction.Add(800, SimplePing);
-        }
-
-        private static void SimplePing()
-        {
-            Game.ShowPing(PingCategory.Fallback, PingLocation, true);
-        }
-
         private static void Game_OnGameLoad(EventArgs args)
         {
             if (ObjectManager.Player.ChampionName != "TwistedFate") return;
@@ -83,10 +59,12 @@ namespace TwistedFate
 
             //Menu
             Config = new Menu("Gross Gore's Fate", "TwistedFate", true);
+
             //TS
             var TargetSelectorMenu = new Menu("Target Selector", "Target Selector");
             TargetSelector.AddToMenu(TargetSelectorMenu);
             Config.AddSubMenu(TargetSelectorMenu);
+
             //Orbwalker
             var SowMenu = new Menu("Orbwalking", "Orbwalking");
             SOW = new Orbwalking.Orbwalker(SowMenu);
@@ -115,6 +93,19 @@ namespace TwistedFate
                     new MenuItem("SelectRed", "Red Card").SetValue(new KeyBind("T".ToCharArray()[0],
                         KeyBindType.Press)));
                 Config.AddSubMenu(w);
+            }
+
+            //Drawings
+            var drawings = new Menu("Drawings", "Drawings");
+            {
+                drawings.AddItem(
+                    new MenuItem("Qcircle", "Q Range").SetValue(new Circle(true, Color.FromArgb(90, 255, 255, 119))));
+                drawings.AddItem(
+                    new MenuItem("Rcircle", "R Range").SetValue(new Circle(true, Color.FromArgb(90, 0, 255, 238))));
+                drawings.AddItem(
+                    new MenuItem("Rcircle2", "R Range (minimap)").SetValue(new Circle(true,
+                        Color.FromArgb(90, 242, 255, 0))));
+                Config.AddSubMenu(drawings);
             }
 
             //Damage after combo
@@ -313,7 +304,7 @@ namespace TwistedFate
             if (HasACard != "none" && !HeroManager.Enemies.Contains(args.Target)
                 && SOW.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
                 && _tmagic != null
-                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 300)
+                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 400)
             {
                 args.Process = false;
                 var target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(Player), TargetSelector.DamageType.Magical);
@@ -339,19 +330,32 @@ namespace TwistedFate
         {
             if (!ObjectManager.Player.IsDead)
             {
-                Utility.DrawCircle(ObjectManager.Player.Position, 5500, Color.MediumAquamarine, 2, 23, true);
+                var rCircle2 = Config.Item("Rcircle2").GetValue<Circle>();
+
+                if (rCircle2.Active)
+                {
+                    Utility.DrawCircle(ObjectManager.Player.Position, 5500, rCircle2.Color, 2, 23, true);
+                }
             }
         }
 
         private static void Drawing_OnDraw(EventArgs args)
         {
             Vector2 screenPoss = Drawing.WorldToScreen(Player.Position);
+            var qCircle = Config.Item("Qcircle").GetValue<Circle>();
+            var rCircle = Config.Item("Rcircle").GetValue<Circle>();
 
             if (!ObjectManager.Player.IsDead)
             {
                 //Spells Range
-                Render.Circle.DrawCircle(ObjectManager.Player.Position, Q.Range, Color.PeachPuff);
-                Render.Circle.DrawCircle(ObjectManager.Player.Position, 5500, Color.MediumAquamarine);
+                if (qCircle.Active)
+                {
+                    Render.Circle.DrawCircle(ObjectManager.Player.Position, Q.Range, qCircle.Color);
+                }
+                if (rCircle.Active)
+                {
+                    Render.Circle.DrawCircle(ObjectManager.Player.Position, 5500, rCircle.Color);
+                }
 
                 //Target focused
                 var orbwalkerTarget = SOW.GetTarget();
