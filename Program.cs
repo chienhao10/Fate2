@@ -519,8 +519,7 @@ namespace TwistedFate
                     if (enemy.IsValidTarget(Q.Range * 2))
                     {
                         var pred = Q.GetPrediction(enemy);
-                        if ((pred.Hitchance == HitChance.Immobile) ||
-                            (pred.Hitchance == HitChance.Dashing))
+                        if (pred.Hitchance == HitChance.Immobile)
                         {
                             CastQ(enemy, pred.UnitPosition.To2D());
                         }
