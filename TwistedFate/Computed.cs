@@ -83,7 +83,7 @@
                 && targetDis.IsValidTarget()
                 && !targetDis.IsZombie
                 && Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
-                && (ObjectManager.Player.Distance(targetDis) < Orbwalking.GetAttackRange(ObjectManager.Player) + 325))
+                && (ObjectManager.Player.Distance(targetDis) < Orbwalking.GetAttackRange(ObjectManager.Player) + 300))
             {
                 args.Process = false;
 
