@@ -57,7 +57,7 @@
 
             WMenu = new Menu("W Spell", "wSpellMenu");
             WMenu.AddItem(new MenuItem("wHarass", "Fast Harass").SetValue(true));
-            WMenu.AddItem(new MenuItem("wHarassDesc", "Fast Harass pick the fist card if a target is near your AA range.")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
+            WMenu.AddItem(new MenuItem("wHarassDesc", "Fast Harass pick the fist card if a target is near your AA range in Mixed Mode.")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
             WMenu.AddItem(new MenuItem("wHarassTip", "Tip: Recommended.")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
             WMenu.AddItem(
                 new MenuItem("csBlue", "Manual Blue Card").SetValue(
