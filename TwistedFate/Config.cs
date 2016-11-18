@@ -60,10 +60,12 @@
             WMenu.AddItem(new MenuItem("wHarassDesc", "Fast Harass pick the fist card if a target is near your AA range in Mixed Mode.")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
             WMenu.AddItem(new MenuItem("wHarassTip", "Tip: Recommended.")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
             WMenu.AddItem(
-                new MenuItem("csBlue", "Manual Blue Card").SetValue(
+                new MenuItem("csBlue", "Select Blue Card").SetValue(
                     new KeyBind("U".ToCharArray()[0], KeyBindType.Press)));
             WMenu.AddItem(
-                new MenuItem("csRed", "Manual Red Card").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
+                new MenuItem("csRed", "Select Red Card").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
+            WMenu.AddItem(
+                new MenuItem("csGold", "Select Gold Card").SetValue(new KeyBind("O".ToCharArray()[0], KeyBindType.Press)));
             WMenu.AddItem(new MenuItem("wSelect", "Always Gold in Combo.")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
             TwistedFateMenu.AddSubMenu(WMenu);
 

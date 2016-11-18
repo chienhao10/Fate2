@@ -14,6 +14,13 @@
 
             if (ObjectManager.Player.Mana >= wMana)
             {
+                if (Config.IsKeyPressed("csGold")
+                    && (!Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.LeftCtrl)
+                        && !Keyboard.IsKeyDown(Key.LeftAlt)))
+                {
+                    CardSelector.StartSelecting(Cards.Yellow);
+                }
+
                 if (Config.IsKeyPressed("csBlue")
                     && (!Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.LeftCtrl)
                         && !Keyboard.IsKeyDown(Key.LeftAlt)))
