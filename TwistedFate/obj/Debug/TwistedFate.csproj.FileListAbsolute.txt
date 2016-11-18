@@ -1,0 +1,17 @@
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\TwistedFate.exe.config
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\TwistedFate.exe
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\TwistedFate.pdb
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\LeagueSharp.Common.dll
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\LeagueSharp.dll
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\SharpDX.dll
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\SharpDX.XInput.dll
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\LeagueSharp.Data.dll
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\clipper_library.dll
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\LeagueSharp.Common.pdb
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\LeagueSharp.Data.pdb
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\clipper_library.pdb
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\obj\Debug\TwistedFate.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\obj\Debug\TwistedFate.exe
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\obj\Debug\TwistedFate.pdb
