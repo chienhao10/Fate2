@@ -69,7 +69,7 @@
                 
             }
 
-            if (ObjectManager.Player.ManaPercent < 25 && Spells.Q.IsReady())
+            if (ObjectManager.Player.ManaPercent > 25 && Spells.Q.IsReady())
             {
                 var target = jungle.FirstOrDefault(x => x.IsValidTarget(Spells.Q.Range));
 
