@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardSelector.cs" />
+    <Compile Include="CustomDamageIndicator.cs" />
     <Compile Include="Computed.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Extensions\HeroExts.cs" />
