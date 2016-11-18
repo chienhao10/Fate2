@@ -19,8 +19,10 @@ namespace TwistedFate
         /// BEST TWISTED FATE EUW --> CREDITS To: Kortaku - mztikk - Diabaths - badao
         /// </summary>
 
-        private static Menu Config;
 
+        #region Vars
+
+        private static Menu Config;
         private static Spell Q, W, R;
         private static readonly float Qangle = 28*(float) Math.PI/180;
         private static Orbwalking.Orbwalker SOW;
@@ -43,10 +45,14 @@ namespace TwistedFate
             }
         }
 
+        #endregion
+
         private static void Main(string[] args)
         {
             CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
         }
+
+        #region Menu
 
         private static void Game_OnGameLoad(EventArgs args)
         {
@@ -132,6 +138,8 @@ namespace TwistedFate
             Game.PrintChat("<font color='#FFFFFF'></font><font color='#FF2247'>Gross Gore's Fate!</font>");
         }
 
+        #endregion
+
         private static void InterruptableSpell_OnInterruptableTarget(Obj_AI_Hero sender, Interrupter2.InterruptableTargetEventArgs args)
         {
             if (sender.IsEnemy && Orbwalking.InAutoAttackRange(sender))
@@ -154,7 +162,7 @@ namespace TwistedFate
             }
         }
 
-        private static void AutoKS()
+        private static void GrossGore_Auto_Q_KS()
         {
             if (Q.IsReady())
             {
@@ -165,7 +173,7 @@ namespace TwistedFate
             }
         }
 
-        private static void QClear()
+        private static void GrossGore_Force_Q_Clear()
         {
             if (Q.IsReady())
             {
@@ -184,18 +192,62 @@ namespace TwistedFate
             }
         }
 
-        private static void Auto_q_cc()
+        private static void GrossGore_Auto_Q_CC()
         {
             var qTarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
 
-            if (qTarget != null && (qTarget.MoveSpeed < 275 || qTarget.IsStunned || !qTarget.CanMove || qTarget.IsRooted ||
-                    qTarget.IsCharmed || qTarget.Distance(Player) < 450))
+            if (qTarget != null && (
+                qTarget.MoveSpeed < 275
+                || qTarget.IsStunned
+                || !qTarget.CanMove
+                || qTarget.IsRooted
+                || qTarget.IsCharmed))
             {
                 Q.Cast(qTarget);
             }
         }
 
-        private static void PickACard_helper()
+        private static void GrossGore_Q_CantMove()
+        {
+            if (Config.Item("CastQ").GetValue<KeyBind>().Active)
+            {
+                CastQTick = Utils.TickCount;
+            }
+
+            var qTarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
+
+            if (Utils.TickCount - CastQTick < 500)
+            {
+                if (qTarget != null)
+                {
+                    Q.Cast(qTarget);
+                }
+            }
+
+            if (ObjectManager.Player.Spellbook.CanUseSpell(SpellSlot.Q) == SpellState.Ready)
+            {
+                foreach (var enemy in HeroManager.Enemies)
+                {
+                    if (enemy.IsValidTarget(Q.Range * 2))
+                    {
+                        var pred = Q.GetPrediction(enemy);
+                        if (pred.Hitchance == HitChance.Immobile)
+                        {
+                            CastQ(enemy, pred.UnitPosition.To2D());
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void GrossGore_CheckBuffs()
+        {
+            var temp = Player.Buffs.Aggregate("", (current, buff) => current + ("( " + buff.Name + " , " + buff.Count + " )"));
+            if (temp != null)
+                Game.PrintChat(temp);
+        }
+
+        private static void GrossGore_Cards()
         {
             var _combo = Config.Item("Combo").GetValue<KeyBind>().Active;
             var _tmagic = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
@@ -218,13 +270,13 @@ namespace TwistedFate
 
             if (SOW.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
                 && _tmagic != null
-                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 125)
+                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 105)
             {
                 CardSelector.StartSelecting(Cards.First);
             }
         }
 
-        private static void JungleClear()
+        private static void GrossGore_JungleClear()
         {
             var jungle =
             MinionManager.GetMinions(ObjectManager.Player.Position, ObjectManager.Player.AttackRange + 200, MinionTypes.All, MinionTeam.Neutral)
@@ -299,16 +351,14 @@ namespace TwistedFate
             }
 
             //Prioritize W-AA on enemy instead of last-hit
-            var mode = new Orbwalking.OrbwalkingMode[] { Orbwalking.OrbwalkingMode.Mixed, Orbwalking.OrbwalkingMode.Combo };
-            var _tmagic = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
+            var target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(Player), TargetSelector.DamageType.Magical);
 
             if (HasACard != "none" && !HeroManager.Enemies.Contains(args.Target)
                 && SOW.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
-                && _tmagic != null
-                && ObjectManager.Player.Distance(_tmagic) < Orbwalking.GetAttackRange(ObjectManager.Player) + 400)
+                && ObjectManager.Player.Distance(target) < Orbwalking.GetAttackRange(ObjectManager.Player) + 400)
             {
                 args.Process = false;
-                var target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(Player), TargetSelector.DamageType.Magical);
+                
                 if (target.IsValidTarget() && !target.IsZombie)
                     Player.IssueOrder(GameObjectOrder.AttackUnit, target);
             }
@@ -496,39 +546,6 @@ namespace TwistedFate
             Q.Cast(bestPosition.To3D(), true);
         }
 
-        private static void Auto_q_immobile()
-        {
-            if (Config.Item("CastQ").GetValue<KeyBind>().Active)
-            {
-                CastQTick = Utils.TickCount;
-            }
-
-            var qTarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
-
-            if (Utils.TickCount - CastQTick < 500)
-            {
-                if (qTarget != null)
-                {
-                    Q.Cast(qTarget);
-                }
-            }
-
-            if (ObjectManager.Player.Spellbook.CanUseSpell(SpellSlot.Q) == SpellState.Ready)
-            {
-                foreach (var enemy in HeroManager.Enemies)
-                {
-                    if (enemy.IsValidTarget(Q.Range * 2))
-                    {
-                        var pred = Q.GetPrediction(enemy);
-                        if (pred.Hitchance == HitChance.Immobile)
-                        {
-                            CastQ(enemy, pred.UnitPosition.To2D());
-                        }
-                    }
-                }
-            }
-        }
-
         private static float ComboDamage(Obj_AI_Hero hero)
         {
             var dmg = 0d;
@@ -544,32 +561,25 @@ namespace TwistedFate
             return (float) dmg;
         }
 
-        private static void checkbuff()
-        {
-            var temp = Player.Buffs.Aggregate("", (current, buff) => current + ("( " + buff.Name + " , " + buff.Count + " )"));
-            if (temp != null)
-                Game.PrintChat(temp);
-        }
-
         private static void Game_OnGameUpdate(EventArgs args)
         {
             if (SOW.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
             {
-                JungleClear();
+                GrossGore_JungleClear();
             }
 
-            AutoKS();
+            GrossGore_Auto_Q_KS();
 
             if (Config.Item("CastQClear").GetValue<KeyBind>().Active)
             {
-                QClear();
+                GrossGore_Force_Q_Clear();
             }
 
-            Auto_q_immobile();
+            GrossGore_Q_CantMove();
 
-            Auto_q_cc();
+            GrossGore_Auto_Q_CC();
 
-            PickACard_helper();
+            GrossGore_Cards();
         }
     }
 }
