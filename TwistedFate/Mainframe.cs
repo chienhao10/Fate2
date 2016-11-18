@@ -38,6 +38,7 @@
             Drawing.OnDraw += OnDraw;
 
             Game.PrintChat("<font color='#FFFFFF'></font><font color='#DE5291'>Ready. Play TF like Gross Gore!</font>");
+            Game.PrintChat("<font color='#FFFFFF'></font><font color='#DE9232'>Credits to. mztikk</font>");
 
         }
 
