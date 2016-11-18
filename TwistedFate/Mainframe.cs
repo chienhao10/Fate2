@@ -2,11 +2,13 @@
 {
     using System;
     using System.Drawing;
+    using System.Linq;
 
     using LeagueSharp;
     using LeagueSharp.Common;
 
     using TwistedFate.Modes;
+    using SharpDX;
 
     internal static class Mainframe
     {
@@ -19,6 +21,22 @@
         #region Properties
 
         internal static Orbwalking.Orbwalker Orbwalker { get; set; }
+        internal static bool HasBlue { get { return ObjectManager.Player.HasBuff("bluecardpreattack"); } }
+        internal static bool HasRed { get { return ObjectManager.Player.HasBuff("redcardpreattack"); } }
+        internal static bool HasGold { get { return ObjectManager.Player.HasBuff("goldcardpreattack"); } }
+        internal static string HasACard
+        {
+            get
+            {
+                if (ObjectManager.Player.HasBuff("bluecardpreattack"))
+                    return "blue";
+                if (ObjectManager.Player.HasBuff("goldcardpreattack"))
+                    return "gold";
+                if (ObjectManager.Player.HasBuff("redcardpreattack"))
+                    return "red";
+                return "empty";
+            }
+        }
 
         #endregion
 
@@ -49,9 +67,15 @@
 
                 if (Config.IsChecked("drawRmap") && (!Config.IsChecked("drawOnlyReady") || Spells.R.IsReady()))
                 {
-                    Utility.DrawCircle(ObjectManager.Player.Position, 5500, Color.PaleGreen, 2, 23, true);
+                    Utility.DrawCircle(ObjectManager.Player.Position, 5500, System.Drawing.Color.PaleGreen, 2, 23, true);
                 }
             }
+        }
+
+        public static void drawText(string msg, Vector3 Hero, System.Drawing.Color color, int weight = 0)
+        {
+            var wts = Drawing.WorldToScreen(Hero);
+            Drawing.DrawText(wts[0] + (msg.Length), wts[1] + weight, color, msg);
         }
 
         private static void OnDraw(EventArgs args)
@@ -60,12 +84,40 @@
             {
                 if (Config.IsChecked("drawQrange") && (!Config.IsChecked("drawOnlyReady") || Spells.Q.IsReady()))
                 {
-                    Render.Circle.DrawCircle(ObjectManager.Player.Position, Spells.Q.Range, Color.CornflowerBlue);
+                    Render.Circle.DrawCircle(ObjectManager.Player.Position, Spells.Q.Range, System.Drawing.Color.CornflowerBlue);
                 }
 
                 if (Config.IsChecked("drawRrange") && (!Config.IsChecked("drawOnlyReady") || Spells.R.IsReady()))
                 {
-                    Render.Circle.DrawCircle(ObjectManager.Player.Position, Spells.R.Range, Color.PaleGreen);
+                    Render.Circle.DrawCircle(ObjectManager.Player.Position, Spells.R.Range, System.Drawing.Color.PaleGreen);
+                }
+
+                if(HasACard != "none")
+                {
+                    if (HasACard == "gold")
+                    {
+                        var buffG = ObjectManager.Player.GetBuff("goldcardpreattack");
+                        var timeLastG = (buffG.EndTime - Game.Time);
+                        var timeLastGInt = (int)Math.Round(timeLastG, MidpointRounding.ToEven);
+
+                        drawText("Gold Ready: " + timeLastGInt, ObjectManager.Player.Position, System.Drawing.Color.HotPink, -75);
+
+                    }else if(HasACard == "blue")
+                    {
+                        var buffB = ObjectManager.Player.GetBuff("bluecardpreattack");
+                        var timeLastB = (buffB.EndTime - Game.Time);
+                        var timeLastBInt = (int)Math.Round(timeLastB, MidpointRounding.ToEven);
+
+                        drawText("Blue Ready: " + timeLastBInt, ObjectManager.Player.Position, System.Drawing.Color.HotPink, -75);
+
+                    }else if(HasACard == "red")
+                    {
+                        var buffR = ObjectManager.Player.GetBuff("redcardpreattack");
+                        var timeLastR = (buffR.EndTime - Game.Time);
+                        var timeLastRInt = (int)Math.Round(timeLastR, MidpointRounding.ToEven);
+
+                        drawText("Red Ready: " + timeLastRInt, ObjectManager.Player.Position, System.Drawing.Color.HotPink, -75);
+                    }
                 }
             }
         }

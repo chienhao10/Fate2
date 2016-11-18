@@ -50,9 +50,9 @@
                     new KeyBind("C".ToCharArray()[0], KeyBindType.Press)));
             QMenu.AddItem(new MenuItem("qDashing", "Q Dashing").SetValue(false));
             QMenu.AddItem(new MenuItem("qDashingTip", "Tip: Disable Q Dashing against Yasuo.")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
-            QMenu.AddItem(new MenuItem("qRed", "Instant Q after Red Card").SetValue(false));
+            QMenu.AddItem(new MenuItem("qRed", "Burst Red Card -> Q").SetValue(false));
             QMenu.AddItem(new MenuItem("qSlowed", "Q Slowed").SetValue(false));
-            QMenu.AddItem(new MenuItem("qDashingDesc", "Always casts Q spell on immobile - KS - Instant Gold->Q.")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
+            QMenu.AddItem(new MenuItem("qDashingDesc", "Always casts Q spell on immobile - KS - Burst Gold->Q.")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
             TwistedFateMenu.AddSubMenu(QMenu);
 
             WMenu = new Menu("W Spell", "wSpellMenu");

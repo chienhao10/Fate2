@@ -156,7 +156,7 @@
 
             var qTarget = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
 
-            if (qTarget.IsValidTarget(Spells.Q.Range) && ((Config.IsChecked("qSlowed") && qTarget.MoveSpeed < 270)
+            if (qTarget.IsValidTarget(Spells.Q.Range) && ((Config.IsChecked("qSlowed") && qTarget.MoveSpeed <= 275)
                 || qTarget.IsRooted
                 || qTarget.IsCharmed
                 || !qTarget.CanMove))

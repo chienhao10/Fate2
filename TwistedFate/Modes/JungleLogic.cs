@@ -34,47 +34,6 @@
                 {
                     CardSelector.StartSelecting(Cards.Blue);
                 }
-                else
-                {
-                    var combinedManaPercent = ObjectManager.Player.MaxMana
-                                                / (ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost
-                                                    + ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost);
-                    if (ObjectManager.Player.ManaPercent
-                        >= Math.Max(45, 20 + combinedManaPercent))
-                    {
-                        var targetAoE = jungle.Count(x => x.Distance(jungle.FirstOrDefault()) <= 250);
-                        if (targetAoE > 2)
-                        {
-                            CardSelector.StartSelecting(Cards.Red);
-                        }
-                        else
-                        {
-                            if (jungle.FirstOrDefault().HealthPercent >= 40
-                                && ObjectManager.Player.HealthPercent < 75)
-                            {
-                                CardSelector.StartSelecting(Cards.Yellow);
-                            }
-                            else
-                            {
-                                CardSelector.StartSelecting(Cards.Blue);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        CardSelector.StartSelecting(Cards.Blue);
-                    }
-                }
-                
-            }
-
-            if (Spells.Q.IsReady())
-            {
-                var target = jungle.FirstOrDefault(x => x.IsValidTarget(Spells.Q.Range));
-                if (target != null)
-                {
-                    Spells.Q.Cast(target);
-                }
             }
         }
 
