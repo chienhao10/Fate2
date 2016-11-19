@@ -56,8 +56,8 @@
             QMenu.AddItem(new MenuItem("qImmobile", "Q if Immobile").SetValue(true));
             QMenu.AddItem(new MenuItem("qKS", "Q if Killsteal").SetValue(true));
             QMenu.AddItem(new MenuItem("qBurst", "Burst Mode (Combo/Mixed)")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            QMenu.AddItem(new MenuItem("qRed", "Red Card into instant Q").SetValue(true));
-            QMenu.AddItem(new MenuItem("qGold", "Gold Card into instant Q").SetValue(true));
+            QMenu.AddItem(new MenuItem("qRed", "Instant Q after Red").SetValue(true));
+            QMenu.AddItem(new MenuItem("qGold", "Instant Q after Gold").SetValue(true));
             TwistedFateMenu.AddSubMenu(QMenu);
 
             WMenu = new Menu("W Spell", "wSpellMenu");
