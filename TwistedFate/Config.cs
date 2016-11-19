@@ -58,8 +58,8 @@
             TwistedFateMenu.AddSubMenu(QMenu);
 
             WMenu = new Menu("W Spell", "wSpellMenu");
-            WMenu.AddItem(new MenuItem("wQuick", "Fast Harass")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            WMenu.AddItem(new MenuItem("wHarass", "First Card if In AA Range").SetValue(true));
+            WMenu.AddItem(new MenuItem("wQuick", "Fast Harass (Mixed)")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
+            WMenu.AddItem(new MenuItem("wHarass", "Pick First Card if in range").SetValue(true));
             WMenu.AddItem(new MenuItem("wHRange", "Extra AA Range").SetValue(new Slider(120, 0, 250)));
             WMenu.AddItem(new MenuItem("wSelector", "Koratu's Selector")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             WMenu.AddItem(
@@ -71,7 +71,7 @@
                 new MenuItem("csRed", "Select Red Card").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
             WMenu.AddItem(new MenuItem("wMiscs", "Miscs")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             WMenu.AddItem(new MenuItem("wCGold", "Always Gold in Combo").SetValue(true));
-            WMenu.AddItem(new MenuItem("wKS", "First Card if Killsteal").SetValue(true));
+            WMenu.AddItem(new MenuItem("wKS", "Pick First Card if Killsteal").SetValue(true));
             TwistedFateMenu.AddSubMenu(WMenu);
 
             ExtraMenu = new Menu("More+", "extraMenu");
@@ -86,8 +86,6 @@
             DrawMenu.AddItem(new MenuItem("drawRmap", "R Range Minimap").SetValue(true));
             DrawMenu.AddItem(new MenuItem("drawOnlyReady", "Ready Only").SetValue(true));
             TwistedFateMenu.AddSubMenu(DrawMenu);
-
-            TwistedFateMenu.AddItem(new MenuItem("xD", "Requires Brain.lua")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
 
             TwistedFateMenu.AddToMainMenu();
         }
