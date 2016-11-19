@@ -149,7 +149,7 @@
                 if (target.IsValidTarget(Spells.Q.Range))
                 {
                     var qPred = Spells.Q.GetPrediction(target);
-                    if (qPred.Hitchance >= HitChance.High)
+                    if (qPred.Hitchance >= HitChance.VeryHigh)
                     {
                         Spells.Q.Cast(qPred.CastPosition);
                     }
@@ -185,7 +185,7 @@
                 if (target.IsValidTarget(Spells.Q.Range))
                 {
                     var qPred = Spells.Q.GetPrediction(target);
-                    if (qPred.Hitchance >= HitChance.High)
+                    if (qPred.Hitchance >= HitChance.VeryHigh)
                     {
                         Spells.Q.Cast(qPred.CastPosition);
                     }
