@@ -31,7 +31,7 @@
 
         internal static void BuildConfig()
         {
-            TwistedFateMenu = new Menu("Gross Gore - Fate", "twistedfate", true).SetFontStyle(FontStyle.Bold, SharpDX.Color.DodgerBlue);
+            TwistedFateMenu = new Menu("Gross Gore - Fate", "twistedfate", true).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
 
             TargetSelectorMenu = new Menu("Target Selector", "targetselector");
             TargetSelector.AddToMenu(TargetSelectorMenu);
@@ -89,6 +89,8 @@
             DrawMenu.AddItem(new MenuItem("drawRmap", "R Range Minimap").SetValue(true));
             DrawMenu.AddItem(new MenuItem("drawOnlyReady", "Ready Only").SetValue(true));
             TwistedFateMenu.AddSubMenu(DrawMenu);
+
+            TwistedFateMenu.AddItem(new MenuItem("xD", "Requires Brain.lua")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
 
             TwistedFateMenu.AddToMainMenu();
         }
