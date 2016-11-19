@@ -61,6 +61,15 @@
             }
         }
 
+        public static void TwistedFate_ValueChanged(object sender, OnValueChangeEventArgs e)
+        {
+            if (sender != null)
+            {
+                Utility.HpBarDamageIndicator.Enabled = e.GetNewValue<bool>();
+                CustomDamageIndicator.Enabled = e.GetNewValue<bool>();
+            }
+        }
+
         public static void OnBeforeAttack(Orbwalking.BeforeAttackEventArgs args)
         {
             if (args.Target is Obj_AI_Hero)
@@ -114,7 +123,13 @@
 
         public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (!sender.IsMe || args.SData.Name.ToLower() != "goldcardpreattack" || !Spells.Q.IsReady())
+            var canWKill =
+            HeroManager.Enemies.FirstOrDefault(
+                h =>
+                !h.IsDead && h.IsValidTarget(Spells.Q.Range)
+                && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
+
+            if (!Config.IsChecked("qGold") || !sender.IsMe || args.SData.Name.ToLower() != "goldcardpreattack" || !Spells.Q.IsReady() || canWKill != null)
             {
                 return;
             }
@@ -144,7 +159,13 @@
 
         public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (!Config.IsChecked("qRed") || !sender.IsMe || args.SData.Name.ToLower() != "redcardpreattack" || !Spells.Q.IsReady())
+            var canWKill =
+                HeroManager.Enemies.FirstOrDefault(
+                h =>
+                !h.IsDead && h.IsValidTarget(Spells.Q.Range)
+                && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
+
+            if (!Config.IsChecked("qRed") || !sender.IsMe || args.SData.Name.ToLower() != "redcardpreattack" || !Spells.Q.IsReady() || canWKill != null)
             {
                 return;
             }

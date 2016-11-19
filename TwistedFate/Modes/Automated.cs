@@ -27,14 +27,25 @@
 
             var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
 
-            if (ObjectManager.Player.Mana >= qMana && Spells.Q.IsReady())
+            var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
+
+            if (Config.IsChecked("qKS") && ObjectManager.Player.Mana >= qMana && Spells.Q.IsReady())
             {
+                var target = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
+
+                var canWKill =
+                    HeroManager.Enemies.FirstOrDefault(
+                    h =>
+                    !h.IsDead && h.IsValidTarget(Spells.Q.Range)
+                    && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
+
                 var entKs =
                     HeroManager.Enemies.FirstOrDefault(
                         h =>
                         !h.IsDead && h.IsValidTarget(Spells.Q.Range)
                         && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.Q));
-                if (entKs != null)
+
+                if (entKs != null && (canWKill == null && ObjectManager.Player.Mana >= wMana && Spells.W.IsReady() && (ObjectManager.Player.Distance(target) < Orbwalking.GetAttackRange(ObjectManager.Player) + 300)))
                 {
                     Spells.Q.Cast(entKs);
                 }
@@ -147,7 +158,7 @@
                 {
                     var pred = Spells.Q.GetPrediction(enemy);
 
-                    if (pred.Hitchance == HitChance.Immobile || (Config.IsChecked("qDashing") && pred.Hitchance == HitChance.Dashing))
+                    if ((Config.IsChecked("qImmobile") && pred.Hitchance == HitChance.Immobile) || (Config.IsChecked("qDashing") && pred.Hitchance == HitChance.Dashing))
                     {
                         CastQ(enemy, pred.UnitPosition.To2D());
                     }
@@ -157,9 +168,7 @@
             var qTarget = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
 
             if (qTarget.IsValidTarget(Spells.Q.Range) && ((Config.IsChecked("qSlowed") && qTarget.MoveSpeed <= 275)
-                || qTarget.IsRooted
-                || qTarget.IsCharmed
-                || !qTarget.CanMove))
+                || qTarget.IsCharmed))
             {
                 var qPred = Spells.Q.GetPrediction(qTarget);
 

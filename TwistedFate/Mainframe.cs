@@ -21,6 +21,7 @@
         #region Properties
 
         internal static Orbwalking.Orbwalker Orbwalker { get; set; }
+        internal static bool IsUlt { get { return ObjectManager.Player.HasBuff("destiny_marker"); } }
         internal static bool HasBlue { get { return ObjectManager.Player.HasBuff("bluecardpreattack"); } }
         internal static bool HasRed { get { return ObjectManager.Player.HasBuff("redcardpreattack"); } }
         internal static bool HasGold { get { return ObjectManager.Player.HasBuff("goldcardpreattack"); } }
@@ -59,8 +60,8 @@
             //CustomDamageIndicator.Initialize(Computed.TwistedFateDamage);
             //CustomDamageIndicator.Enabled = true;
 
-            Game.PrintChat("<font color='#FFFFFF'></font><font color='#DE5291'>Ready. Play TF like Gross Gore!</font>");
-            Game.PrintChat("<font color='#FFFFFF'></font><font color='#DE9232'>Credits to. mztikk</font>");
+            Game.PrintChat("<font color='#DE5291'>Ready. Play TF like Gross Gore!</font>");
+            Game.PrintChat("</font><font color='#DE9232'>Credits to. mztikk</font>");
 
         }
 
@@ -84,44 +85,67 @@
 
         private static void OnDraw(EventArgs args)
         {
-            if (!ObjectManager.Player.IsDead)
+            if (ObjectManager.Player.IsDead)
             {
-                if (Config.IsChecked("drawQrange") && (!Config.IsChecked("drawOnlyReady") || Spells.Q.IsReady()))
+                return;
+            }
+
+            if (Config.IsChecked("drawQrange") && (!Config.IsChecked("drawOnlyReady") || Spells.Q.IsReady()))
+            {
+                Render.Circle.DrawCircle(ObjectManager.Player.Position, Spells.Q.Range, System.Drawing.Color.CornflowerBlue);
+            }
+
+            if (Config.IsChecked("drawRrange") && (!Config.IsChecked("drawOnlyReady") || Spells.R.IsReady()))
+            {
+                Render.Circle.DrawCircle(ObjectManager.Player.Position, Spells.R.Range, System.Drawing.Color.PaleGreen);
+            }
+
+            if(HasACard != "none")
+            {
+                if (HasACard == "gold")
                 {
-                    Render.Circle.DrawCircle(ObjectManager.Player.Position, Spells.Q.Range, System.Drawing.Color.CornflowerBlue);
+                    var buffG = ObjectManager.Player.GetBuff("goldcardpreattack");
+                    var timeLastG = (buffG.EndTime - Game.Time);
+                    var timeLastGInt = (int)Math.Round(timeLastG, MidpointRounding.ToEven);
+
+                    drawText("Gold Ready: " + timeLastGInt + " s", ObjectManager.Player.Position, System.Drawing.Color.HotPink, -75);
+
+                }else if(HasACard == "blue")
+                {
+                    var buffB = ObjectManager.Player.GetBuff("bluecardpreattack");
+                    var timeLastB = (buffB.EndTime - Game.Time);
+                    var timeLastBInt = (int)Math.Round(timeLastB, MidpointRounding.ToEven);
+
+                    drawText("Blue Ready: " + timeLastBInt + " s", ObjectManager.Player.Position, System.Drawing.Color.HotPink, -75);
+
+                }else if(HasACard == "red")
+                {
+                    var buffR = ObjectManager.Player.GetBuff("redcardpreattack");
+                    var timeLastR = (buffR.EndTime - Game.Time);
+                    var timeLastRInt = (int)Math.Round(timeLastR, MidpointRounding.ToEven);
+
+                    drawText("Red Ready: " + timeLastRInt + " s", ObjectManager.Player.Position, System.Drawing.Color.HotPink, -75);
                 }
+            }
 
-                if (Config.IsChecked("drawRrange") && (!Config.IsChecked("drawOnlyReady") || Spells.R.IsReady()))
+            if (IsUlt)
+            {
+                var buffUlt = ObjectManager.Player.GetBuff("destiny_marker");
+                var timeLastUlt = (buffUlt.EndTime - Game.Time);
+                var timeLastUltInt = (int)Math.Round(timeLastUlt, MidpointRounding.ToEven);
+                drawText(timeLastUltInt + " s to TP!", ObjectManager.Player.Position, System.Drawing.Color.LightGoldenrodYellow, -45);
+            }
+
+            if (Spells.R.IsReady())
+            {
+                var target = TargetSelector.GetTarget(Spells.R.Range, TargetSelector.DamageType.Magical);
+
+                if (target.IsValidTarget())
                 {
-                    Render.Circle.DrawCircle(ObjectManager.Player.Position, Spells.R.Range, System.Drawing.Color.PaleGreen);
-                }
+                    var comboDMG = Spells.Q.GetDamage(target) + Spells.W.GetDamage(target) + ObjectManager.Player.GetAutoAttackDamage(target) * 3;
 
-                if(HasACard != "none")
-                {
-                    if (HasACard == "gold")
-                    {
-                        var buffG = ObjectManager.Player.GetBuff("goldcardpreattack");
-                        var timeLastG = (buffG.EndTime - Game.Time);
-                        var timeLastGInt = (int)Math.Round(timeLastG, MidpointRounding.ToEven);
-
-                        drawText("Gold Ready: " + timeLastGInt, ObjectManager.Player.Position, System.Drawing.Color.HotPink, -75);
-
-                    }else if(HasACard == "blue")
-                    {
-                        var buffB = ObjectManager.Player.GetBuff("bluecardpreattack");
-                        var timeLastB = (buffB.EndTime - Game.Time);
-                        var timeLastBInt = (int)Math.Round(timeLastB, MidpointRounding.ToEven);
-
-                        drawText("Blue Ready: " + timeLastBInt, ObjectManager.Player.Position, System.Drawing.Color.HotPink, -75);
-
-                    }else if(HasACard == "red")
-                    {
-                        var buffR = ObjectManager.Player.GetBuff("redcardpreattack");
-                        var timeLastR = (buffR.EndTime - Game.Time);
-                        var timeLastRInt = (int)Math.Round(timeLastR, MidpointRounding.ToEven);
-
-                        drawText("Red Ready: " + timeLastRInt, ObjectManager.Player.Position, System.Drawing.Color.HotPink, -75);
-                    }
+                    if (comboDMG > target.Health)
+                        drawText(target.ChampionName + " is can be bursted!", ObjectManager.Player.Position, System.Drawing.Color.LightGoldenrodYellow, -15);
                 }
             }
         }

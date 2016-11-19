@@ -18,7 +18,7 @@
                 return;
             }
 
-            if (target.Distance(ObjectManager.Player) <= ObjectManager.Player.AttackRange + 150 
+            if (target.Distance(ObjectManager.Player) <= ObjectManager.Player.AttackRange + Config.GetSliderValue("wHRange")
                 && Spells.W.IsReady())
             {
                 CardSelector.StartSelecting(Cards.First);

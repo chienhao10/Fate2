@@ -23,7 +23,7 @@
             {
                 var minions = MinionManager.GetMinions(ObjectManager.Player.Position, Spells.Q.Range).Where(x => x.Type == GameObjectType.obj_AI_Minion && x.Team != ObjectManager.Player.Team).ToList();
 
-                if (!minions.Any() || minions.Count < 3)
+                if (!minions.Any() || minions.Count < 2)
                 {
                     return;
                 }
@@ -31,7 +31,7 @@
                 var minionPos = minions.Select(x => x.Position.To2D()).ToList();
                 var farm = MinionManager.GetBestLineFarmLocation(minionPos, Spells.Q.Width, Spells.Q.Range);
 
-                if (farm.MinionsHit >= 3)
+                if (farm.MinionsHit >= Config.GetSliderValue("qClearCount"))
                 {
                     Spells.Q.Cast(farm.Position);
                 }
