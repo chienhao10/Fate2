@@ -31,7 +31,7 @@
 
         internal static void BuildConfig()
         {
-            TwistedFateMenu = new Menu("Gross Gore - Fate", "twistedfate", true).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
+            TwistedFateMenu = new Menu("Apdo Fate", "twistedfate", true).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
 
             TargetSelectorMenu = new Menu("Target Selector", "targetselector");
             TargetSelector.AddToMenu(TargetSelectorMenu);
