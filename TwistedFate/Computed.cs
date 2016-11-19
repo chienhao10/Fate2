@@ -61,15 +61,6 @@
             }
         }
 
-        public static void TwistedFate_ValueChanged(object sender, OnValueChangeEventArgs e)
-        {
-            if (sender != null)
-            {
-                Utility.HpBarDamageIndicator.Enabled = e.GetNewValue<bool>();
-                CustomDamageIndicator.Enabled = e.GetNewValue<bool>();
-            }
-        }
-
         public static void OnBeforeAttack(Orbwalking.BeforeAttackEventArgs args)
         {
             if (args.Target is Obj_AI_Hero)
@@ -92,7 +83,7 @@
                 && targetDis.IsValidTarget()
                 && !targetDis.IsZombie
                 && Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
-                && (ObjectManager.Player.Distance(targetDis) < Orbwalking.GetAttackRange(ObjectManager.Player) + 300))
+                && (ObjectManager.Player.Distance(targetDis) < Orbwalking.GetAttackRange(ObjectManager.Player) + 250))
             {
                 args.Process = false;
 
@@ -121,7 +112,7 @@
             //none
         }
 
-        public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        /*public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             var canWKill =
             HeroManager.Enemies.FirstOrDefault(
@@ -155,9 +146,9 @@
                     }
                 }
             }
-        }
+        }*/
 
-        public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        /*public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             var canWKill =
                 HeroManager.Enemies.FirstOrDefault(
@@ -191,7 +182,7 @@
                     }
                 }
             }
-        }
+        }*/
 
         #endregion
     }

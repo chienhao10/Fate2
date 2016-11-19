@@ -48,8 +48,8 @@
             Game.OnUpdate += OnUpdate;
 
             Obj_AI_Base.OnProcessSpellCast += Computed.OnProcessSpellCast;
-            Obj_AI_Base.OnProcessSpellCast += Computed.YellowIntoQ;
-            Obj_AI_Base.OnProcessSpellCast += Computed.RedIntoQ;
+            //Obj_AI_Base.OnProcessSpellCast += Computed.YellowIntoQ;
+            //Obj_AI_Base.OnProcessSpellCast += Computed.RedIntoQ;
             Orbwalking.BeforeAttack += Computed.OnBeforeAttack;
             AntiGapcloser.OnEnemyGapcloser += Computed.Gapcloser_OnGapCloser;
             Interrupter2.OnInterruptableTarget += Computed.InterruptableSpell_OnInterruptableTarget;
