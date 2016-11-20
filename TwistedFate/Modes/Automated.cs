@@ -37,7 +37,7 @@
                     HeroManager.Enemies.FirstOrDefault(
                     h =>
                     !h.IsDead && h.IsValidTarget()
-                    && (ObjectManager.Player.Distance(h) < Orbwalking.GetAttackRange(ObjectManager.Player) + 300)
+                    && (ObjectManager.Player.Distance(h) < Orbwalking.GetAttackRange(ObjectManager.Player) + 250)
                     && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
 
                 var entKs =
