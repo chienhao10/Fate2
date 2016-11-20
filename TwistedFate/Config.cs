@@ -58,9 +58,10 @@
             TwistedFateMenu.AddSubMenu(QMenu);
 
             WMenu = new Menu("W Spell", "wSpellMenu");
-            WMenu.AddItem(new MenuItem("wQuick", "Fast Harass (Mixed)")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            WMenu.AddItem(new MenuItem("wHarass", "Pick First Card if in range").SetValue(true));
-            WMenu.AddItem(new MenuItem("wHRange", "Extra AA Range").SetValue(new Slider(120, 0, 250)));
+            WMenu.AddItem(new MenuItem("wQuick", "Mixed Mode: Shuffle!")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
+            WMenu.AddItem(new MenuItem("wHMana", "X min Mana to use").SetValue(new Slider(20, 0, 100)));
+            WMenu.AddItem(new MenuItem("wHarass", "Start Selecting if in Auto Range").SetValue(true));
+            WMenu.AddItem(new MenuItem("wHRange", "Extra Auto Range").SetValue(new Slider(200, 0, 250)));
             WMenu.AddItem(new MenuItem("wSelector", "Koratu's Selector")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             WMenu.AddItem(
                 new MenuItem("csGold", "Select Gold Card").SetValue(new KeyBind("O".ToCharArray()[0], KeyBindType.Press)));
@@ -71,7 +72,7 @@
                 new MenuItem("csRed", "Select Red Card").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
             WMenu.AddItem(new MenuItem("wMiscs", "Miscs")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             WMenu.AddItem(new MenuItem("wCGold", "Always Gold in Combo").SetValue(true));
-            WMenu.AddItem(new MenuItem("wKS", "Pick First Card if Killsteal").SetValue(true));
+            WMenu.AddItem(new MenuItem("wKS", "Pick first card if can kill").SetValue(true));
             TwistedFateMenu.AddSubMenu(WMenu);
 
             ExtraMenu = new Menu("More+", "extraMenu");

@@ -112,7 +112,7 @@
             //none
         }
 
-        /*public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             var canWKill =
             HeroManager.Enemies.FirstOrDefault(
@@ -120,7 +120,7 @@
                 !h.IsDead && h.IsValidTarget(Spells.Q.Range)
                 && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
 
-            if (!Config.IsChecked("qGold") || !sender.IsMe || args.SData.Name.ToLower() != "goldcardpreattack" || !Spells.Q.IsReady() || canWKill != null)
+            if (!sender.IsMe || args.SData.Name.ToLower() != "goldcardpreattack" || !Spells.Q.IsReady() || canWKill != null)
             {
                 return;
             }
@@ -135,20 +135,19 @@
             if (Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
                 || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
             {
-                var target = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
-
-                if (target.IsValidTarget(Spells.Q.Range))
+                if (qTarget.IsValidTarget(Spells.Q.Range))
                 {
-                    var qPred = Spells.Q.GetPrediction(target);
+                    var qPred = Spells.Q.GetPrediction(qTarget);
+
                     if (qPred.Hitchance >= HitChance.VeryHigh)
                     {
                         Spells.Q.Cast(qPred.CastPosition);
                     }
                 }
             }
-        }*/
+        }
 
-        /*public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             var canWKill =
                 HeroManager.Enemies.FirstOrDefault(
@@ -156,7 +155,7 @@
                 !h.IsDead && h.IsValidTarget(Spells.Q.Range)
                 && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
 
-            if (!Config.IsChecked("qRed") || !sender.IsMe || args.SData.Name.ToLower() != "redcardpreattack" || !Spells.Q.IsReady() || canWKill != null)
+            if (!sender.IsMe || args.SData.Name.ToLower() != "redcardpreattack" || !Spells.Q.IsReady() || canWKill != null)
             {
                 return;
             }
@@ -171,18 +170,17 @@
             if (Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
                 || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
             {
-                var target = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
-
-                if (target.IsValidTarget(Spells.Q.Range))
+                if (qTarget.IsValidTarget(Spells.Q.Range))
                 {
-                    var qPred = Spells.Q.GetPrediction(target);
+                    var qPred = Spells.Q.GetPrediction(qTarget);
+
                     if (qPred.Hitchance >= HitChance.VeryHigh)
                     {
                         Spells.Q.Cast(qPred.CastPosition);
                     }
                 }
             }
-        }*/
+        }
 
         #endregion
     }

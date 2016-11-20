@@ -15,6 +15,7 @@
     {
         #region Prop
 
+        internal static Orbwalking.Orbwalker Orbwalker { get; set; }
         private static readonly float Qangle = 28 * (float)Math.PI / 180;
 
         #endregion
@@ -36,18 +37,27 @@
                 var canWKill =
                     HeroManager.Enemies.FirstOrDefault(
                     h =>
-                    !h.IsDead && h.IsValidTarget(Spells.Q.Range)
+                    !h.IsDead && h.IsValidTarget()
+                    && (ObjectManager.Player.Distance(h) < Orbwalking.GetAttackRange(ObjectManager.Player) + 300)
                     && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
 
                 var entKs =
                     HeroManager.Enemies.FirstOrDefault(
                         h =>
-                        !h.IsDead && h.IsValidTarget(Spells.Q.Range)
+                        !h.IsDead && h.IsValidTarget(1000)
                         && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.Q));
 
-                if (entKs != null && (canWKill == null && ObjectManager.Player.Mana >= wMana && Spells.W.IsReady() && (ObjectManager.Player.Distance(target) < Orbwalking.GetAttackRange(ObjectManager.Player) + 300)))
+                if (entKs != null
+                    && (canWKill == null
+                        && ObjectManager.Player.Mana < wMana
+                        && !Spells.W.IsReady()))
                 {
-                    Spells.Q.Cast(entKs);
+                    var qPred = Spells.Q.GetPrediction(entKs);
+
+                    if (qPred.Hitchance >= HitChance.High)
+                    {
+                        Spells.Q.Cast(qPred.CastPosition);
+                    }
                 }
             }
         }

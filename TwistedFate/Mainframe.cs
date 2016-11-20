@@ -48,8 +48,8 @@
             Game.OnUpdate += OnUpdate;
 
             Obj_AI_Base.OnProcessSpellCast += Computed.OnProcessSpellCast;
-            //Obj_AI_Base.OnProcessSpellCast += Computed.YellowIntoQ;
-            //Obj_AI_Base.OnProcessSpellCast += Computed.RedIntoQ;
+            Obj_AI_Base.OnProcessSpellCast += Computed.YellowIntoQ;
+            Obj_AI_Base.OnProcessSpellCast += Computed.RedIntoQ;
             Orbwalking.BeforeAttack += Computed.OnBeforeAttack;
             AntiGapcloser.OnEnemyGapcloser += Computed.Gapcloser_OnGapCloser;
             Interrupter2.OnInterruptableTarget += Computed.InterruptableSpell_OnInterruptableTarget;
@@ -60,8 +60,7 @@
             //CustomDamageIndicator.Initialize(Computed.TwistedFateDamage);
             //CustomDamageIndicator.Enabled = true;
 
-            Game.PrintChat("<font color='#DE5291'>Ready. Play TF like Gross Gore!</font>");
-            Game.PrintChat("</font><font color='#DE9232'>Credits to. mztikk</font>");
+            Game.PrintChat("<font color='#DE5291'>Ready. Play TF like Dopa!</font>");
 
         }
 

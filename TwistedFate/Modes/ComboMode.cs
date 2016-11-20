@@ -14,7 +14,7 @@
         {
             var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
 
-            if (ObjectManager.Player.Mana >= wMana && Spells.W.IsReady())
+            if (ObjectManager.Player.Mana >= wMana)
             {
                 var entKs =
                     HeroManager.Enemies.FirstOrDefault(
@@ -25,15 +25,32 @@
 
                 if (Config.IsChecked("wKS") && entKs != null)
                 {
-                    CardSelector.StartSelecting(Cards.First);
+                    if(Spells.W.IsReady() && CardSelector.Status == SelectStatus.Ready)
+                    {
+                        CardSelector.StartSelecting(Cards.First);
+
+                    }else if(CardSelector.Status == SelectStatus.Selecting)
+                    {
+                        CardSelector.GoToKey(Cards.First);
+                    }
                 }else
                 {
                     if (Config.IsChecked("wCGold"))
                     {
-                        CardSelector.StartSelecting(Cards.Yellow);
+                        if (Spells.W.IsReady() && CardSelector.Status == SelectStatus.Ready)
+                        {
+                            CardSelector.StartSelecting(Cards.Yellow);
+
+                        }
+                        else if (CardSelector.Status == SelectStatus.Selecting)
+                        {
+                            CardSelector.GoToKey(Cards.Yellow);
+                        }
                     }
                 }
             }
+
+
         }
 
         #endregion

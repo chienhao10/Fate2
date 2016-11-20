@@ -63,6 +63,34 @@ namespace TwistedFate
             }
         }
 
+        public static void GoToKey(Cards card)
+        {
+            if (Status == SelectStatus.Selecting)
+            {
+                Select = card;
+            }
+        }
+
+        public static void ShuffleCards()
+        {
+            if (ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name == "PickACard" && Status == SelectStatus.Ready)
+            {
+                if (Utils.TickCount - LastWSent > 170 + Game.Ping / 2)
+                {
+                    ObjectManager.Player.Spellbook.CastSpell(SpellSlot.W, ObjectManager.Player);
+                    LastWSent = Utils.TickCount;
+                }
+            }
+        }
+
+        public static void LockCard()
+        {
+            if (Status == SelectStatus.Selecting)
+            {
+               ObjectManager.Player.Spellbook.CastSpell(SpellSlot.W, ObjectManager.Player);
+            }
+        }
+
         private static void Game_OnGameUpdate(EventArgs args)
         {
             var wName = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name;
