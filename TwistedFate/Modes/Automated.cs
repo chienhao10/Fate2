@@ -24,41 +24,7 @@
         internal static void Execute()
         {
             AutoCcq();
-
-            var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
-
-            var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
-
-            if (Config.IsChecked("qKS") && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana") && ObjectManager.Player.Mana >= qMana && Spells.Q.IsReady())
-            {
-                var target = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
-
-                var canWKill =
-                    HeroManager.Enemies.FirstOrDefault(
-                    h =>
-                    !h.IsDead && h.IsValidTarget()
-                    && (ObjectManager.Player.Distance(h) < Orbwalking.GetAttackRange(ObjectManager.Player) + 250)
-                    && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
-
-                var entKs =
-                    HeroManager.Enemies.FirstOrDefault(
-                        h =>
-                        !h.IsDead && h.IsValidTarget(1000)
-                        && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.Q));
-
-                if (entKs != null
-                    && (canWKill == null
-                        && ObjectManager.Player.Mana < wMana
-                        && !Spells.W.IsReady()))
-                {
-                    var qPred = Spells.Q.GetPrediction(entKs);
-
-                    if (qPred.Hitchance >= HitChance.High)
-                    {
-                        Spells.Q.Cast(qPred.CastPosition);
-                    }
-                }
-            }
+            AutoKillsteal();
         }
 
         private static int CountHits(Vector2 position, List<Vector2> points, List<int> hitBoxes)
@@ -167,7 +133,12 @@
                 {
                     var pred = Spells.Q.GetPrediction(enemy);
 
-                    if ((Config.IsChecked("qImmobile") && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana") && pred.Hitchance == HitChance.Immobile) || (Config.IsChecked("qDashing") && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana") && pred.Hitchance == HitChance.Dashing))
+                    if ((Config.IsChecked("qImmobile") 
+                        && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana") 
+                        && pred.Hitchance == HitChance.Immobile)
+                        || (Config.IsChecked("qDashing")
+                        && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana")
+                        && pred.Hitchance == HitChance.Dashing))
                     {
                         CastQ(enemy, pred.UnitPosition.To2D());
                     }
@@ -176,7 +147,9 @@
 
             var qTarget = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
 
-            if (qTarget.IsValidTarget(Spells.Q.Range) && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana") && ((Config.IsChecked("qSlowed") && qTarget.MoveSpeed <= 275)
+            if (qTarget.IsValidTarget(Spells.Q.Range)
+                && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana")
+                && ((Config.IsChecked("qSlowed") && qTarget.MoveSpeed <= 275)
                 || qTarget.IsCharmed))
             {
                 var qPred = Spells.Q.GetPrediction(qTarget);
@@ -184,6 +157,49 @@
                 if (qPred.Hitchance >= HitChance.VeryHigh)
                 {
                     Spells.Q.Cast(qPred.CastPosition);
+                }
+            }
+        }
+
+        private static void AutoKillsteal()
+        {
+            if (!Spells.Q.IsReady())
+            {
+                return;
+            }
+
+            var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
+            var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
+            var target = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
+
+            if (Config.IsChecked("qKS")
+                && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana")
+                && ObjectManager.Player.Mana >= qMana)
+            {
+                var canWKill =
+                    HeroManager.Enemies.FirstOrDefault(
+                        h =>
+                        !h.IsDead && h.IsValidTarget()
+                        && (ObjectManager.Player.Distance(h) < Orbwalking.GetAttackRange(ObjectManager.Player) + 250)
+                        && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
+
+                var entKs =
+                        HeroManager.Enemies.FirstOrDefault(
+                            h =>
+                            !h.IsDead && h.IsValidTarget(1000)
+                            && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.Q));
+
+                if (entKs != null
+                    && (canWKill == null
+                        && ObjectManager.Player.Mana < wMana
+                        && !Spells.W.IsReady()))
+                {
+                    var qPred = Spells.Q.GetPrediction(entKs);
+
+                    if (qPred.Hitchance >= HitChance.High)
+                    {
+                        Spells.Q.Cast(qPred.CastPosition);
+                    }
                 }
             }
         }
