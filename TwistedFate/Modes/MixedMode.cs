@@ -13,12 +13,13 @@
         {
             var target = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
 
-            if (!Config.IsChecked("wHarass") || target == null || !target.IsValidTarget(Spells.Q.Range) || ObjectManager.Player.ManaPercent <= Config.GetSliderValue("wHMana"))
+            if (!Config.IsChecked("wHarass") || target == null || !target.IsValidTarget(Spells.Q.Range))
             {
                 return;
             }
 
             if (target.Distance(ObjectManager.Player) <= ObjectManager.Player.AttackRange + Config.GetSliderValue("wHRange")
+                && ObjectManager.Player.ManaPercent <= Config.GetSliderValue("wHMana")
                 && Spells.W.IsReady())
             {
                 CardSelector.ShuffleCards();
