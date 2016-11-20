@@ -9,7 +9,7 @@ using LeagueSharp.Common;
 namespace TwistedFate
 {
     /// <summary>
-    /// Kortatu's W Helper
+    /// Kortatu's W Helper - Edited by grossgore
     /// </summary>
 
     public enum Cards
@@ -87,7 +87,10 @@ namespace TwistedFate
         {
             if (Status == SelectStatus.Selecting)
             {
-               ObjectManager.Player.Spellbook.CastSpell(SpellSlot.W, ObjectManager.Player);
+                if (Utils.TickCount - LastWSent > 170 + Game.Ping / 2)
+                {
+                    ObjectManager.Player.Spellbook.CastSpell(SpellSlot.W, ObjectManager.Player);
+                }
             }
         }
 
