@@ -25,7 +25,7 @@
                 CardSelector.ShuffleCards();
             }
 
-            if(target.Distance(ObjectManager.Player) <= ObjectManager.Player.AttackRange + 100)
+            if(target.Distance(ObjectManager.Player) <= ObjectManager.Player.AttackRange + 75)
             {
                 CardSelector.LockCard();
             }
