@@ -26,8 +26,10 @@
             }
 
             Spells.LoadSpells();
-            Config.BuildConfig();
-            Mainframe.Init();
+
+                Config.BuildConfig();
+
+                    Mainframe.Init();
         }
 
         #endregion

@@ -66,19 +66,21 @@
 
         private static void DrawingOnOnEndScene(EventArgs args)
         {
-            if (!ObjectManager.Player.IsDead)
+            if (ObjectManager.Player.IsDead)
             {
+                return;
+            }
 
-                if (Config.IsChecked("drawRmap") && (!Config.IsChecked("drawOnlyReady") || Spells.R.IsReady()))
-                {
-                    Utility.DrawCircle(ObjectManager.Player.Position, 5500, System.Drawing.Color.PaleGreen, 2, 23, true);
-                }
+            if (Config.IsChecked("drawRmap") && (!Config.IsChecked("drawOnlyReady") || Spells.R.IsReady()))
+            {
+                Utility.DrawCircle(ObjectManager.Player.Position, 5500, System.Drawing.Color.PaleGreen, 2, 23, true);
             }
         }
 
         public static void drawText(string msg, Vector3 Hero, System.Drawing.Color color, int weight = 0)
         {
             var wts = Drawing.WorldToScreen(Hero);
+
             Drawing.DrawText(wts[0] + (msg.Length), wts[1] + weight, color, msg);
         }
 
@@ -173,11 +175,11 @@
 
             ManualCards.Execute();
 
-            Automated.Execute();
+                Automated.Execute();
 
-            QWaveClear.Execute();
+                    QWaveClear.Execute();
 
-            QChampions.Execute();
+                        QChampions.Execute();
         }
 
         #endregion
