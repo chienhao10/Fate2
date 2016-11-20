@@ -19,13 +19,12 @@
             }
 
             if (target.Distance(ObjectManager.Player) <= ObjectManager.Player.AttackRange + Config.GetSliderValue("wHRange")
-                && ObjectManager.Player.ManaPercent <= Config.GetSliderValue("wHMana")
-                && Spells.W.IsReady())
+                && Spells.W.IsReady() && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("wHMana"))
             {
                 CardSelector.ShuffleCards();
             }
 
-            if(target.Distance(ObjectManager.Player) <= ObjectManager.Player.AttackRange + 75)
+            if(target.Distance(ObjectManager.Player) <= ObjectManager.Player.AttackRange + 100)
             {
                 CardSelector.LockCard();
             }

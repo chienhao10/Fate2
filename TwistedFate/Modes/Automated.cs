@@ -15,7 +15,6 @@
     {
         #region Prop
 
-        internal static Orbwalking.Orbwalker Orbwalker { get; set; }
         private static readonly float Qangle = 28 * (float)Math.PI / 180;
 
         #endregion

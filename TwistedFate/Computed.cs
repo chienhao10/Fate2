@@ -125,9 +125,9 @@
                 return;
             }
 
-            var qTarget = args.Target as Obj_AI_Base;
+            var targetDis = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
 
-            if (qTarget == null || !qTarget.IsValidTarget(Spells.Q.Range))
+            if (targetDis == null || !targetDis.IsValidTarget(Spells.Q.Range / 2))
             {
                 return;
             }
@@ -135,9 +135,9 @@
             if (Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
                 || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
             {
-                if (qTarget.IsValidTarget(Spells.Q.Range))
+                if (targetDis.IsValidTarget(Spells.Q.Range))
                 {
-                    var qPred = Spells.Q.GetPrediction(qTarget);
+                    var qPred = Spells.Q.GetPrediction(targetDis);
 
                     if (qPred.Hitchance >= HitChance.VeryHigh)
                     {
@@ -160,9 +160,9 @@
                 return;
             }
 
-            var qTarget = args.Target as Obj_AI_Base;
+            var targetDis = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
 
-            if (qTarget == null || !qTarget.IsValidTarget(Spells.Q.Range))
+            if (targetDis == null || !targetDis.IsValidTarget(Spells.Q.Range / 2))
             {
                 return;
             }
@@ -170,9 +170,9 @@
             if (Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
                 || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
             {
-                if (qTarget.IsValidTarget(Spells.Q.Range))
+                if (targetDis.IsValidTarget(Spells.Q.Range))
                 {
-                    var qPred = Spells.Q.GetPrediction(qTarget);
+                    var qPred = Spells.Q.GetPrediction(targetDis);
 
                     if (qPred.Hitchance >= HitChance.VeryHigh)
                     {

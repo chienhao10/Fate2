@@ -62,7 +62,7 @@
             WMenu.AddItem(new MenuItem("wQuick", "Mixed Mode: Shuffle!")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             WMenu.AddItem(new MenuItem("wHMana", "X min Mana to use Shuffle").SetValue(new Slider(20, 0, 100)));
             WMenu.AddItem(new MenuItem("wHarass", "Start Selecting if in Auto Range").SetValue(true));
-            WMenu.AddItem(new MenuItem("wHRange", "Extra Auto Range").SetValue(new Slider(200, 0, 250)));
+            WMenu.AddItem(new MenuItem("wHRange", "Extra Auto Range").SetValue(new Slider(250, 100, 250)));
             WMenu.AddItem(new MenuItem("wSelector", "Koratu's Selector")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             WMenu.AddItem(
                 new MenuItem("csGold", "Select Gold Card").SetValue(new KeyBind("O".ToCharArray()[0], KeyBindType.Press)));
