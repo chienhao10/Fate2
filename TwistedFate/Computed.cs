@@ -120,7 +120,7 @@
                 !h.IsDead && h.IsValidTarget(Spells.Q.Range)
                 && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
 
-            if (!sender.IsMe || args.SData.Name.ToLower() != "goldcardpreattack" || !Spells.Q.IsReady() || canWKill != null)
+            if (!sender.IsMe || args.SData.Name.ToLower() != "goldcardpreattack" || !Spells.Q.IsReady() || canWKill != null || ObjectManager.Player.ManaPercent < Config.GetSliderValue("qAMana"))
             {
                 return;
             }
@@ -155,7 +155,7 @@
                 !h.IsDead && h.IsValidTarget(Spells.Q.Range)
                 && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
 
-            if (!sender.IsMe || args.SData.Name.ToLower() != "redcardpreattack" || !Spells.Q.IsReady() || canWKill != null)
+            if (!sender.IsMe || args.SData.Name.ToLower() != "redcardpreattack" || !Spells.Q.IsReady() || canWKill != null || ObjectManager.Player.ManaPercent < Config.GetSliderValue("qAMana"))
             {
                 return;
             }

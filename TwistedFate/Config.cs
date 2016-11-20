@@ -51,6 +51,7 @@
                 new MenuItem("qEnemy", "Q Enemy (hold)").SetValue(
                     new KeyBind("C".ToCharArray()[0], KeyBindType.Press)));
             QMenu.AddItem(new MenuItem("qAuto", "Q Automated")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
+            QMenu.AddItem(new MenuItem("qAMana", "X min Mana to use Auto Q").SetValue(new Slider(10, 0, 100)));
             QMenu.AddItem(new MenuItem("qDashing", "Q if Dashing").SetValue(false));
             QMenu.AddItem(new MenuItem("qSlowed", "Q if Slowed").SetValue(true));
             QMenu.AddItem(new MenuItem("qImmobile", "Q if Immobile").SetValue(true));
@@ -59,7 +60,7 @@
 
             WMenu = new Menu("W Spell", "wSpellMenu");
             WMenu.AddItem(new MenuItem("wQuick", "Mixed Mode: Shuffle!")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            WMenu.AddItem(new MenuItem("wHMana", "X min Mana to use").SetValue(new Slider(20, 0, 100)));
+            WMenu.AddItem(new MenuItem("wHMana", "X min Mana to use Shuffle").SetValue(new Slider(20, 0, 100)));
             WMenu.AddItem(new MenuItem("wHarass", "Start Selecting if in Auto Range").SetValue(true));
             WMenu.AddItem(new MenuItem("wHRange", "Extra Auto Range").SetValue(new Slider(200, 0, 250)));
             WMenu.AddItem(new MenuItem("wSelector", "Koratu's Selector")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);

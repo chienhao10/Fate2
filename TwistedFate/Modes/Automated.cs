@@ -30,7 +30,7 @@
 
             var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
 
-            if (Config.IsChecked("qKS") && ObjectManager.Player.Mana >= qMana && Spells.Q.IsReady())
+            if (Config.IsChecked("qKS") && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana") && ObjectManager.Player.Mana >= qMana && Spells.Q.IsReady())
             {
                 var target = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
 
@@ -168,7 +168,7 @@
                 {
                     var pred = Spells.Q.GetPrediction(enemy);
 
-                    if ((Config.IsChecked("qImmobile") && pred.Hitchance == HitChance.Immobile) || (Config.IsChecked("qDashing") && pred.Hitchance == HitChance.Dashing))
+                    if ((Config.IsChecked("qImmobile") && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana") && pred.Hitchance == HitChance.Immobile) || (Config.IsChecked("qDashing") && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana") && pred.Hitchance == HitChance.Dashing))
                     {
                         CastQ(enemy, pred.UnitPosition.To2D());
                     }
@@ -177,7 +177,7 @@
 
             var qTarget = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
 
-            if (qTarget.IsValidTarget(Spells.Q.Range) && ((Config.IsChecked("qSlowed") && qTarget.MoveSpeed <= 275)
+            if (qTarget.IsValidTarget(Spells.Q.Range) && ObjectManager.Player.ManaPercent >= Config.GetSliderValue("qAMana") && ((Config.IsChecked("qSlowed") && qTarget.MoveSpeed <= 275)
                 || qTarget.IsCharmed))
             {
                 var qPred = Spells.Q.GetPrediction(qTarget);
