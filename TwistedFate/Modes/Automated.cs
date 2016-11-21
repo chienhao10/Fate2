@@ -164,7 +164,7 @@ namespace TwistedFate.Modes
                     {
                         if(Config.IsSlowed)
                         {
-                            if(enemy.MoveSpeed <= 275)
+                            if(enemy.MoveSpeed <= 270)
                             {
                                 var qPred = Spells._q.GetPrediction(enemy);
 
@@ -203,7 +203,7 @@ namespace TwistedFate.Modes
                     if(ObjectManager.Player.Mana >= qMana)
                     {
                         var entKs = HeroManager.Enemies.FirstOrDefault(
-                                h => !h.IsDead && h.IsValidTarget(1000)
+                                h => !h.IsDead && h.IsValidTarget(Spells._q.Range - 400)
                                 && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.Q));
 
                         if(entKs != null)

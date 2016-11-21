@@ -27,13 +27,18 @@ namespace TwistedFate.Modes
                 {
                     if (Spells._w.IsReadyPerfectly())
                     {
-                        if (CardSelector.Status == SelectStatus.Ready)
+                        switch(CardSelector.Status)
                         {
-                            CardSelector.StartSelecting(Cards.First);
-                        }
-                        else if (CardSelector.Status == SelectStatus.Selecting)
-                        {
-                            CardSelector.JumpToCard(Cards.First);
+                            case SelectStatus.Ready:
+                            {
+                                CardSelector.StartSelecting(Cards.First);
+                                return;
+                            }
+                            case SelectStatus.Selecting:
+                            {
+                                CardSelector.JumpToCard(Cards.First);
+                                return;
+                            }
                         }
                     }
                 }else
@@ -42,15 +47,19 @@ namespace TwistedFate.Modes
                     {
                         if (Spells._w.IsReadyPerfectly())
                         {
-                            if (CardSelector.Status == SelectStatus.Ready)
+                            switch (CardSelector.Status)
                             {
-                                CardSelector.StartSelecting(Cards.Yellow);
+                                case SelectStatus.Ready:
+                                {
+                                    CardSelector.StartSelecting(Cards.Yellow);
+                                    return;
+                                }
+                                case SelectStatus.Selecting:
+                                {
+                                    CardSelector.JumpToCard(Cards.Yellow);
+                                    return;
+                                }
                             }
-                        }
-
-                        else if (CardSelector.Status == SelectStatus.Selecting)
-                        {
-                            CardSelector.JumpToCard(Cards.Yellow);
                         }
                     }
                 }

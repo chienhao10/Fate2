@@ -22,7 +22,7 @@ namespace TwistedFate
                 return;
             }
 
-            Spells.LoadSpells(); Config.BuildConfig(); Mainframe.Init();
+            Spells.LoadSpells(); Config.BuildConfig(); Drawings.Draw();  Mainframe.Init();
         }
 
         #endregion

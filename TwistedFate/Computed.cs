@@ -145,7 +145,7 @@ namespace TwistedFate
                         {
                             if(!targetDis.IsZombie)
                             {
-                                if((ObjectManager.Player.Distance(targetDis) < Orbwalking.GetAttackRange(ObjectManager.Player) + 175))
+                                if((ObjectManager.Player.Distance(targetDis) <= Orbwalking.GetAttackRange(ObjectManager.Player) + 150))
                                 {
                                     args.Process = false;
 
@@ -205,7 +205,7 @@ namespace TwistedFate
             var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
             var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
 
-            if (ObjectManager.Player.IsDead || (ObjectManager.Player.ManaPercent - qMana < wMana))
+            if (!Config.PredictQ || ObjectManager.Player.IsDead || (ObjectManager.Player.ManaPercent - qMana < wMana))
             {
                 return;
             }
@@ -237,7 +237,7 @@ namespace TwistedFate
                                             {
                                                 var qPred = Spells._q.GetPrediction(targetDis);
 
-                                                if (qPred.Hitchance >= HitChance.VeryHigh)
+                                                if (qPred.Hitchance >= Spells._q.MinHitChance)
                                                 {
                                                     Spells._q.Cast(qPred.CastPosition);
                                                 }
@@ -257,7 +257,7 @@ namespace TwistedFate
             var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
             var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
 
-            if (ObjectManager.Player.IsDead || (ObjectManager.Player.ManaPercent - qMana < wMana))
+            if (!Config.PredictQ || ObjectManager.Player.IsDead || (ObjectManager.Player.ManaPercent - qMana < wMana))
             {
                 return;
             }
@@ -289,7 +289,7 @@ namespace TwistedFate
                                             {
                                                 var qPred = Spells._q.GetPrediction(targetDis);
 
-                                                if (qPred.Hitchance >= HitChance.VeryHigh)
+                                                if (qPred.Hitchance >= Spells._q.MinHitChance)
                                                 {
                                                     Spells._q.Cast(qPred.CastPosition);
                                                 }

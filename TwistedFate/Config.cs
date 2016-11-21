@@ -54,6 +54,8 @@ namespace TwistedFate
             QMenu.AddItem(new MenuItem("qSlowed", "if target is slowed").SetValue(true));
             QMenu.AddItem(new MenuItem("qImmobile", "if target is immobile").SetValue(true));
             QMenu.AddItem(new MenuItem("qKS", "killsteal").SetValue(true));
+            QMenu.AddItem(new MenuItem("qOptimize", "Optimizer")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
+            QMenu.AddItem(new MenuItem("qAfterW", "Predict Gold/Red into Q").SetValue(true));
             TwistedFateMenu.AddSubMenu(QMenu);
 
             WMenu = new Menu("W Spell", "wSpellMenu");
@@ -148,6 +150,8 @@ namespace TwistedFate
         internal static bool IsSlowed { get { return IsChecked("qSlowed"); } }
 
         internal static bool CanqKS { get { return IsChecked("qKS"); } }
+
+        internal static bool PredictQ { get { return IsChecked("qAfterW"); } }
 
         #endregion
 
