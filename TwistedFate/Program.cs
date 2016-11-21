@@ -1,14 +1,11 @@
-﻿namespace TwistedFate
+﻿#region Use
+using System;
+using LeagueSharp;
+using LeagueSharp.Common; 
+#endregion
+
+namespace TwistedFate
 {
-    #region Libs
-
-    using System;
-
-    using LeagueSharp;
-    using LeagueSharp.Common;
-
-    #endregion
-
     class Program
     {
         #region Methods

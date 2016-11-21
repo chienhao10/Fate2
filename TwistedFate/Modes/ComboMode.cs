@@ -1,9 +1,11 @@
-﻿namespace TwistedFate.Modes
-{
-    using LeagueSharp;
-    using LeagueSharp.Common;
-    using System.Linq;
+﻿#region Use
+using LeagueSharp;
+using LeagueSharp.Common;
+using System.Linq; 
+#endregion
 
+namespace TwistedFate.Modes
+{
     using Config = TwistedFate.Config;
 
     internal static class ComboMode

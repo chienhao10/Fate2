@@ -1,9 +1,10 @@
-﻿namespace TwistedFate.Modes
+﻿#region Use
+using System.Windows.Input;
+using LeagueSharp; 
+#endregion
+
+namespace TwistedFate.Modes
 {
-    using System.Windows.Input;
-
-    using LeagueSharp;
-
     internal static class ManualCards
     {
         #region Methods

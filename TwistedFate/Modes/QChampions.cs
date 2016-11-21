@@ -1,12 +1,13 @@
-﻿namespace TwistedFate.Modes
+﻿#region Use
+using System;
+using System.Windows.Input;
+using System.Linq;
+using LeagueSharp;
+using LeagueSharp.Common; 
+#endregion
+
+namespace TwistedFate.Modes
 {
-    using System;
-    using System.Windows.Input;
-
-    using LeagueSharp;
-    using LeagueSharp.Common;
-    using System.Linq;
-
     using Config = TwistedFate.Config;
 
     internal static class QChampions

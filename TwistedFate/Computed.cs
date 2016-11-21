@@ -1,11 +1,12 @@
-﻿namespace TwistedFate
+﻿#region Use
+using System;
+using System.Linq;
+using LeagueSharp;
+using LeagueSharp.Common; 
+#endregion
+
+namespace TwistedFate
 {
-    using System;
-
-    using LeagueSharp;
-    using LeagueSharp.Common;
-    using System.Linq;
-
     internal static class Computed
 
     {

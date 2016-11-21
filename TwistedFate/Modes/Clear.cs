@@ -1,11 +1,12 @@
-﻿namespace TwistedFate.Modes
+﻿#region Use
+using System;
+using System.Linq;
+using LeagueSharp;
+using LeagueSharp.Common; 
+#endregion
+
+namespace TwistedFate.Modes
 {
-    using System;
-    using System.Linq;
-
-    using LeagueSharp;
-    using LeagueSharp.Common;
-
     using Config = TwistedFate.Config;
 
     internal static class Clear

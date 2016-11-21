@@ -1,12 +1,10 @@
-﻿namespace TwistedFate
+﻿#region Use
+using System.Drawing;
+using LeagueSharp.Common; 
+#endregion
+
+namespace TwistedFate
 {
-    #region Use
-
-    using LeagueSharp.Common;
-    using System.Drawing;
-
-    #endregion
-
     internal static class Config
     {
         #region Properties
@@ -150,7 +148,6 @@
         internal static bool IsSlowed { get { return IsChecked("qSlowed"); } }
 
         internal static bool CanqKS { get { return IsChecked("qKS"); } }
-
 
         #endregion
 

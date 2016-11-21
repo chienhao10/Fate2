@@ -1,8 +1,10 @@
-﻿namespace TwistedFate.Modes
-{
-    using LeagueSharp;
-    using LeagueSharp.Common;
+﻿#region Use
+using LeagueSharp;
+using LeagueSharp.Common;
 
+#endregion
+namespace TwistedFate.Modes
+{
     using Config = TwistedFate.Config;
 
     internal static class MixedMode

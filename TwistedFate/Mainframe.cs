@@ -1,13 +1,14 @@
-﻿namespace TwistedFate
+﻿#region Use
+using System;
+using System.Drawing;
+using System.Linq;
+using LeagueSharp;
+using LeagueSharp.Common;
+using SharpDX; 
+#endregion
+
+namespace TwistedFate
 {
-    using System;
-    using System.Drawing;
-    using System.Linq;
-
-    using LeagueSharp;
-    using LeagueSharp.Common;
-    using SharpDX;
-
     using TwistedFate.Modes;
 
     internal static class Mainframe

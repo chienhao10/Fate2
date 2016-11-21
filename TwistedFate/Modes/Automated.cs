@@ -1,15 +1,16 @@
-﻿namespace TwistedFate.Modes
+﻿#region Use
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Windows.Input;
+using LeagueSharp;
+using LeagueSharp.Common;
+using SharpDX; 
+#endregion
+
+namespace TwistedFate.Modes
 {
-    using System;
-    using System.Linq;
-    using System.Collections.Generic;
-    using System.Windows.Input;
-
-    using LeagueSharp;
-    using LeagueSharp.Common;
-
     using Config = TwistedFate.Config;
-    using SharpDX;
 
     internal static class Automated
     {
