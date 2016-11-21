@@ -145,7 +145,7 @@ namespace TwistedFate
                         {
                             if(!targetDis.IsZombie)
                             {
-                                if((ObjectManager.Player.Distance(targetDis) < Orbwalking.GetAttackRange(ObjectManager.Player) + 250))
+                                if((ObjectManager.Player.Distance(targetDis) < Orbwalking.GetAttackRange(ObjectManager.Player) + 175))
                                 {
                                     args.Process = false;
 
