@@ -1,6 +1,6 @@
 ﻿namespace TwistedFate
 {
-    #region Use
+    #region Libs
 
     using System;
 
@@ -25,11 +25,7 @@
                 return;
             }
 
-            Spells.LoadSpells();
-
-                Config.BuildConfig();
-
-                    Mainframe.Init();
+            Spells.LoadSpells(); Config.BuildConfig(); Mainframe.Init();
         }
 
         #endregion

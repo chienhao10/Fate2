@@ -17,23 +17,26 @@
         {
             var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
 
-            if (Config.IsKeyPressed("qClear")
-                    && (!Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.LeftCtrl)
-                        && !Keyboard.IsKeyDown(Key.LeftAlt)) && ObjectManager.Player.Mana >= qMana && Spells.Q.IsReady())
+            if (Config.UseClearQ)
             {
-                var minions = MinionManager.GetMinions(ObjectManager.Player.Position, Spells.Q.Range).Where(x => x.Type == GameObjectType.obj_AI_Minion && x.Team != ObjectManager.Player.Team).ToList();
-
-                if (!minions.Any() || minions.Count < 2)
+                if(Spells._q.IsReadyPerfectly())
                 {
-                    return;
-                }
+                    if(ObjectManager.Player.Mana >= qMana)
+                    {
+                        var minions = MinionManager.GetMinions(ObjectManager.Player.Position, Spells._q.Range).Where(x => x.Type == GameObjectType.obj_AI_Minion && x.Team != ObjectManager.Player.Team).ToList();
 
-                var minionPos = minions.Select(x => x.Position.To2D()).ToList();
-                var farm = MinionManager.GetBestLineFarmLocation(minionPos, Spells.Q.Width, Spells.Q.Range);
+                        if (minions.Any() && minions.Count > 2)
+                        {
+                            var minionPos = minions.Select(x => x.Position.To2D()).ToList();
 
-                if (farm.MinionsHit >= Config.GetSliderValue("qClearCount"))
-                {
-                    Spells.Q.Cast(farm.Position);
+                            var farm = MinionManager.GetBestLineFarmLocation(minionPos, Spells._q.Width, Spells._q.Range);
+
+                            if (farm.MinionsHit >= Config.ClearQCount)
+                            {
+                                Spells._q.Cast(farm.Position);
+                            }
+                        }
+                    }
                 }
             }
         }

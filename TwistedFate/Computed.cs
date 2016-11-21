@@ -11,7 +11,6 @@
     {
         #region Properties
 
-        internal static Orbwalking.Orbwalker Orbwalker { get; set; }
         internal static bool HasBlue { get { return ObjectManager.Player.HasBuff("bluecardpreattack"); } }
         internal static bool HasRed { get { return ObjectManager.Player.HasBuff("redcardpreattack"); } }
         internal static bool HasGold { get { return ObjectManager.Player.HasBuff("goldcardpreattack"); } }
@@ -35,13 +34,38 @@
 
         public static void InterruptableSpell_OnInterruptableTarget(Obj_AI_Hero sender, Interrupter2.InterruptableTargetEventArgs args)
         {
-            if (Config.IsChecked("goldInter"))
+            if (ObjectManager.Player.IsDead)
             {
-                if (sender.IsEnemy && Orbwalking.InAutoAttackRange(sender))
+                return;
+            }
+
+            if (Config.UseInterrupter)
+            {
+                if (sender.IsValidTarget(Spells._w.Range))
                 {
-                    if (HasGold)
+                    switch(CardSelector.Status)
                     {
-                        ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, sender);
+                        case SelectStatus.Selecting:
+                        {
+                            CardSelector.JumpToCard(Cards.Yellow);
+                            return;
+                        }
+                        case SelectStatus.Ready:
+                        {
+                            CardSelector.StartSelecting(Cards.Yellow);
+                            return;
+                        }
+                    }
+
+                    if(HasGold)
+                    {
+                        if (Orbwalking.InAutoAttackRange(sender))
+                        {
+                            if (Orbwalking.CanAttack())
+                            {
+                                ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, sender);
+                            }
+                        }
                     }
                 }
             }
@@ -49,13 +73,38 @@
 
         public static void Gapcloser_OnGapCloser(ActiveGapcloser gapcloser)
         {
-            if (Config.IsChecked("goldGap"))
+            if (ObjectManager.Player.IsDead)
             {
-                if (gapcloser.Sender.IsEnemy && Orbwalking.InAutoAttackRange(gapcloser.Sender))
+                return;
+            }
+
+            if (Config.UseAntiGapCloser)
+            {
+                if (gapcloser.Sender.IsValidTarget(Spells._w.Range))
                 {
+                    switch (CardSelector.Status)
+                    {
+                        case SelectStatus.Selecting:
+                        {
+                            CardSelector.JumpToCard(Cards.Yellow);
+                            return;
+                        }
+                        case SelectStatus.Ready:
+                        {
+                            CardSelector.StartSelecting(Cards.Yellow);
+                            return;
+                        }
+                    }
+
                     if (HasGold)
                     {
-                        ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, gapcloser.Sender);
+                        if (Orbwalking.InAutoAttackRange(gapcloser.Sender))
+                        {
+                            if (Orbwalking.CanAttack())
+                            {
+                                ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, gapcloser.Sender);
+                            }
+                        }
                     }
                 }
             }
@@ -63,85 +112,140 @@
 
         public static void OnBeforeAttack(Orbwalking.BeforeAttackEventArgs args)
         {
+            if (ObjectManager.Player.IsDead)
+            {
+                return;
+            }
+
             if (args.Target is Obj_AI_Hero)
             {
                 args.Process = CardSelector.Status != SelectStatus.Selecting
                                && Environment.TickCount - CardSelector.LastWSent > 300;
             }
 
-            if (CardSelector.Status == SelectStatus.Selecting
-                && ((Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
-                    || (Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)))
+            if (CardSelector.Status == SelectStatus.Selecting)
             {
-                args.Process = false;
+                if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
+                    || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+                {
+                    args.Process = false;
+                }
             }
 
-            var targetDis = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
-
-            if (HasACard != "empty"
-                && !HeroManager.Enemies.Contains(args.Target)
-                && targetDis.IsValidTarget()
-                && !targetDis.IsZombie
-                && Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed
-                && (ObjectManager.Player.Distance(targetDis) < Orbwalking.GetAttackRange(ObjectManager.Player) + 250))
+            if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
             {
-                args.Process = false;
+                if(HasACard != "empty")
+                {
+                    if(!HeroManager.Enemies.Contains(args.Target))
+                    {
+                        var targetDis = TargetSelector.GetTarget(Spells._q.Range, Spells._q.DamageType);
 
-                var target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(ObjectManager.Player), TargetSelector.DamageType.Magical);
+                        if (targetDis.IsValidTarget(Spells._q.Range))
+                        {
+                            if(!targetDis.IsZombie)
+                            {
+                                if((ObjectManager.Player.Distance(targetDis) < Orbwalking.GetAttackRange(ObjectManager.Player) + 250))
+                                {
+                                    args.Process = false;
 
-                if (target.IsValidTarget() && !target.IsZombie)
-                    ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, target);
+                                    var target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(ObjectManager.Player), Spells._w.DamageType);
+
+                                    if(target.IsValidTarget(Spells._w.Range))
+                                    {
+                                        if(!target.IsZombie)
+                                        {
+                                            ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, target);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
         public static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (sender.IsMe && args.SData.Name == "Gate")
+            if(ObjectManager.Player.IsDead)
             {
-                CardSelector.StartSelecting(Cards.Yellow);
+                return;
             }
 
-            if (!sender.IsMe)
+            if (sender != null)
             {
-                //none
+                if (sender.IsMe)
+                {
+                    if (args.Slot == SpellSlot.R)
+                    {
+                        if (args.SData.Name.ToLowerInvariant() == "gate")
+                        {
+                            switch (CardSelector.Status)
+                            {
+                                case SelectStatus.Selecting:
+                                {
+                                    CardSelector.JumpToCard(Cards.Yellow);
+                                    return;
+                                }
+                                case SelectStatus.Ready:
+                                {
+                                    CardSelector.StartSelecting(Cards.Yellow);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
             }
-        }
-
-        public static void SafeCast(Spellbook sender, SpellbookCastSpellEventArgs args)
-        {
-            //none
         }
 
         public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            var canWKill =
-            HeroManager.Enemies.FirstOrDefault(
-                h =>
-                !h.IsDead && h.IsValidTarget(Spells.Q.Range)
-                && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
+            var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
+            var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
 
-            if (!sender.IsMe || args.SData.Name.ToLower() != "goldcardpreattack" || !Spells.Q.IsReady() || canWKill != null || ObjectManager.Player.ManaPercent < Config.GetSliderValue("qAMana"))
+            if (ObjectManager.Player.IsDead || (ObjectManager.Player.ManaPercent - qMana < wMana))
             {
                 return;
             }
 
-            var targetDis = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
-
-            if (targetDis == null || !targetDis.IsValidTarget(Spells.Q.Range / 2))
+            if(sender.IsMe)
             {
-                return;
-            }
-
-            if (Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
-                || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
-            {
-                if (targetDis.IsValidTarget(Spells.Q.Range))
+                if(args.SData.Name.ToLower() == "goldcardpreattack")
                 {
-                    var qPred = Spells.Q.GetPrediction(targetDis);
-
-                    if (qPred.Hitchance >= HitChance.VeryHigh)
+                    if(Spells._q.IsReadyPerfectly())
                     {
-                        Spells.Q.Cast(qPred.CastPosition);
+                        if(ObjectManager.Player.ManaPercent >= Config.AutoqMana)
+                        {
+                            var canWKill = HeroManager.Enemies.FirstOrDefault(
+                                   h => !h.IsDead&& h.IsValidTarget(Spells._q.Range)
+                                   && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
+
+                            if (canWKill == null)
+                            {
+                                var targetDis = TargetSelector.GetTarget(Spells._q.Range, Spells._q.DamageType);
+
+                                if(targetDis != null)
+                                {
+                                    if(targetDis.IsValidTarget(Spells._q.Range / 2))
+                                    {
+                                        if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
+                                            || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+                                        {
+                                            if (targetDis.IsValidTarget(Spells._q.Range))
+                                            {
+                                                var qPred = Spells._q.GetPrediction(targetDis);
+
+                                                if (qPred.Hitchance >= HitChance.VeryHigh)
+                                                {
+                                                    Spells._q.Cast(qPred.CastPosition);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -149,34 +253,51 @@
 
         public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            var canWKill =
-                HeroManager.Enemies.FirstOrDefault(
-                h =>
-                !h.IsDead && h.IsValidTarget(Spells.Q.Range)
-                && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
+            var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
+            var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
 
-            if (!sender.IsMe || args.SData.Name.ToLower() != "redcardpreattack" || !Spells.Q.IsReady() || canWKill != null || ObjectManager.Player.ManaPercent < Config.GetSliderValue("qAMana"))
+            if (ObjectManager.Player.IsDead || (ObjectManager.Player.ManaPercent - qMana < wMana))
             {
                 return;
             }
 
-            var targetDis = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
-
-            if (targetDis == null || !targetDis.IsValidTarget(Spells.Q.Range / 2))
+            if (sender.IsMe)
             {
-                return;
-            }
-
-            if (Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
-                || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
-            {
-                if (targetDis.IsValidTarget(Spells.Q.Range))
+                if (args.SData.Name.ToLower() == "redcardpreattack")
                 {
-                    var qPred = Spells.Q.GetPrediction(targetDis);
-
-                    if (qPred.Hitchance >= HitChance.VeryHigh)
+                    if (Spells._q.IsReadyPerfectly())
                     {
-                        Spells.Q.Cast(qPred.CastPosition);
+                        if (ObjectManager.Player.ManaPercent >= Config.AutoqMana)
+                        {
+                            var canWKill = HeroManager.Enemies.FirstOrDefault(
+                                   h => !h.IsDead && h.IsValidTarget(Spells._q.Range)
+                                   && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
+
+                            if (canWKill == null)
+                            {
+                                var targetDis = TargetSelector.GetTarget(Spells._q.Range, Spells._q.DamageType);
+
+                                if (targetDis != null)
+                                {
+                                    if (targetDis.IsValidTarget(Spells._q.Range / 2))
+                                    {
+                                        if (Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
+                                            || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+                                        {
+                                            if (targetDis.IsValidTarget(Spells._q.Range))
+                                            {
+                                                var qPred = Spells._q.GetPrediction(targetDis);
+
+                                                if (qPred.Hitchance >= HitChance.VeryHigh)
+                                                {
+                                                    Spells._q.Cast(qPred.CastPosition);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

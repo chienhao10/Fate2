@@ -63,7 +63,7 @@ namespace TwistedFate
             }
         }
 
-        public static void GoToKey(Cards card)
+        public static void JumpToCard(Cards card)
         {
             if (Status == SelectStatus.Selecting)
             {
@@ -71,7 +71,7 @@ namespace TwistedFate
             }
         }
 
-        public static void ShuffleCards()
+        public static void RotateCards()
         {
             if (ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name == "PickACard" && Status == SelectStatus.Ready)
             {

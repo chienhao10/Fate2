@@ -23,24 +23,29 @@
         internal static void Execute()
         {
             var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
-            var qTarget = TargetSelector.GetTarget(Spells.Q.Range, TargetSelector.DamageType.Magical);
 
-            if (Config.IsKeyPressed("qEnemy")
-                    && (!Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.LeftCtrl)
-                        && !Keyboard.IsKeyDown(Key.LeftAlt)) && ObjectManager.Player.Mana >= qMana && Spells.Q.IsReady())
+            if (Config.UseQEnemy)
             {
-                CastQTick = Utils.TickCount;
+                if(Spells._q.IsReadyPerfectly())
+                {
+                    if(ObjectManager.Player.Mana >= qMana)
+                    {
+                        CastQTick = Utils.TickCount;
+                    }
+                }
             }
 
             if (Utils.TickCount - CastQTick < 500)
             {
-                if (qTarget.IsValidTarget(Spells.Q.Range))
-                {
-                    var qPred = Spells.Q.GetPrediction(qTarget);
+                var qTarget = TargetSelector.GetTarget(Spells._q.Range, Spells._q.DamageType);
 
-                    if (qPred.Hitchance >= HitChance.High)
+                if (qTarget.IsValidTarget(Spells._q.Range))
+                {
+                    var qPred = Spells._q.GetPrediction(qTarget);
+
+                    if (qPred.Hitchance >= Spells._q.MinHitChance)
                     {
-                        Spells.Q.Cast(qPred.CastPosition);
+                        Spells._q.Cast(qPred.CastPosition);
                     }
                 }
             }

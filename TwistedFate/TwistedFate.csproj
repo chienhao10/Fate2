@@ -97,7 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardSelector.cs" />
-    <Compile Include="CustomDamageIndicator.cs" />
     <Compile Include="Computed.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Extensions\HeroExts.cs" />
@@ -108,10 +107,11 @@
     <Compile Include="Modes\QWaveClear.cs" />
     <Compile Include="Modes\ComboMode.cs" />
     <Compile Include="Modes\MixedMode.cs" />
-    <Compile Include="Modes\JungleLogic.cs" />
+    <Compile Include="Modes\Clear.cs" />
     <Compile Include="Modes\ManualCards.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Extra.cs" />
     <Compile Include="Spells.cs" />
   </ItemGroup>
   <ItemGroup>
