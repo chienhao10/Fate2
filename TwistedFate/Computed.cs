@@ -307,6 +307,11 @@ namespace TwistedFate
                 damage += Spells._w.GetDamage(enemy, 3);
             }
 
+            if (ObjectManager.Player.HasBuff("cardmasterstackparticle"))
+            {
+                damage += Spells._e.GetDamage(enemy, 1);
+            }
+
             // Items
 
             /*

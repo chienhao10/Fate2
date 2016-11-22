@@ -28,6 +28,13 @@ namespace TwistedFate.Modes
             AutoKillsteal();
         }
 
+        private static void checkbuff()
+        {
+            var temp = ObjectManager.Player.Buffs.Aggregate("", (current, buff) => current + ("( " + buff.Name + " , " + buff.Count + " )"));
+            if (temp != null)
+                Game.PrintChat(temp);
+        }
+
         private static int CountHits(Vector2 position, List<Vector2> points, List<int> hitBoxes)
         {
             var result = 0;
