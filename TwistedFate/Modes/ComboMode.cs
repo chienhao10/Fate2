@@ -47,19 +47,15 @@ namespace TwistedFate.Modes
                     {
                         if (Spells._w.IsReadyPerfectly())
                         {
-                            switch (CardSelector.Status)
+                            if (CardSelector.Status == SelectStatus.Ready)
                             {
-                                case SelectStatus.Ready:
-                                {
-                                    CardSelector.StartSelecting(Cards.Yellow);
-                                    return;
-                                }
-                                case SelectStatus.Selecting:
-                                {
-                                    CardSelector.JumpToCard(Cards.Yellow);
-                                    return;
-                                }
+                                CardSelector.StartSelecting(Cards.Yellow);
                             }
+                        }
+
+                        if (CardSelector.Status == SelectStatus.Selecting)
+                        {
+                            CardSelector.JumpToCard(Cards.Yellow);
                         }
                     }
                 }
