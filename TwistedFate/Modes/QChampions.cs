@@ -42,12 +42,7 @@ namespace TwistedFate.Modes
 
                 if (qTarget.IsValidTarget(Spells._q.Range))
                 {
-                    var qPred = Spells._q.GetPrediction(qTarget);
-
-                    if (qPred.Hitchance >= Spells._q.MinHitChance)
-                    {
-                        Spells._q.Cast(qPred.CastPosition);
-                    }
+                    Pred.CastSebbyPredict(Spells._q, qTarget, HitChance.VeryHigh);
                 }
             }
         }

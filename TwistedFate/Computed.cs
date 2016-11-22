@@ -202,10 +202,7 @@ namespace TwistedFate
 
         public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
-            var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
-
-            if (!Config.PredictQ || ObjectManager.Player.IsDead || (ObjectManager.Player.ManaPercent - qMana < wMana))
+            if (!Config.PredictQ || ObjectManager.Player.IsDead)
             {
                 return;
             }
@@ -235,12 +232,7 @@ namespace TwistedFate
                                         {
                                             if (targetDis.IsValidTarget(Spells._q.Range))
                                             {
-                                                var qPred = Spells._q.GetPrediction(targetDis);
-
-                                                if (qPred.Hitchance >= Spells._q.MinHitChance)
-                                                {
-                                                    Spells._q.Cast(qPred.CastPosition);
-                                                }
+                                                Pred.CastSebbyPredict(Spells._q, targetDis, Spells._q.MinHitChance);
                                             }
                                         }
                                     }
@@ -254,10 +246,7 @@ namespace TwistedFate
 
         public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
-            var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
-
-            if (!Config.PredictQ || ObjectManager.Player.IsDead || (ObjectManager.Player.ManaPercent - qMana < wMana))
+            if (!Config.PredictQ || ObjectManager.Player.IsDead)
             {
                 return;
             }
@@ -287,12 +276,7 @@ namespace TwistedFate
                                         {
                                             if (targetDis.IsValidTarget(Spells._q.Range))
                                             {
-                                                var qPred = Spells._q.GetPrediction(targetDis);
-
-                                                if (qPred.Hitchance >= Spells._q.MinHitChance)
-                                                {
-                                                    Spells._q.Cast(qPred.CastPosition);
-                                                }
+                                                Pred.CastSebbyPredict(Spells._q, targetDis, Spells._q.MinHitChance);
                                             }
                                         }
                                     }

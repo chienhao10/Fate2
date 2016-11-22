@@ -140,10 +140,7 @@ namespace TwistedFate.Modes
                         {
                             if(ObjectManager.Player.ManaPercent >= Config.AutoqMana)
                             {
-                                if(pred.Hitchance == HitChance.Immobile)
-                                {
-                                    CastQ(enemy, pred.UnitPosition.To2D());
-                                }
+                                Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Immobile);
                             }
                         }else if(Config.IsDashing)
                         {
@@ -166,21 +163,11 @@ namespace TwistedFate.Modes
                         {
                             if(enemy.MoveSpeed <= 270)
                             {
-                                var qPred = Spells._q.GetPrediction(enemy);
-
-                                if (qPred.Hitchance >= Spells._q.MinHitChance)
-                                {
-                                    Spells._q.Cast(qPred.CastPosition);
-                                }
+                                Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
                             }
                         }else if(enemy.IsCharmed)
                         {
-                            var qPred = Spells._q.GetPrediction(enemy);
-
-                            if (qPred.Hitchance >= Spells._q.MinHitChance)
-                            {
-                                Spells._q.Cast(qPred.CastPosition);
-                            }
+                            Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
                         }
                     }
                 }
@@ -221,12 +208,7 @@ namespace TwistedFate.Modes
 
                                     if (ObjectManager.Player.Mana < wMana)
                                     {
-                                        var qPred = Spells._q.GetPrediction(entKs);
-
-                                        if (qPred.Hitchance >= HitChance.High)
-                                        {
-                                            Spells._q.Cast(qPred.CastPosition);
-                                        }
+                                        Pred.CastSebbyPredict(Spells._q, entKs, Spells._q.MinHitChance);
                                     }
                                 }
                             }

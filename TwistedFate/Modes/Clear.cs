@@ -19,7 +19,7 @@ namespace TwistedFate.Modes
 
             var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
 
-            if ((ObjectManager.Player.ManaPercent - wMana) < wMana)
+            if (ObjectManager.Player.ManaPercent < 15)
             {
                 return;
             }

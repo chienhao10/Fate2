@@ -15,3 +15,7 @@ C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\LeagueSharp.Data.pdb
 C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\clipper_library.pdb
 C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\obj\x86\Debug\TwistedFate.exe
 C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\obj\x86\Debug\TwistedFate.pdb
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\SebbyLib.dll
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\SPrediction.dll
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\SebbyLib.pdb
+C:\Users\Admin\Documents\0000AAAaaa\TwistedFate\bin\Debug\SPrediction.pdb

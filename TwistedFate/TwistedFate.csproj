@@ -75,6 +75,9 @@
       <HintPath>C:\Program Files (x86)\8ZTb6qGSx\References\LeagueSharp.Common.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="SebbyLib">
+      <HintPath>C:\Program Files (x86)\8ZTb6qGSx\References\SebbyLib.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\8ZTb6qGSx\References\SharpDX.dll</HintPath>
@@ -82,6 +85,9 @@
     <Reference Include="SharpDX.XInput, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\8ZTb6qGSx\References\SharpDX.XInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SPrediction">
+      <HintPath>C:\Program Files (x86)\8ZTb6qGSx\References\SPrediction.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -97,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardSelector.cs" />
+    <Compile Include="Pred.cs" />
     <Compile Include="Computed.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Extensions\HeroExts.cs" />
