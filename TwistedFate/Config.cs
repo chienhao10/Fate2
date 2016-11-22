@@ -84,7 +84,31 @@ namespace TwistedFate
             DrawMenu.AddItem(new MenuItem("drawQrange", "Q Range").SetValue(true));
             DrawMenu.AddItem(new MenuItem("drawRrange", "R Range").SetValue(true));
             DrawMenu.AddItem(new MenuItem("drawRmap", "R Range Minimap").SetValue(true));
+            DrawMenu.AddItem(new MenuItem("drawComboDmg", "Combo Damage").SetValue(true));
+            DrawMenu.AddItem(new MenuItem("fillDmg", "Damage Fill Color").SetValue(new Circle(true, Color.LightSteelBlue)));
             TwistedFateMenu.AddSubMenu(DrawMenu);
+
+            #region DamageDrawings
+
+            DrawingDamage.DamageToUnit = Computed.GetComboDamage;
+            DrawingDamage.Enabled = TwistedFateMenu.Item("drawComboDmg").GetValue<bool>();
+            DrawingDamage.Fill = TwistedFateMenu.Item("fillDmg").GetValue<Circle>().Active;
+            DrawingDamage.FillColor = TwistedFateMenu.Item("fillDmg").GetValue<Circle>().Color;
+
+            TwistedFateMenu.Item("drawComboDmg").ValueChanged +=
+            delegate (object sender, OnValueChangeEventArgs eventArgs)
+            {
+                DrawingDamage.Enabled = eventArgs.GetNewValue<bool>();
+            };
+
+            TwistedFateMenu.Item("fillDmg").ValueChanged +=
+            delegate (object sender, OnValueChangeEventArgs eventArgs)
+            {
+                DrawingDamage.Fill = eventArgs.GetNewValue<Circle>().Active;
+                DrawingDamage.FillColor = eventArgs.GetNewValue<Circle>().Color;
+            };
+
+            #endregion
 
             TwistedFateMenu.AddToMainMenu();
         }

@@ -288,6 +288,46 @@ namespace TwistedFate
             }
         }
 
+        public static float GetComboDamage(Obj_AI_Base enemy)
+        {
+            float damage = 0;
+
+            if (!ObjectManager.Player.IsWindingUp)
+            {
+                damage += (float)ObjectManager.Player.GetAutoAttackDamage(enemy, true);
+            }
+
+            if (Spells._q.IsReadyPerfectly())
+            {
+                damage += Spells._q.GetDamage(enemy);
+            }
+
+            if (Spells._w.IsReadyPerfectly())
+            {
+                damage += Spells._w.GetDamage(enemy, 3);
+            }
+
+            // Items
+
+            /*
+             * Luden
+             * */
+            if (Items.HasItem(3285))
+                damage += (float)ObjectManager.Player.CalcDamage(enemy, Damage.DamageType.Magical, 100 + ObjectManager.Player.FlatMagicDamageMod * 0.1);
+            /*
+            * Sheen
+            * */
+            if (Items.HasItem(3057))
+                damage += (float)ObjectManager.Player.CalcDamage(enemy, Damage.DamageType.Physical, 0.5 * ObjectManager.Player.BaseAttackDamage);
+            /*
+            * Lich
+            * */
+            if (Items.HasItem(3100))
+                damage += (float)ObjectManager.Player.CalcDamage(enemy, Damage.DamageType.Magical, 0.5 * ObjectManager.Player.FlatMagicDamageMod + 0.75 * ObjectManager.Player.BaseAttackDamage);
+
+            return (float)damage;
+        }
+
         #endregion
     }
 }
