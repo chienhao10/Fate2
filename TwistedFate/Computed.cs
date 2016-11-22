@@ -2,7 +2,8 @@
 using System;
 using System.Linq;
 using LeagueSharp;
-using LeagueSharp.Common; 
+using LeagueSharp.Common;
+using ItemData = LeagueSharp.Common.Data.ItemData;
 #endregion
 
 namespace TwistedFate
@@ -229,7 +230,7 @@ namespace TwistedFate
                         {
                             foreach (var enemy in HeroManager.Enemies)
                             {
-                                if (!enemy.IsDead)
+                                if (!enemy.IsDead && enemy != null)
                                 {
                                     if (!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
                                     {
@@ -265,7 +266,7 @@ namespace TwistedFate
                         {
                             foreach (var enemy in HeroManager.Enemies)
                             {
-                                if (!enemy.IsDead)
+                                if (!enemy.IsDead && enemy != null)
                                 {
                                     if(!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
                                     {
@@ -306,23 +307,31 @@ namespace TwistedFate
                 damage += Spells._e.GetDamage(enemy, 1);
             }
 
-            // Items
-
             /*
              * Luden
              * */
-            if (Items.HasItem(3285))
+            if (Items.HasItem(ItemData.Ludens_Echo.Id))
                 damage += (float)ObjectManager.Player.CalcDamage(enemy, Damage.DamageType.Magical, 100 + ObjectManager.Player.FlatMagicDamageMod * 0.1);
             /*
             * Sheen
             * */
-            if (Items.HasItem(3057))
+            if (Items.HasItem(ItemData.Sheen.Id))
                 damage += (float)ObjectManager.Player.CalcDamage(enemy, Damage.DamageType.Physical, 0.5 * ObjectManager.Player.BaseAttackDamage);
             /*
             * Lich
             * */
-            if (Items.HasItem(3100))
+            if (Items.HasItem(ItemData.Lich_Bane.Id))
                 damage += (float)ObjectManager.Player.CalcDamage(enemy, Damage.DamageType.Magical, 0.5 * ObjectManager.Player.FlatMagicDamageMod + 0.75 * ObjectManager.Player.BaseAttackDamage);
+            /*
+            * IB Gauntlet
+            * */
+            if (Items.HasItem(ItemData.Iceborn_Gauntlet.Id))
+                damage += (float)ObjectManager.Player.CalcDamage(enemy, Damage.DamageType.Magical, 1.25 * ObjectManager.Player.BaseAttackDamage);
+            /*
+            * Trinity Force
+            * */
+            if (Items.HasItem(ItemData.Trinity_Force.Id))
+                damage += (float)ObjectManager.Player.CalcDamage(enemy, Damage.DamageType.Magical, 2 * ObjectManager.Player.BaseAttackDamage);
 
             return (float)damage;
         }

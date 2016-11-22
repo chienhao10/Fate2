@@ -64,7 +64,7 @@ namespace TwistedFate
             QAutoMenu.AddItem(new MenuItem("qSlowed", "if target is slowed").SetValue(true));
             QAutoMenu.AddItem(new MenuItem("qImmobile", "if target is immobile").SetValue(true));
             QAutoMenu.AddItem(new MenuItem("qKS", "killsteal").SetValue(true));
-            QMenu.AddItem(new MenuItem("qOptimize", "Optimizer")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
+            QMenu.AddItem(new MenuItem("qOptimize", "Fast W->Q Combo")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             QMenu.AddItem(new MenuItem("qAfterW", "Predict Gold/Red into Q").SetValue(true));
             QMenu.AddSubMenu(QKBMenu);
             QMenu.AddSubMenu(QAutoMenu);
@@ -103,6 +103,7 @@ namespace TwistedFate
             DrawMenu.AddItem(new MenuItem("drawQrange", "Q Range").SetValue(true));
             DrawMenu.AddItem(new MenuItem("drawRrange", "R Range").SetValue(true));
             DrawMenu.AddItem(new MenuItem("drawRmap", "R Range Minimap").SetValue(true));
+            DrawMenu.AddItem(new MenuItem("combo.damage", "Damage Indicator")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             DrawMenu.AddItem(new MenuItem("drawComboDmg", "Combo Damage").SetValue(true));
             DrawMenu.AddItem(new MenuItem("fillDmg", "Damage Fill Color").SetValue(new Circle(true, Color.LightCoral)));
             TwistedFateMenu.AddSubMenu(DrawMenu);

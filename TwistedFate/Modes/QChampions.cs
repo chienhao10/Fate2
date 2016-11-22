@@ -38,11 +38,15 @@ namespace TwistedFate.Modes
 
             if (Utils.TickCount - CastQTick < 500)
             {
-                var qTarget = TargetSelector.GetTarget(Spells._q.Range, Spells._q.DamageType);
-
-                if (qTarget.IsValidTarget(Spells._q.Range))
+                foreach (var enemy in HeroManager.Enemies)
                 {
-                    Pred.CastSebbyPredict(Spells._q, qTarget, HitChance.VeryHigh);
+                    if (!enemy.IsDead && enemy != null)
+                    {
+                        if(enemy.IsValidTarget(Spells._q.Range))
+                        {
+                            Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                        }
+                    }
                 }
             }
         }

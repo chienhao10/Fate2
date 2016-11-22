@@ -137,7 +137,7 @@ namespace TwistedFate.Modes
 
             foreach (var enemy in HeroManager.Enemies)
             {
-                if(!enemy.IsDead)
+                if(!enemy.IsDead && enemy != null)
                 {
                     if(enemy.IsValidTarget(Spells._q.Range * 2))
                     {
@@ -192,7 +192,7 @@ namespace TwistedFate.Modes
 
             foreach (var enemy in HeroManager.Enemies)
             {
-                if (!enemy.IsDead)
+                if (!enemy.IsDead && enemy != null)
                 {
                     if (enemy.IsKillableAndValidTarget(Spells._q.GetDamage(enemy), Spells._q.DamageType, Spells._q.Range))
                     {

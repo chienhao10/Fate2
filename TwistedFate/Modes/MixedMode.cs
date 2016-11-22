@@ -21,107 +21,114 @@ namespace TwistedFate.Modes
             var redLock = wName.Equals("RedCardLock", StringComparison.InvariantCultureIgnoreCase);
             var goldLock = wName.Equals("GoldCardLock", StringComparison.InvariantCultureIgnoreCase);
 
-            var target = TargetSelector.GetTarget(Spells._q.Range, Spells._q.DamageType);
-
-            if (!Config.Rotate || target == null || !target.IsValidTarget(Spells._q.Range))
+            if (!Config.Rotate)
             {
                 return;
             }
 
-            if(Spells._w.IsReadyPerfectly())
+            foreach (var enemy in HeroManager.Enemies)
             {
-                if(target.Distance(ObjectManager.Player) <= (ObjectManager.Player.AttackRange + Config.RotateRange))
+                if (!enemy.IsDead && enemy != null)
                 {
-                    if(ObjectManager.Player.ManaPercent >= Config.RotateMana)
+                    if(enemy.IsValidTarget(Spells._q.Range))
                     {
-                        CardSelector.RotateCards();
+                        if (Spells._w.IsReadyPerfectly())
+                        {
+                            if (enemy.Distance(ObjectManager.Player) <= (ObjectManager.Player.AttackRange + Config.RotateRange))
+                            {
+                                if (ObjectManager.Player.ManaPercent >= Config.RotateMana)
+                                {
+                                    CardSelector.RotateCards();
+                                }
+                            }
+                        }
+
+                        if (enemy.Distance(ObjectManager.Player) <= (ObjectManager.Player.AttackRange + 100))
+                        {
+                            switch (Config.Prioritize)
+                            {
+                                case 0:
+                                {
+                                    CardSelector.LockCard();
+                                    return;
+                                }
+                                case 1:
+                                {
+                                    //Prioritize BLUE-GOLD-RED;
+                                    if (blueLock)
+                                    {
+                                        CardSelector.LockCard();
+
+                                    }
+                                    else if (goldLock)
+                                    {
+                                        CardSelector.JumpToCard(Cards.Blue);
+                                    }
+                                    else if (redLock)
+                                    {
+                                        CardSelector.LockCard();
+                                    }
+                                    return;
+                                }
+                                case 2:
+                                {
+                                    //Prioritize RED-BLUE-GOLD;
+                                    if (blueLock)
+                                    {
+                                        CardSelector.LockCard();
+
+                                    }
+                                    else if (goldLock)
+                                    {
+                                        CardSelector.JumpToCard(Cards.Red);
+                                    }
+                                    else if (redLock)
+                                    {
+                                        CardSelector.LockCard();
+                                    }
+                                    return;
+                                }
+                                case 3:
+                                {
+                                    //Prioritize GOLD-BLUE-RED;
+                                    if (blueLock)
+                                    {
+                                        CardSelector.LockCard();
+
+                                    }
+                                    else if (goldLock)
+                                    {
+                                        CardSelector.LockCard();
+                                    }
+                                    else if (redLock)
+                                    {
+                                        CardSelector.JumpToCard(Cards.Yellow);
+                                    }
+                                    return;
+                                }
+                                case 4:
+                                {
+                                    //Prioritize GOLD-RED-BLUE;
+                                    if (blueLock)
+                                    {
+                                        CardSelector.JumpToCard(Cards.Red);
+
+                                    }
+                                    else if (goldLock)
+                                    {
+                                        CardSelector.LockCard();
+                                    }
+                                    else if (redLock)
+                                    {
+                                        CardSelector.LockCard();
+                                    }
+                                    return;
+                                }
+                            }
+                        }
                     }
                 }
-            }
-
-            if(target.Distance(ObjectManager.Player) <= (ObjectManager.Player.AttackRange + 100))
-            {
-                switch (Config.Prioritize)
-                {
-                    case 0:
-                    {
-                        CardSelector.LockCard();
-                        return;
-                    }
-                    case 1:
-                    {
-                        //Prioritize BLUE-GOLD-RED;
-                        if (blueLock)
-                        {
-                            CardSelector.LockCard();
-
-                        }
-                        else if (goldLock)
-                        {
-                            CardSelector.JumpToCard(Cards.Blue);
-                        }
-                        else if (redLock)
-                        {
-                            CardSelector.LockCard();
-                        }
-                        return;
-                    }
-                    case 2:
-                    {
-                        //Prioritize RED-BLUE-GOLD;
-                        if (blueLock)
-                        {
-                            CardSelector.LockCard();
-
-                        }
-                        else if (goldLock)
-                        {
-                            CardSelector.JumpToCard(Cards.Red);
-                        }
-                        else if (redLock)
-                        {
-                            CardSelector.LockCard();
-                        }
-                        return;
-                    }
-                    case 3:
-                    {
-                        //Prioritize GOLD-BLUE-RED;
-                        if (blueLock)
-                        {
-                            CardSelector.LockCard();
-
-                        }
-                        else if (goldLock)
-                        {
-                            CardSelector.LockCard();
-                        }
-                        else if (redLock)
-                        {
-                            CardSelector.JumpToCard(Cards.Yellow);
-                        }
-                        return;
-                    }
-                    case 4:
-                    {
-                        //Prioritize GOLD-RED-BLUE;
-                        if (blueLock)
-                        {
-                            CardSelector.JumpToCard(Cards.Red);
-
-                        }
-                        else if (goldLock)
-                        {
-                            CardSelector.LockCard();
-                        }
-                        else if (redLock)
-                        {
-                            CardSelector.LockCard();
-                        }
-                        return;
-                    }
-                }
-            }
+            }  
         }
 
         #endregion
