@@ -42,6 +42,8 @@ namespace TwistedFate
 
             if (Config.UseInterrupter)
             {
+                var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
+
                 if (sender.IsValidTarget(Spells._w.Range))
                 {
                     switch(CardSelector.Status)
@@ -53,7 +55,10 @@ namespace TwistedFate
                         }
                         case SelectStatus.Ready:
                         {
-                            CardSelector.StartSelecting(Cards.Yellow);
+                            if(ObjectManager.Player.ManaPercent >= wMana)
+                            {
+                                CardSelector.StartSelecting(Cards.Yellow);
+                            }
                             return;
                         }
                     }
@@ -81,6 +86,8 @@ namespace TwistedFate
 
             if (Config.UseAntiGapCloser)
             {
+                var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
+
                 if (gapcloser.Sender.IsValidTarget(Spells._w.Range))
                 {
                     switch (CardSelector.Status)
@@ -92,7 +99,10 @@ namespace TwistedFate
                         }
                         case SelectStatus.Ready:
                         {
-                            CardSelector.StartSelecting(Cards.Yellow);
+                            if (ObjectManager.Player.ManaPercent >= wMana)
+                            {
+                                CardSelector.StartSelecting(Cards.Yellow);
+                            }
                             return;
                         }
                     }
@@ -202,38 +212,30 @@ namespace TwistedFate
 
         public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (!Config.PredictQ || ObjectManager.Player.IsDead)
+            if (!Config.PredictQ || ObjectManager.Player.IsDead
+                || (Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo
+                && Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed))
             {
                 return;
             }
 
-            if(sender.IsMe)
+            if (sender.IsMe)
             {
-                if(args.SData.Name.ToLower() == "goldcardpreattack")
+                if (args.SData.Name.ToLower() == "goldcardpreattack")
                 {
-                    if(Spells._q.IsReadyPerfectly())
+                    if (Spells._q.IsReadyPerfectly())
                     {
-                        if(ObjectManager.Player.ManaPercent >= Config.AutoqMana)
+                        if (ObjectManager.Player.ManaPercent >= Config.AutoqMana)
                         {
-                            var canWKill = HeroManager.Enemies.FirstOrDefault(
-                                   h => !h.IsDead&& h.IsValidTarget(Spells._q.Range)
-                                   && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
-
-                            if (canWKill == null)
+                            foreach (var enemy in HeroManager.Enemies)
                             {
-                                var targetDis = TargetSelector.GetTarget(Spells._q.Range, Spells._q.DamageType);
-
-                                if(targetDis != null)
+                                if (!enemy.IsDead)
                                 {
-                                    if(targetDis.IsValidTarget(Spells._q.Range / 2))
+                                    if (!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
                                     {
-                                        if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
-                                            || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+                                        if (enemy.IsValidTarget(Spells._q.Range / 2))
                                         {
-                                            if (targetDis.IsValidTarget(Spells._q.Range))
-                                            {
-                                                Pred.CastSebbyPredict(Spells._q, targetDis, Spells._q.MinHitChance);
-                                            }
+                                            Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
                                         }
                                     }
                                 }
@@ -246,7 +248,9 @@ namespace TwistedFate
 
         public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (!Config.PredictQ || ObjectManager.Player.IsDead)
+            if (!Config.PredictQ || ObjectManager.Player.IsDead
+                || (Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo
+                && Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed))
             {
                 return;
             }
@@ -259,25 +263,15 @@ namespace TwistedFate
                     {
                         if (ObjectManager.Player.ManaPercent >= Config.AutoqMana)
                         {
-                            var canWKill = HeroManager.Enemies.FirstOrDefault(
-                                   h => !h.IsDead && h.IsValidTarget(Spells._q.Range)
-                                   && h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.W));
-
-                            if (canWKill == null)
+                            foreach (var enemy in HeroManager.Enemies)
                             {
-                                var targetDis = TargetSelector.GetTarget(Spells._q.Range, Spells._q.DamageType);
-
-                                if (targetDis != null)
+                                if (!enemy.IsDead)
                                 {
-                                    if (targetDis.IsValidTarget(Spells._q.Range / 2))
+                                    if(!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
                                     {
-                                        if (Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
-                                            || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+                                        if (enemy.IsValidTarget(Spells._q.Range / 2))
                                         {
-                                            if (targetDis.IsValidTarget(Spells._q.Range))
-                                            {
-                                                Pred.CastSebbyPredict(Spells._q, targetDis, Spells._q.MinHitChance);
-                                            }
+                                            Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
                                         }
                                     }
                                 }

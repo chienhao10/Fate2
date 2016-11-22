@@ -16,34 +16,26 @@ namespace TwistedFate.Modes
         {
             var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
 
-            if (ObjectManager.Player.Mana >= wMana)
+            foreach (var enemy in HeroManager.Enemies)
             {
-                var entKs = HeroManager.Enemies.FirstOrDefault(
-                x => !x.IsDead && x.IsValidTarget()
-                && (ObjectManager.Player.Distance(x) < Orbwalking.GetAttackRange(ObjectManager.Player) + 200)
-                && x.Health < ObjectManager.Player.GetSpellDamage(x, SpellSlot.W));
-
-                if (entKs != null)
+                if (!enemy.IsDead)
                 {
-                    if (Spells._w.IsReadyPerfectly())
+                    if (enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 200))
                     {
-                        switch(CardSelector.Status)
+                        if (Spells._w.IsReadyPerfectly())
                         {
-                            case SelectStatus.Ready:
+                            if (CardSelector.Status == SelectStatus.Ready)
                             {
                                 CardSelector.StartSelecting(Cards.First);
-                                return;
-                            }
-                            case SelectStatus.Selecting:
-                            {
-                                CardSelector.JumpToCard(Cards.First);
-                                return;
                             }
                         }
+
+                        if (CardSelector.Status == SelectStatus.Selecting)
+                        {
+                            CardSelector.JumpToCard(Cards.First);
+                        }
                     }
-                }else
-                {
-                    if(Config.UseGoldCombo)
+                    else if (Config.UseGoldCombo)
                     {
                         if (Spells._w.IsReadyPerfectly())
                         {
