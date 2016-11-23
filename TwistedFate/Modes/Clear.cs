@@ -16,15 +16,15 @@ namespace TwistedFate.Modes
         internal static void Execute()
         {
             var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
-
             var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
 
-            if (ObjectManager.Player.Mana < wMana + qMana)
+            if (ObjectManager.Player.Mana < (wMana*2) + qMana)
             {
                 return;
             }
 
-            var jungle = MinionManager.GetMinions(ObjectManager.Player.Position, ObjectManager.Player.AttackRange + 200, MinionTypes.All, MinionTeam.Neutral)
+            var jungle = MinionManager.GetMinions(ObjectManager.Player.Position,
+                            ObjectManager.Player.AttackRange + 200, MinionTypes.All, MinionTeam.Neutral)
                         .Where(x => x.Team == GameObjectTeam.Neutral)
                         .OrderByDescending(x => x.MaxHealth);
 
@@ -64,33 +64,33 @@ namespace TwistedFate.Modes
                             switch (CardSelector.Status)
                             {
                                 case SelectStatus.Ready:
-                                    {
-                                        CardSelector.StartSelecting(Cards.Red);
-                                        return;
-                                    }
+                                {
+                                    CardSelector.StartSelecting(Cards.Red);
+                                    return;
+                                }
                                 case SelectStatus.Selecting:
-                                    {
-                                        CardSelector.JumpToCard(Cards.Red);
-                                        return;
-                                    }
+                                {
+                                    CardSelector.JumpToCard(Cards.Red);
+                                    return;
+                                }
                             }
                         }
                         else
                         {
-                            if (jungle.FirstOrDefault().HealthPercent >= 40 && ObjectManager.Player.HealthPercent < 75)
+                            if (jungle.FirstOrDefault().HealthPercent >= 50 && ObjectManager.Player.HealthPercent < 50)
                             {
                                 switch (CardSelector.Status)
                                 {
                                     case SelectStatus.Ready:
-                                        {
-                                            CardSelector.StartSelecting(Cards.Yellow);
-                                            return;
-                                        }
+                                    {
+                                        CardSelector.StartSelecting(Cards.Yellow);
+                                        return;
+                                    }
                                     case SelectStatus.Selecting:
-                                        {
-                                            CardSelector.JumpToCard(Cards.Yellow);
-                                            return;
-                                        }
+                                    {
+                                        CardSelector.JumpToCard(Cards.Yellow);
+                                        return;
+                                    }
                                 }
                             }
                             else
