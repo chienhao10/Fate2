@@ -79,7 +79,7 @@ namespace TwistedFate
             WSHMenu.AddItem(new MenuItem("wHMana", "Min Mana to Rotate cards").SetValue(new Slider(20, 0, 100)));
             WSHMenu.AddItem(
                 new MenuItem("rotate.prioritize", "Prioritizer").SetValue(
-                    new StringList(new[] { "Disabled", "BLUE > GOLD > RED", "RED > BLUE > GOLD", "GOLD > BLUE > RED", "GOLD > RED > BLUE", "RED > GOLD > BLUE" })));
+                    new StringList(new[] { "Smart", "BLUE > GOLD > RED", "RED > BLUE > GOLD", "GOLD > BLUE > RED", "GOLD > RED > BLUE", "RED > GOLD > BLUE" })));
             WKSMenu = new Menu("Kortatu's Cards Selector", "kcards.menu");
             WKSMenu.AddItem(new MenuItem("wSelector", "Koratu's Cards Selector")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             WKSMenu.AddItem(
