@@ -64,8 +64,9 @@ namespace TwistedFate
             QAutoMenu.AddItem(new MenuItem("qSlowed", "if target is slowed").SetValue(true));
             QAutoMenu.AddItem(new MenuItem("qImmobile", "if target is immobile").SetValue(true));
             QAutoMenu.AddItem(new MenuItem("qKS", "killsteal").SetValue(true));
-            QMenu.AddItem(new MenuItem("qOptimize", "Fast W->Q Combo")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            QMenu.AddItem(new MenuItem("qAfterW", "Predict Gold/Red into Q").SetValue(true));
+            QMenu.AddItem(new MenuItem("qOptimize", "Apdo Instant W->Q")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
+            QMenu.AddItem(new MenuItem("qAfterW.combo", "Use Q right after W [Combo]").SetValue(false));
+            QMenu.AddItem(new MenuItem("qAfterW.mixed", "Use Q right after W [Mixed]").SetValue(true));
             QMenu.AddSubMenu(QKBMenu);
             QMenu.AddSubMenu(QAutoMenu);
             TwistedFateMenu.AddSubMenu(QMenu);
@@ -195,7 +196,9 @@ namespace TwistedFate
 
         internal static bool CanqKS { get { return IsChecked("qKS"); } }
 
-        internal static bool PredictQ { get { return IsChecked("qAfterW"); } }
+        internal static bool PredictCombo { get { return IsChecked("qAfterW.combo"); } }
+
+        internal static bool PredictMixed { get { return IsChecked("qAfterW.mixed"); } }
 
         internal static int Prioritize { get { return TwistedFateMenu.Item("rotate.prioritize").GetValue<StringList>().SelectedIndex; } }
 

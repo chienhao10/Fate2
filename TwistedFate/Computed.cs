@@ -213,7 +213,7 @@ namespace TwistedFate
 
         public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (!Config.PredictQ || ObjectManager.Player.IsDead
+            if ((!Config.PredictCombo && !Config.PredictMixed) || ObjectManager.Player.IsDead
                 || (Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo
                 && Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed))
             {
@@ -249,7 +249,7 @@ namespace TwistedFate
 
         public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (!Config.PredictQ || ObjectManager.Player.IsDead
+            if ((!Config.PredictCombo && !Config.PredictMixed) || ObjectManager.Player.IsDead
                 || (Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo
                 && Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed))
             {
