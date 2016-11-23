@@ -150,23 +150,22 @@ namespace TwistedFate
                 {
                     if(!HeroManager.Enemies.Contains(args.Target))
                     {
-                        var targetDis = TargetSelector.GetTarget(Spells._q.Range, Spells._q.DamageType);
-
-                        if (targetDis.IsValidTarget(Spells._q.Range))
+                        foreach (var enemy in HeroManager.Enemies)
                         {
-                            if(!targetDis.IsZombie)
+                            if (!enemy.IsDead && enemy != null && !enemy.IsZombie)
                             {
-                                if((ObjectManager.Player.Distance(targetDis) <= Orbwalking.GetAttackRange(ObjectManager.Player) + 150))
+                                if (enemy.IsValidTarget(Spells._q.Range))
                                 {
-                                    args.Process = false;
-
-                                    var target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(ObjectManager.Player), Spells._w.DamageType);
-
-                                    if(target.IsValidTarget(Spells._w.Range))
+                                    if((ObjectManager.Player.Distance(enemy) <= Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 125))
                                     {
-                                        if(!target.IsZombie)
+                                        args.Process = false;
+
+                                        if(Orbwalking.InAutoAttackRange(enemy))
                                         {
-                                            ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, target);
+                                            if (Orbwalking.CanAttack())
+                                            {
+                                                ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, enemy);
+                                            }
                                         }
                                     }
                                 }
@@ -213,7 +212,7 @@ namespace TwistedFate
 
         public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if ((!Config.PredictCombo && !Config.PredictMixed) || ObjectManager.Player.IsDead
+            if (!Config.PredictQ || ObjectManager.Player.IsDead
                 || (Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo
                 && Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed))
             {
@@ -236,7 +235,7 @@ namespace TwistedFate
                                     {
                                         if (enemy.IsValidTarget(Spells._q.Range / 2))
                                         {
-                                            Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
+                                            Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
                                         }
                                     }
                                 }
@@ -249,7 +248,7 @@ namespace TwistedFate
 
         public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if ((!Config.PredictCombo && !Config.PredictMixed) || ObjectManager.Player.IsDead
+            if (!Config.PredictQ || ObjectManager.Player.IsDead
                 || (Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo
                 && Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed))
             {
@@ -268,11 +267,11 @@ namespace TwistedFate
                             {
                                 if (!enemy.IsDead && enemy != null)
                                 {
-                                    if(!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
+                                    if (!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
                                     {
                                         if (enemy.IsValidTarget(Spells._q.Range / 2))
                                         {
-                                            Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
+                                            Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
                                         }
                                     }
                                 }
