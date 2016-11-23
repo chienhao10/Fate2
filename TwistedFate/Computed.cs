@@ -140,6 +140,10 @@ namespace TwistedFate
                 if(CardSelector.Status == SelectStatus.Selecting || Spells._w.IsReadyPerfectly())
                 {
                     args.Process = false;
+
+                }else if(CardSelector.Status == SelectStatus.Selected || !Spells._w.IsReadyPerfectly())
+                {
+                    args.Process = true;
                 }
             }
 
