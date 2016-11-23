@@ -87,16 +87,15 @@ namespace TwistedFate
                     new KeyBind("U".ToCharArray()[0], KeyBindType.Press)));
             WKSMenu.AddItem(
                 new MenuItem("csRed", "RED").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
-            WMenu.AddItem(new MenuItem("wMiscs", "Miscs")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
+            WMenu.AddItem(new MenuItem("wmenu.menu.goldtitle", "Gold Card Utility")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             WMenu.AddItem(new MenuItem("wCGold", "Always pick GOLD in Combo").SetValue(true));
+            WMenu.AddItem(new MenuItem("goldInter", "Interrupter").SetValue(true));
+            WMenu.AddItem(new MenuItem("goldGap", "Anti-GapCloser").SetValue(true));  
             WMenu.AddSubMenu(WSHMenu);
             WMenu.AddSubMenu(WKSMenu);
             TwistedFateMenu.AddSubMenu(WMenu);
 
-            ExtraMenu = new Menu("Miscs", "extraMenu");
-            ExtraMenu.AddItem(new MenuItem("extra.menu.goldtitle", "Gold Card Utility")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            ExtraMenu.AddItem(new MenuItem("goldInter", "Interrupter").SetValue(true));
-            ExtraMenu.AddItem(new MenuItem("goldGap", "Anti-GapCloser").SetValue(true));
+            ExtraMenu = new Menu("Settings", "extraMenu");
             ExtraMenu.AddItem(new MenuItem("extra.menu.warning", "Recommended: Default")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
             ExtraMenu.AddItem(new MenuItem("extra.menu.harass", "Harass [Rotate]")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             ExtraMenu.AddItem(new MenuItem("wHRange", "Extra AA Range to start W").SetValue(new Slider(250, 100, 300)));
