@@ -19,7 +19,7 @@ namespace TwistedFate.Modes
 
             var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
 
-            if (ObjectManager.Player.ManaPercent < 15)
+            if (ObjectManager.Player.Mana < wMana + qMana)
             {
                 return;
             }
@@ -109,14 +109,11 @@ namespace TwistedFate.Modes
 
             if(Spells._q.IsReadyPerfectly())
             {
-                if ((ObjectManager.Player.ManaPercent - qMana) > wMana)
-                {
-                    var target = jungle.FirstOrDefault(x => x.IsValidTarget(Spells._q.Range));
+                var target = jungle.FirstOrDefault(x => x.IsValidTarget(Spells._q.Range));
 
-                    if (target != null)
-                    {
-                        Spells._q.Cast(target);
-                    }
+                if (target != null)
+                {
+                    Spells._q.Cast(target);
                 }
             }
         }
