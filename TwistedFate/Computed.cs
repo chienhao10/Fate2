@@ -4,6 +4,7 @@ using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
 using ItemData = LeagueSharp.Common.Data.ItemData;
+using System.Collections.Generic;
 #endregion
 
 namespace TwistedFate
@@ -129,21 +130,13 @@ namespace TwistedFate
                 return;
             }
 
-            if (args.Target is Obj_AI_Hero)
-            {
-                args.Process = CardSelector.Status != SelectStatus.Selecting
-                               && Environment.TickCount - CardSelector.LastWSent > 300;
-            }
-
             if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
             {
-                if(CardSelector.Status == SelectStatus.Selecting || Spells._w.IsReadyPerfectly())
+                if(CardSelector.Status == SelectStatus.Selecting 
+                    || CardSelector.Status == SelectStatus.Ready)
                 {
                     args.Process = false;
 
-                }else if(CardSelector.Status == SelectStatus.Selected || !Spells._w.IsReadyPerfectly())
-                {
-                    args.Process = true;
                 }
             }
 
@@ -159,7 +152,7 @@ namespace TwistedFate
                             {
                                 if (enemy.IsValidTarget(Spells._q.Range))
                                 {
-                                    if((ObjectManager.Player.Distance(enemy) <= Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 150))
+                                    if((ObjectManager.Player.Distance(enemy) <= Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 100))
                                     {
                                         args.Process = false;
 
@@ -175,6 +168,27 @@ namespace TwistedFate
                             }
                         }
                     }
+                }
+            }else if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
+            {
+                if(HasACard != "none" && HasRed)
+                {
+                    args.Process = false;
+
+                    IDictionary<Obj_AI_Minion, int> creeps = new Dictionary<Obj_AI_Minion, int>();
+
+                    foreach (var x in ObjectManager.Get<Obj_AI_Minion>().Where(x => x.Team != ObjectManager.Player.Team && x.Team != GameObjectTeam.Neutral && Orbwalking.InAutoAttackRange(x)))
+                    {
+                        creeps.Add(x, ObjectManager.Get<Obj_AI_Minion>().Count(y => y.Team != ObjectManager.Player.Team && y.Team != GameObjectTeam.Neutral && y.IsValidTarget() && y.Distance(x.Position) <= 300));
+                    }
+                    foreach (var x in ObjectManager.Get<Obj_AI_Minion>().Where(x => x.Team == GameObjectTeam.Neutral && Orbwalking.InAutoAttackRange(x)))
+                    {
+                        creeps.Add(x, ObjectManager.Get<Obj_AI_Minion>().Count(y => y.Team == GameObjectTeam.Neutral && y.IsValidTarget() && y.Distance(x.Position) <= 300));
+                    }
+
+                    var sbire = creeps.OrderByDescending(x => x.Value).FirstOrDefault();
+
+                    ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, sbire.Key);
                 }
             }
         }
