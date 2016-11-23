@@ -43,7 +43,7 @@ namespace TwistedFate.Modes
                             }
                         }
 
-                        if (enemy.Distance(ObjectManager.Player) <= (ObjectManager.Player.AttackRange + 75))
+                        if (enemy.Distance(ObjectManager.Player) <= (ObjectManager.Player.AttackRange + Config.RotateLock))
                         {
                             switch (Config.Prioritize)
                             {

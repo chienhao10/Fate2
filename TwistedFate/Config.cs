@@ -88,7 +88,7 @@ namespace TwistedFate
             WKSMenu.AddItem(
                 new MenuItem("csRed", "RED").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
             WMenu.AddItem(new MenuItem("wmenu.menu.goldtitle", "Gold Card Utility")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            WMenu.AddItem(new MenuItem("wCGold", "Always pick GOLD in Combo").SetValue(true));
+            WMenu.AddItem(new MenuItem("wCGold", "Always in Combo").SetValue(true));
             WMenu.AddItem(new MenuItem("goldInter", "Interrupter").SetValue(true));
             WMenu.AddItem(new MenuItem("goldGap", "Anti-GapCloser").SetValue(true));  
             WMenu.AddSubMenu(WSHMenu);
@@ -99,6 +99,7 @@ namespace TwistedFate
             ExtraMenu.AddItem(new MenuItem("extra.menu.warning", "Recommended: Default")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
             ExtraMenu.AddItem(new MenuItem("extra.menu.harass", "Harass [Rotate]")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             ExtraMenu.AddItem(new MenuItem("wHRange", "Extra AA Range to start W").SetValue(new Slider(250, 100, 300)));
+            ExtraMenu.AddItem(new MenuItem("wHLock", "Extra AA Range to lock card").SetValue(new Slider(100, 0, 200)));
             ExtraMenu.AddItem(new MenuItem("extra.menu.pred", "Prediction [OKTW]")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             ExtraMenu.AddItem(
                 new MenuItem("extra.menu.pred.semiq", "Semi-Auto Q").SetValue(
@@ -192,6 +193,8 @@ namespace TwistedFate
         internal static bool Rotate { get { return IsChecked("wHarass"); } }
 
         internal static int RotateRange { get { return TwistedFateMenu.Item("wHRange").GetValue<Slider>().Value; } }
+
+        internal static int RotateLock { get { return TwistedFateMenu.Item("wHLock").GetValue<Slider>().Value; } }
 
         internal static int RotateMana { get { return TwistedFateMenu.Item("wHMana").GetValue<Slider>().Value; } }
 
