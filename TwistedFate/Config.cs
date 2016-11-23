@@ -61,7 +61,7 @@ namespace TwistedFate
                     new KeyBind("C".ToCharArray()[0], KeyBindType.Press)));
             QAutoMenu = new Menu("Q - Automated", "qauto.menu");
             QAutoMenu.AddItem(new MenuItem("qAuto", "Q - Automated")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            QAutoMenu.AddItem(new MenuItem("qAMana", "X min Mana to use Auto Q").SetValue(new Slider(10, 0, 100)));
+            QAutoMenu.AddItem(new MenuItem("qAMana", "Min Mana % to use Auto Q").SetValue(new Slider(10, 0, 100)));
             QAutoMenu.AddItem(new MenuItem("qDashing", "if target is dashing").SetValue(false));
             QAutoMenu.AddItem(new MenuItem("qSlowed", "if target is slowed").SetValue(true));
             QAutoMenu.AddItem(new MenuItem("qImmobile", "if target is immobile").SetValue(true));
@@ -76,7 +76,7 @@ namespace TwistedFate
             WSHMenu = new Menu("Smart Harass", "smarth.menu");
             WSHMenu.AddItem(new MenuItem("wQuick", "Smart Harass")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             WSHMenu.AddItem(new MenuItem("wHarass", "Rotate cards").SetValue(true));
-            WSHMenu.AddItem(new MenuItem("wHMana", "Min Mana to Rotate cards").SetValue(new Slider(20, 0, 100)));
+            WSHMenu.AddItem(new MenuItem("wHMana", "Min Mana % to Rotate cards").SetValue(new Slider(20, 0, 100)));
             WSHMenu.AddItem(
                 new MenuItem("rotate.prioritize", "Prioritizer").SetValue(
                     new StringList(new[] { "Smart", "BLUE > GOLD > RED", "RED > BLUE > GOLD", "GOLD > BLUE > RED", "GOLD > RED > BLUE", "RED > GOLD > BLUE" })));

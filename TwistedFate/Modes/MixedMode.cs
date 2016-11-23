@@ -52,7 +52,8 @@ namespace TwistedFate.Modes
                                 {
                                     case 0:
                                     {
-                                        if(ObjectManager.Player.Mana - wMana - qMana >= wMana )
+                                        //Smart (W->Q)
+                                        if (ObjectManager.Player.Mana - wMana - qMana >= wMana )
                                         {
                                             if(Spells._q.IsReadyPerfectly())
                                             {
