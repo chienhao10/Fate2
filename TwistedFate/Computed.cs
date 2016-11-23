@@ -135,10 +135,9 @@ namespace TwistedFate
                                && Environment.TickCount - CardSelector.LastWSent > 300;
             }
 
-            if (CardSelector.Status == SelectStatus.Selecting)
+            if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
             {
-                if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo
-                    || Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+                if(CardSelector.Status == SelectStatus.Selecting || Spells._w.IsReadyPerfectly())
                 {
                     args.Process = false;
                 }
@@ -156,7 +155,7 @@ namespace TwistedFate
                             {
                                 if (enemy.IsValidTarget(Spells._q.Range))
                                 {
-                                    if((ObjectManager.Player.Distance(enemy) <= Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 125))
+                                    if((ObjectManager.Player.Distance(enemy) <= Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 150))
                                     {
                                         args.Process = false;
 
