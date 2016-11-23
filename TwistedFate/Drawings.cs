@@ -126,25 +126,9 @@ namespace TwistedFate
 
                         if (comboDMG > target.Health)
                         {
-                            drawText("You should check: " + target.ChampionName, ObjectManager.Player.Position, System.Drawing.Color.LightGoldenrodYellow);
+                            drawText("You should check: " + target.ChampionName, ObjectManager.Player.Position, System.Drawing.Color.LightGoldenrodYellow, 20);
                         }
                     }
-                }
-
-                var xMinions =
-                    MinionManager.GetMinions(
-                        ObjectManager.Player.AttackRange + ObjectManager.Player.BoundingRadius + 300,
-                        MinionTypes.All, MinionTeam.Enemy, MinionOrderTypes.MaxHealth);
-
-                foreach (var xMinion in xMinions)
-                {
-                    if (ObjectManager.Player.GetAutoAttackDamage(xMinion, true) >= xMinion.Health)
-
-                        Render.Circle.DrawCircle(xMinion.Position, xMinion.BoundingRadius - 20, System.Drawing.Color.GreenYellow, 3);
-
-                    else if (ObjectManager.Player.GetAutoAttackDamage(xMinion, true) * 2 >= xMinion.Health)
-
-                        Render.Circle.DrawCircle(xMinion.Position, xMinion.BoundingRadius - 20, System.Drawing.Color.OrangeRed, 3);
                 }
             }
         }
