@@ -44,7 +44,27 @@ namespace TwistedFate.Modes
                     {
                         if(enemy.IsValidTarget(Spells._q.Range))
                         {
-                            Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                            switch(Config.PredSemiQ)
+                            {
+                                //VeryHigh
+                                case 0:
+                                {
+                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                                    return;
+                                }
+                                //High
+                                case 1:
+                                {
+                                    Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
+                                    return;
+                                }
+                                //Medium
+                                case 2:
+                                {
+                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
+                                    return;
+                                }
+                            }
                         }
                     }
                 }

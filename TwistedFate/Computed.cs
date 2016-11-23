@@ -235,7 +235,27 @@ namespace TwistedFate
                                     {
                                         if (enemy.IsValidTarget(Spells._q.Range / 2))
                                         {
-                                            Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                                            switch (Config.PredFastQW)
+                                            {
+                                                //VeryHigh
+                                                case 0:
+                                                {
+                                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                                                    return;
+                                                }
+                                                //High
+                                                case 1:
+                                                {
+                                                    Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
+                                                    return;
+                                                }
+                                                //Medium
+                                                case 2:
+                                                {
+                                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
+                                                    return;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -271,7 +291,27 @@ namespace TwistedFate
                                     {
                                         if (enemy.IsValidTarget(Spells._q.Range / 2))
                                         {
-                                            Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                                            switch (Config.PredFastQW)
+                                            {
+                                                //VeryHigh
+                                                case 0:
+                                                {
+                                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                                                    return;
+                                                }
+                                                //High
+                                                case 1:
+                                                {
+                                                    Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
+                                                    return;
+                                                }
+                                                //Medium
+                                                case 2:
+                                                {
+                                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
+                                                    return;
+                                                }
+                                            }
                                         }
                                     }
                                 }
