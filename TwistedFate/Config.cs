@@ -19,6 +19,8 @@ namespace TwistedFate
 
         internal static Menu WSHMenu { get; private set; }
 
+        internal static Menu WGCMenu { get; private set; }
+
         internal static Menu WKSMenu { get; private set; }
 
         internal static Menu ExtraMenu { get; private set; }
@@ -87,12 +89,14 @@ namespace TwistedFate
                     new KeyBind("U".ToCharArray()[0], KeyBindType.Press)));
             WKSMenu.AddItem(
                 new MenuItem("csRed", "RED").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
-            WMenu.AddItem(new MenuItem("wmenu.menu.goldtitle", "Gold Card Utility")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            WMenu.AddItem(new MenuItem("wCGold", "Always in Combo").SetValue(true));
-            WMenu.AddItem(new MenuItem("goldInter", "Interrupter").SetValue(true));
-            WMenu.AddItem(new MenuItem("goldGap", "Anti-GapCloser").SetValue(true));  
+            WGCMenu = new Menu("Gold Card", "gold.menu");
+            WGCMenu.AddItem(new MenuItem("wmenu.menu.goldtitle", "Gold Card")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
+            WGCMenu.AddItem(new MenuItem("wCGold", "Always: Spacebar").SetValue(true));
+            WGCMenu.AddItem(new MenuItem("goldInter", "Interrupter").SetValue(true));
+            WGCMenu.AddItem(new MenuItem("goldGap", "Anti-GapCloser").SetValue(true));  
             WMenu.AddSubMenu(WSHMenu);
             WMenu.AddSubMenu(WKSMenu);
+            WMenu.AddSubMenu(WGCMenu);
             TwistedFateMenu.AddSubMenu(WMenu);
 
             ExtraMenu = new Menu("Settings", "extraMenu");
