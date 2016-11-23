@@ -105,7 +105,7 @@ namespace TwistedFate
             DrawMenu.AddItem(new MenuItem("drawRmap", "R Range Minimap").SetValue(true));
             DrawMenu.AddItem(new MenuItem("combo.damage", "Damage Indicator")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             DrawMenu.AddItem(new MenuItem("drawComboDmg", "Combo Damage").SetValue(true));
-            DrawMenu.AddItem(new MenuItem("fillDmg", "Damage Fill Color").SetValue(new Circle(true, Color.LightCoral)));
+            DrawMenu.AddItem(new MenuItem("fillDmg", "Damage Fill Color").SetValue(new Circle(true, Color.LightGoldenrodYellow)));
             TwistedFateMenu.AddSubMenu(DrawMenu);
 
             #region DamageDrawings
