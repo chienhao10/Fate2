@@ -39,7 +39,8 @@ namespace TwistedFate
             Drawing.OnEndScene += DrawingOnOnEndScene;
             Drawing.OnDraw += OnDraw;
 
-            Game.PrintChat("<font color='#DE5291'>Ready. Play TF like Dopa!</font>");
+            Game.PrintChat("<font color='#1abc9c'>Ready. Play TF like Dopa!</font>");
+            Game.PrintChat("<font color='#2980b9'>Upvote if you like.</font>");
         }
 
         private static void DrawingOnOnEndScene(EventArgs args)

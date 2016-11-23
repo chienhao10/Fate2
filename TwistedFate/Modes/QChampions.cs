@@ -23,46 +23,41 @@ namespace TwistedFate.Modes
 
         internal static void Execute()
         {
-            var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
-
             if (Config.UseQEnemy)
             {
                 if(Spells._q.IsReadyPerfectly())
                 {
-                    if(ObjectManager.Player.Mana >= qMana)
-                    {
-                        CastQTick = Utils.TickCount;
-                    }
-                }
-            }
+                    CastQTick = Utils.TickCount;
 
-            if (Utils.TickCount - CastQTick < 500)
-            {
-                foreach (var enemy in HeroManager.Enemies)
-                {
-                    if (!enemy.IsDead && enemy != null)
+                    foreach (var enemy in HeroManager.Enemies)
                     {
-                        if(enemy.IsValidTarget(Spells._q.Range))
+                        if (!enemy.IsDead && enemy != null)
                         {
-                            switch(Config.PredSemiQ)
+                            if (enemy.IsValidTarget(Spells._q.Range))
                             {
-                                //VeryHigh
-                                case 0:
+                                if(Utils.TickCount - CastQTick < 500)
                                 {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                    return;
-                                }
-                                //High
-                                case 1:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                    return;
-                                }
-                                //Medium
-                                case 2:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                    return;
+                                    switch (Config.PredSemiQ)
+                                    {
+                                        //VeryHigh
+                                        case 0:
+                                        {
+                                            Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                                            return;
+                                        }
+                                        //High
+                                        case 1:
+                                        {
+                                            Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
+                                            return;
+                                        }
+                                        //Medium
+                                        case 2:
+                                        {
+                                            Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
+                                            return;
+                                        }
+                                    }
                                 }
                             }
                         }

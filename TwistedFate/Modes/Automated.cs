@@ -236,29 +236,33 @@ namespace TwistedFate.Modes
                 {
                     if (enemy.IsKillableAndValidTarget(Spells._q.GetDamage(enemy), Spells._q.DamageType, Spells._q.Range))
                     {
-                        if (ObjectManager.Player.Distance(enemy) >= Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)
-                            || !Spells._w.IsReadyPerfectly() || CardSelector.Status != SelectStatus.Selecting
-                            || CardSelector.Status != SelectStatus.Selected)
+                        if(!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)) && !Spells._w.IsReadyPerfectly())
                         {
-                            switch (Config.PredAutoQ)
+                            if (ObjectManager.Player.Distance(enemy) >= Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)
+                            || !Spells._w.IsReadyPerfectly()
+                            || CardSelector.Status != SelectStatus.Selecting
+                            || CardSelector.Status != SelectStatus.Selected)
                             {
-                                //High
-                                case 0:
+                                switch (Config.PredAutoQ)
                                 {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);      
-                                    return;
-                                }
-                                //VeryHigh
-                                case 1:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                    return;
-                                }
-                                //Medium
-                                case 2:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                    return;
+                                    //High
+                                    case 0:
+                                    {
+                                        Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
+                                        return;
+                                    }
+                                    //VeryHigh
+                                    case 1:
+                                    {
+                                        Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                                        return;
+                                    }
+                                    //Medium
+                                    case 2:
+                                    {
+                                        Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
+                                        return;
+                                    }
                                 }
                             }
                         }
