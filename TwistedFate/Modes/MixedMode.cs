@@ -45,7 +45,7 @@ namespace TwistedFate.Modes
                 {
                     if(CardSelector.Status == SelectStatus.Selecting)
                     {
-                        switch (Config.Prioritize)
+                        switch(Config.Prioritize)
                         {
                             case 0:
                             {

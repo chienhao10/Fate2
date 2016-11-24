@@ -92,7 +92,7 @@ namespace TwistedFate
 
                 if (gapcloser.Sender.IsValidTarget(Spells._w.Range))
                 {
-                    switch (CardSelector.Status)
+                    switch(CardSelector.Status)
                     {
                         case SelectStatus.Selecting:
                         {
@@ -228,7 +228,7 @@ namespace TwistedFate
                     {
                         if (args.SData.Name.ToLowerInvariant() == "gate")
                         {
-                            switch (CardSelector.Status)
+                            switch(CardSelector.Status)
                             {
                                 case SelectStatus.Selecting:
                                 {
@@ -270,27 +270,7 @@ namespace TwistedFate
                                 {
                                     if (enemy.IsValidTarget(SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50))
                                     {
-                                        switch (Config.PredFastQW)
-                                        {
-                                            //VeryHigh
-                                            case 0:
-                                            {
-                                                Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                                break;
-                                            }
-                                            //High
-                                            case 1:
-                                            {
-                                                Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                                break;
-                                            }
-                                            //Medium
-                                            case 2:
-                                            {
-                                                Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                                break;
-                                            }
-                                        }
+                                        Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
                                     }
                                 }
                             }
@@ -323,27 +303,7 @@ namespace TwistedFate
                                 {
                                     if (enemy.IsValidTarget(SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50))
                                     {
-                                        switch (Config.PredFastQW)
-                                        {
-                                            //VeryHigh
-                                            case 0:
-                                            {
-                                                Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                                break;
-                                            }
-                                            //High
-                                            case 1:
-                                            {
-                                                Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                                break;
-                                            }
-                                            //Medium
-                                            case 2:
-                                            {
-                                                Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                                break;
-                                            }
-                                        }
+                                        Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
                                     }
                                 }
                             }

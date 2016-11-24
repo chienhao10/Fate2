@@ -43,10 +43,12 @@ namespace TwistedFate
 
             TargetSelectorMenu = new Menu("Target Selector", "targetselector");
             TargetSelector.AddToMenu(TargetSelectorMenu);
+
             TwistedFateMenu.AddSubMenu(TargetSelectorMenu);
 
-            OrbwalkMenu = new Menu("Orbwalker", "orbwalker");
+            OrbwalkMenu = new Menu("Sebby's Orbwalker", "orbwalker");
             Mainframe.Orbwalker = new SebbyLib.Orbwalking.Orbwalker(OrbwalkMenu);
+
             TwistedFateMenu.AddSubMenu(OrbwalkMenu);
 
             QMenu = new Menu("Q Spell", "qSpellMenu");
@@ -70,6 +72,7 @@ namespace TwistedFate
             QMenu.AddItem(new MenuItem("qAfterW", "Predict Gold-Red into Q (AA Range)").SetValue(true));
             QMenu.AddSubMenu(QKBMenu);
             QMenu.AddSubMenu(QAutoMenu);
+
             TwistedFateMenu.AddSubMenu(QMenu);
 
             WMenu = new Menu("W Spell", "wSpellMenu");
@@ -98,6 +101,7 @@ namespace TwistedFate
             WMenu.AddSubMenu(WSHMenu);
             WMenu.AddSubMenu(WKSMenu);
             WMenu.AddSubMenu(WGCMenu);
+
             TwistedFateMenu.AddSubMenu(WMenu);
 
             ExtraMenu = new Menu("Settings", "extraMenu");
@@ -105,16 +109,7 @@ namespace TwistedFate
             ExtraMenu.AddItem(new MenuItem("extra.menu.harass", "Harass [Shuffle]")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             ExtraMenu.AddItem(new MenuItem("wHRange", "Extra AA Range to start W").SetValue(new Slider(200, 100, 300)));
             ExtraMenu.AddItem(new MenuItem("wHLock", "Extra AA Range to lock card").SetValue(new Slider(80, 0, 200)));
-            ExtraMenu.AddItem(new MenuItem("extra.menu.pred", "Prediction [OKTW]")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            ExtraMenu.AddItem(
-                new MenuItem("extra.menu.pred.semiq", "Semi-Auto Q").SetValue(
-                    new StringList(new[] { "VeryHigh", "High", "Medium" })));
-            ExtraMenu.AddItem(
-               new MenuItem("extra.menu.pred.autoq", "Automated Q").SetValue(
-                   new StringList(new[] { "High", "VeryHigh", "Medium" })));
-            ExtraMenu.AddItem(
-               new MenuItem("extra.menu.pred.wqc", "Fast W->Q").SetValue(
-                   new StringList(new[] { "VeryHigh", "High", "Medium" })));
+            
             TwistedFateMenu.AddSubMenu(ExtraMenu);
 
             DrawMenu = new Menu("Drawings", "drawings");
@@ -126,6 +121,7 @@ namespace TwistedFate
             DrawMenu.AddItem(new MenuItem("combo.damage", "Damage Indicator")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             DrawMenu.AddItem(new MenuItem("drawComboDmg", "Combo Damage").SetValue(true));
             DrawMenu.AddItem(new MenuItem("fillDmg", "Damage Fill Color").SetValue(new Circle(true, Color.LightGoldenrodYellow)));
+
             TwistedFateMenu.AddSubMenu(DrawMenu);
 
             #region DamageDrawings
@@ -226,12 +222,6 @@ namespace TwistedFate
         internal static bool PredictQ { get { return IsChecked("qAfterW"); } }
 
         internal static int Prioritize { get { return TwistedFateMenu.Item("rotate.prioritize").GetValue<StringList>().SelectedIndex; } }
-
-        internal static int PredSemiQ { get { return TwistedFateMenu.Item("extra.menu.pred.semiq").GetValue<StringList>().SelectedIndex; } }
-
-        internal static int PredAutoQ { get { return TwistedFateMenu.Item("extra.menu.pred.autoq").GetValue<StringList>().SelectedIndex; } }
-
-        internal static int PredFastQW { get { return TwistedFateMenu.Item("extra.menu.pred.wqc").GetValue<StringList>().SelectedIndex; } }
 
         #endregion
 

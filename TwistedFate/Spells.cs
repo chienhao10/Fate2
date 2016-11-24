@@ -24,7 +24,7 @@ namespace TwistedFate
 
         internal static void LoadSpells()
         {
-            _q = new Spell(SpellSlot.Q, 1450f, TargetSelector.DamageType.Magical) { MinHitChance = HitChance.High };
+            _q = new Spell(SpellSlot.Q, 1450f, TargetSelector.DamageType.Magical) { MinHitChance = HitChance.VeryHigh };
             _w = new Spell(SpellSlot.W, 1200f, TargetSelector.DamageType.Magical);
             _e = new Spell(SpellSlot.E);
             _r = new Spell(SpellSlot.R, 5500f);

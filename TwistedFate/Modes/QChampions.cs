@@ -33,27 +33,7 @@ namespace TwistedFate.Modes
                     {
                         if(Utils.TickCount - CastQTick < 500)
                         {
-                            switch(Config.PredSemiQ)
-                            {
-                                //VeryHigh
-                                case 0:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                    break;
-                                }
-                                //High
-                                case 1:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                    break;
-                                }
-                                //Medium
-                                case 2:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                    break;
-                                }
-                            }
+                            Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
                         }
                     }
                 }

@@ -165,51 +165,11 @@ namespace TwistedFate.Modes
                         {
                             if(enemy.MoveSpeed <= 270)
                             {
-                                switch (Config.PredAutoQ)
-                                {
-                                    //High
-                                    case 0:
-                                    {
-                                        Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                        break;
-                                    }
-                                    //VeryHigh
-                                    case 1:
-                                    {
-                                        Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                        break;
-                                    }
-                                    //Medium
-                                    case 2:
-                                    {
-                                        Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                        break;
-                                    }
-                                }
+                                Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
                             }
                         }else if(enemy.IsCharmed)
                         {
-                            switch (Config.PredAutoQ)
-                            {
-                                //High
-                                case 0:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                    break;
-                                }
-                                //VeryHigh
-                                case 1:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                    break;
-                                }
-                                //Medium
-                                case 2:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                    break;
-                                }
-                            }
+                            Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
                         }
                     }
                 }
@@ -236,27 +196,7 @@ namespace TwistedFate.Modes
                         || CardSelector.Status != SelectStatus.Selecting
                         || CardSelector.Status != SelectStatus.Selected)
                         {
-                            switch (Config.PredAutoQ)
-                            {
-                                //High
-                                case 0:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                    break;
-                                }
-                                //VeryHigh
-                                case 1:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                    break;
-                                }
-                                //Medium
-                                case 2:
-                                {
-                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                    break;
-                                }
-                            }
+                            Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
                         }
                     }
                 }
