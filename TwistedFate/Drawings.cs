@@ -75,6 +75,16 @@ namespace TwistedFate
                     Render.Circle.DrawCircle(ObjectManager.Player.Position, Spells._r.Range, System.Drawing.Color.PaleGreen);
                 }
 
+                if(Config.DrawRotate)
+                {
+                    Render.Circle.DrawCircle(ObjectManager.Player.Position, SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + Config.RotateRange, System.Drawing.Color.BlueViolet);
+                }
+
+                if(Config.DrawLock)
+                {
+                    Render.Circle.DrawCircle(ObjectManager.Player.Position, SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + Config.RotateLock, System.Drawing.Color.LightSteelBlue);
+                }     
+
                 #region Timers
 
                 if (HasACard != "empty")

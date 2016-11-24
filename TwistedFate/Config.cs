@@ -121,6 +121,8 @@ namespace TwistedFate
             DrawMenu.AddItem(new MenuItem("drawQrange", "Q Range").SetValue(true));
             DrawMenu.AddItem(new MenuItem("drawRrange", "R Range").SetValue(true));
             DrawMenu.AddItem(new MenuItem("drawRmap", "R Range Minimap").SetValue(true));
+            DrawMenu.AddItem(new MenuItem("drawRotate", "Shuffle cards Range").SetValue(true));
+            DrawMenu.AddItem(new MenuItem("drawLock", "Lock card Range").SetValue(true));
             DrawMenu.AddItem(new MenuItem("combo.damage", "Damage Indicator")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             DrawMenu.AddItem(new MenuItem("drawComboDmg", "Combo Damage").SetValue(true));
             DrawMenu.AddItem(new MenuItem("fillDmg", "Damage Fill Color").SetValue(new Circle(true, Color.LightGoldenrodYellow)));
@@ -198,6 +200,10 @@ namespace TwistedFate
         internal static bool UseQEnemy { get { return TwistedFateMenu.Item("qEnemy").GetValue<KeyBind>().Active; } }
 
         internal static bool Rotate { get { return IsChecked("wHarass"); } }
+
+        internal static bool DrawRotate { get { return IsChecked("drawRotate"); } }
+
+        internal static bool DrawLock { get { return IsChecked("drawLock"); } }
 
         internal static int RotateRange { get { return TwistedFateMenu.Item("wHRange").GetValue<Slider>().Value; } }
 
