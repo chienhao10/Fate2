@@ -46,7 +46,7 @@ namespace TwistedFate
             TwistedFateMenu.AddSubMenu(TargetSelectorMenu);
 
             OrbwalkMenu = new Menu("Orbwalker", "orbwalker");
-            Mainframe.Orbwalker = new Orbwalking.Orbwalker(OrbwalkMenu);
+            Mainframe.Orbwalker = new SebbyLib.Orbwalking.Orbwalker(OrbwalkMenu);
             TwistedFateMenu.AddSubMenu(OrbwalkMenu);
 
             QMenu = new Menu("Q Spell", "qSpellMenu");
@@ -67,7 +67,7 @@ namespace TwistedFate
             QAutoMenu.AddItem(new MenuItem("qImmobile", "if target is immobile").SetValue(true));
             QAutoMenu.AddItem(new MenuItem("qKS", "killsteal").SetValue(true));
             QMenu.AddItem(new MenuItem("qOptimize", "Combo/Mixed Fast W->Q")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            QMenu.AddItem(new MenuItem("qAfterW", "Predict Gold-Red into Q").SetValue(true));
+            QMenu.AddItem(new MenuItem("qAfterW", "Predict Gold-Red into Q").SetValue(false));
             QMenu.AddSubMenu(QKBMenu);
             QMenu.AddSubMenu(QAutoMenu);
             TwistedFateMenu.AddSubMenu(QMenu);
