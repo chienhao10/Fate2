@@ -273,7 +273,7 @@ namespace TwistedFate
                                 {
                                     if (!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
                                     {
-                                        if (enemy.IsValidTarget(Spells._q.Range / 2))
+                                        if (enemy.IsValidTarget(SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50))
                                         {
                                             switch (Config.PredFastQW)
                                             {
@@ -329,7 +329,7 @@ namespace TwistedFate
                                 {
                                     if (!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
                                     {
-                                        if (enemy.IsValidTarget(Spells._q.Range / 2))
+                                        if (enemy.IsValidTarget(SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50))
                                         {
                                             switch (Config.PredFastQW)
                                             {
