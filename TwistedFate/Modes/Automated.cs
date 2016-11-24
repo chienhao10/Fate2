@@ -176,19 +176,19 @@ namespace TwistedFate.Modes
                                     case 0:
                                     {
                                         Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                        return;
+                                        break;
                                     }
                                     //VeryHigh
                                     case 1:
                                     {
                                         Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                        return;
+                                        break;
                                     }
                                     //Medium
                                     case 2:
                                     {
                                         Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                        return;
+                                        break;
                                     }
                                 }
                             }
@@ -200,19 +200,19 @@ namespace TwistedFate.Modes
                                 case 0:
                                 {
                                     Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                    return;
+                                    break;
                                 }
                                 //VeryHigh
                                 case 1:
                                 {
                                     Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                    return;
+                                    break;
                                 }
                                 //Medium
                                 case 2:
                                 {
                                     Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                    return;
+                                    break;
                                 }
                             }
                         }
@@ -249,19 +249,19 @@ namespace TwistedFate.Modes
                                     case 0:
                                     {
                                         Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                        return;
+                                        break;
                                     }
                                     //VeryHigh
                                     case 1:
                                     {
                                         Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                        return;
+                                        break;
                                     }
                                     //Medium
                                     case 2:
                                     {
                                         Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                        return;
+                                        break;
                                     }
                                 }
                             }

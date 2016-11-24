@@ -53,7 +53,7 @@ namespace TwistedFate
                         case SelectStatus.Selecting:
                         {
                             CardSelector.JumpToCard(Cards.Yellow);
-                            return;
+                            break;
                         }
                         case SelectStatus.Ready:
                         {
@@ -61,7 +61,7 @@ namespace TwistedFate
                             {
                                 CardSelector.StartSelecting(Cards.Yellow);
                             }
-                            return;
+                            break;
                         }
                     }
 
@@ -97,7 +97,7 @@ namespace TwistedFate
                         case SelectStatus.Selecting:
                         {
                             CardSelector.JumpToCard(Cards.Yellow);
-                            return;
+                            break;
                         }
                         case SelectStatus.Ready:
                         {
@@ -105,7 +105,7 @@ namespace TwistedFate
                             {
                                 CardSelector.StartSelecting(Cards.Yellow);
                             }
-                            return;
+                            break;
                         }
                     }
 
@@ -236,12 +236,12 @@ namespace TwistedFate
                                 case SelectStatus.Selecting:
                                 {
                                     CardSelector.JumpToCard(Cards.Yellow);
-                                    return;
+                                    break;
                                 }
                                 case SelectStatus.Ready:
                                 {
                                     CardSelector.StartSelecting(Cards.Yellow);
-                                    return;
+                                    break;
                                 }
                             }
                         }
@@ -281,19 +281,19 @@ namespace TwistedFate
                                                 case 0:
                                                 {
                                                     Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                                    return;
+                                                    break;
                                                 }
                                                 //High
                                                 case 1:
                                                 {
                                                     Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                                    return;
+                                                    break;
                                                 }
                                                 //Medium
                                                 case 2:
                                                 {
                                                     Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                                    return;
+                                                    break;
                                                 }
                                             }
                                         }
@@ -337,19 +337,19 @@ namespace TwistedFate
                                                 case 0:
                                                 {
                                                     Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                                    return;
+                                                    break;
                                                 }
                                                 //High
                                                 case 1:
                                                 {
                                                     Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                                    return;
+                                                    break;
                                                 }
                                                 //Medium
                                                 case 2:
                                                 {
                                                     Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                                    return;
+                                                    break;
                                                 }
                                             }
                                         }

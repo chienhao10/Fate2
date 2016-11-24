@@ -77,7 +77,7 @@ namespace TwistedFate.Modes
 
                                         CardSelector.LockCard();
 
-                                        return;
+                                        break;
                                     }
                                     case 1:
                                     {
@@ -95,7 +95,7 @@ namespace TwistedFate.Modes
                                         {
                                             CardSelector.LockCard();
                                         }
-                                        return;
+                                        break;
                                     }
                                     case 2:
                                     {
@@ -113,7 +113,7 @@ namespace TwistedFate.Modes
                                         {
                                             CardSelector.LockCard();
                                         }
-                                        return;
+                                        break;
                                     }
                                     case 3:
                                     {
@@ -131,7 +131,7 @@ namespace TwistedFate.Modes
                                         {
                                             CardSelector.JumpToCard(Cards.Yellow);
                                         }
-                                        return;
+                                        break;
                                     }
                                     case 4:
                                     {
@@ -149,7 +149,7 @@ namespace TwistedFate.Modes
                                         {
                                             CardSelector.LockCard();
                                         }
-                                        return;
+                                        break;
                                     }
                                 }
                             }

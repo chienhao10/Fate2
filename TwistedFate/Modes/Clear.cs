@@ -34,12 +34,12 @@ namespace TwistedFate.Modes
                         case SelectStatus.Ready:
                         {
                             CardSelector.StartSelecting(Cards.Blue);
-                            return;
+                            break;
                         }
                         case SelectStatus.Selecting:
                         {
                             CardSelector.JumpToCard(Cards.Blue);
-                            return;
+                            break;
                         }
                     }
                 }
@@ -58,12 +58,12 @@ namespace TwistedFate.Modes
                                 case SelectStatus.Ready:
                                 {
                                     CardSelector.StartSelecting(Cards.Red);
-                                    return;
+                                    break;
                                 }
                                 case SelectStatus.Selecting:
                                 {
                                     CardSelector.JumpToCard(Cards.Red);
-                                    return;
+                                    break;
                                 }
                             }
                         }
@@ -76,12 +76,12 @@ namespace TwistedFate.Modes
                                     case SelectStatus.Ready:
                                     {
                                         CardSelector.StartSelecting(Cards.Yellow);
-                                        return;
+                                        break;
                                     }
                                     case SelectStatus.Selecting:
                                     {
                                         CardSelector.JumpToCard(Cards.Yellow);
-                                        return;
+                                        break;
                                     }
                                 }
                             }

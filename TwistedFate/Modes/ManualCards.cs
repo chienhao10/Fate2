@@ -33,7 +33,7 @@ namespace TwistedFate.Modes
                         }
                     }
 
-                    return;
+                    break;
                 }
                 case SelectStatus.Selecting:
                 {
@@ -52,7 +52,7 @@ namespace TwistedFate.Modes
                         CardSelector.JumpToCard(Cards.Red);
                     }
 
-                    return;
+                    break;
                 }
             }
         }
