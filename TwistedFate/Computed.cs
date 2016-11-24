@@ -152,22 +152,19 @@ namespace TwistedFate
                 {
                     if(!HeroManager.Enemies.Contains(args.Target))
                     {
-                        foreach (var enemy in HeroManager.Enemies)
+                        foreach (var enemy in HeroManager.Enemies.Where(e => !e.IsDead))
                         {
-                            if (!enemy.IsDead && enemy != null && !enemy.IsZombie)
+                            if (enemy.IsValidTarget(Spells._q.Range))
                             {
-                                if (enemy.IsValidTarget(Spells._q.Range))
+                                if((ObjectManager.Player.Distance(enemy) <= SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 100))
                                 {
-                                    if((ObjectManager.Player.Distance(enemy) <= SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 100))
-                                    {
-                                        args.Process = false;
+                                    args.Process = false;
 
-                                        if(SebbyLib.Orbwalking.InAutoAttackRange(enemy))
+                                    if(SebbyLib.Orbwalking.InAutoAttackRange(enemy))
+                                    {
+                                        if (SebbyLib.Orbwalking.CanAttack())
                                         {
-                                            if (SebbyLib.Orbwalking.CanAttack())
-                                            {
-                                                ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, enemy);
-                                            }
+                                            ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, enemy);
                                         }
                                     }
                                 }
@@ -267,34 +264,31 @@ namespace TwistedFate
                     {
                         if (ObjectManager.Player.ManaPercent >= Config.AutoqMana)
                         {
-                            foreach (var enemy in HeroManager.Enemies)
+                            foreach (var enemy in HeroManager.Enemies.Where(e => !e.IsDead))
                             {
-                                if (!enemy.IsDead && enemy != null)
+                                if (!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
                                 {
-                                    if (!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
+                                    if (enemy.IsValidTarget(SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50))
                                     {
-                                        if (enemy.IsValidTarget(SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50))
+                                        switch (Config.PredFastQW)
                                         {
-                                            switch (Config.PredFastQW)
+                                            //VeryHigh
+                                            case 0:
                                             {
-                                                //VeryHigh
-                                                case 0:
-                                                {
-                                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                                    break;
-                                                }
-                                                //High
-                                                case 1:
-                                                {
-                                                    Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                                    break;
-                                                }
-                                                //Medium
-                                                case 2:
-                                                {
-                                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                                    break;
-                                                }
+                                                Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                                                break;
+                                            }
+                                            //High
+                                            case 1:
+                                            {
+                                                Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
+                                                break;
+                                            }
+                                            //Medium
+                                            case 2:
+                                            {
+                                                Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
+                                                break;
                                             }
                                         }
                                     }
@@ -323,34 +317,31 @@ namespace TwistedFate
                     {
                         if (ObjectManager.Player.ManaPercent >= Config.AutoqMana)
                         {
-                            foreach (var enemy in HeroManager.Enemies)
+                            foreach (var enemy in HeroManager.Enemies.Where(e => !e.IsDead))
                             {
-                                if (!enemy.IsDead && enemy != null)
+                                if (!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
                                 {
-                                    if (!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Spells._q.Range))
+                                    if (enemy.IsValidTarget(SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50))
                                     {
-                                        if (enemy.IsValidTarget(SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50))
+                                        switch (Config.PredFastQW)
                                         {
-                                            switch (Config.PredFastQW)
+                                            //VeryHigh
+                                            case 0:
                                             {
-                                                //VeryHigh
-                                                case 0:
-                                                {
-                                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
-                                                    break;
-                                                }
-                                                //High
-                                                case 1:
-                                                {
-                                                    Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
-                                                    break;
-                                                }
-                                                //Medium
-                                                case 2:
-                                                {
-                                                    Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
-                                                    break;
-                                                }
+                                                Pred.CastSebbyPredict(Spells._q, enemy, HitChance.VeryHigh);
+                                                break;
+                                            }
+                                            //High
+                                            case 1:
+                                            {
+                                                Pred.CastSebbyPredict(Spells._q, enemy, Spells._q.MinHitChance);
+                                                break;
+                                            }
+                                            //Medium
+                                            case 2:
+                                            {
+                                                Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Medium);
+                                                break;
                                             }
                                         }
                                     }
