@@ -16,36 +16,39 @@ namespace TwistedFate.Modes
         {
             var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
 
-            foreach (var enemy in HeroManager.Enemies.Where(e => e.IsValidTarget(Spells._q.Range) && !e.IsDead))
+            foreach (var enemy in HeroManager.Enemies)
             {
-                if (Config.CanKillW && enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 200))
+                if (!enemy.IsDead && enemy != null)
                 {
-                    if (Spells._w.IsReadyPerfectly())
+                    if (Config.CanKillW && enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 200))
                     {
-                        if (CardSelector.Status == SelectStatus.Ready)
+                        if (Spells._w.IsReadyPerfectly())
                         {
-                            CardSelector.StartSelecting(Cards.First);
+                            if (CardSelector.Status == SelectStatus.Ready)
+                            {
+                                CardSelector.StartSelecting(Cards.First);
+                            }
+                        }
+
+                        if (CardSelector.Status == SelectStatus.Selecting)
+                        {
+                            CardSelector.JumpToCard(Cards.First);
                         }
                     }
-
-                    if (CardSelector.Status == SelectStatus.Selecting)
+                    else if (Config.UseGoldCombo)
                     {
-                        CardSelector.JumpToCard(Cards.First);
-                    }
-                }
-                else if (Config.UseGoldCombo)
-                {
-                    if (Spells._w.IsReadyPerfectly())
-                    {
-                        if (CardSelector.Status == SelectStatus.Ready)
+                        if (Spells._w.IsReadyPerfectly())
                         {
-                            CardSelector.StartSelecting(Cards.Yellow);
+                            if (CardSelector.Status == SelectStatus.Ready)
+                            {
+                                CardSelector.StartSelecting(Cards.Yellow);
+                            }
                         }
-                    }
 
-                    if (CardSelector.Status == SelectStatus.Selecting)
-                    {
-                        CardSelector.JumpToCard(Cards.Yellow);
+                        if (CardSelector.Status == SelectStatus.Selecting)
+                        {
+                            CardSelector.JumpToCard(Cards.Yellow);
+                        }
                     }
                 }
             }

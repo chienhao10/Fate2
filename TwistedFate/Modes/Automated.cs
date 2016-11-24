@@ -135,7 +135,7 @@ namespace TwistedFate.Modes
                 return;
             }
 
-            foreach (var enemy in HeroManager.Enemies.Where(e => e.IsValidTarget(Spells._q.Range * 2) && !e.IsDead))
+            foreach (var enemy in HeroManager.Enemies.Where(e => e.IsValidTarget(Spells._q.Range) && !e.IsDead))
             {
                 var pred = Spells._q.GetPrediction(enemy);
 
@@ -145,6 +145,7 @@ namespace TwistedFate.Modes
                     {
                         Pred.CastSebbyPredict(Spells._q, enemy, HitChance.Immobile);
                     }
+
                 }else if(Config.IsDashing)
                 {
                     if(ObjectManager.Player.ManaPercent >= Config.AutoqMana)
