@@ -15,7 +15,7 @@ namespace TwistedFate
     {
         #region Properties
 
-        internal static Orbwalking.Orbwalker Orbwalker { get; set; }
+        internal static SebbyLib.Orbwalking.Orbwalker Orbwalker { get; set; }
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace TwistedFate
             Obj_AI_Base.OnProcessSpellCast += Computed.OnProcessSpellCast;
             Obj_AI_Base.OnProcessSpellCast += Computed.YellowIntoQ;
             Obj_AI_Base.OnProcessSpellCast += Computed.RedIntoQ;
-            Orbwalking.BeforeAttack += Computed.OnBeforeAttack;
+            SebbyLib.Orbwalking.BeforeAttack += Computed.OnBeforeAttack;
             AntiGapcloser.OnEnemyGapcloser += Computed.Gapcloser_OnGapCloser;
             Interrupter2.OnInterruptableTarget += Computed.InterruptableSpell_OnInterruptableTarget;
         }
@@ -39,17 +39,17 @@ namespace TwistedFate
             {
                 switch(Orbwalker.ActiveMode)
                 {
-                    case Orbwalking.OrbwalkingMode.Combo:
+                    case SebbyLib.Orbwalking.OrbwalkingMode.Combo:
                     {
                             ComboMode.Execute();
                             break;
                     }
-                    case Orbwalking.OrbwalkingMode.Mixed:
+                    case SebbyLib.Orbwalking.OrbwalkingMode.Mixed:
                     {
                             MixedMode.Execute();
                             break;
                     }
-                    case Orbwalking.OrbwalkingMode.LaneClear:
+                    case SebbyLib.Orbwalking.OrbwalkingMode.LaneClear:
                     {
                             Clear.Execute();
                             break;

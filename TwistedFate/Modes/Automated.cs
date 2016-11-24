@@ -236,9 +236,9 @@ namespace TwistedFate.Modes
                 {
                     if (enemy.IsKillableAndValidTarget(Spells._q.GetDamage(enemy), Spells._q.DamageType, Spells._q.Range))
                     {
-                        if(!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)) || !Spells._w.IsReadyPerfectly())
+                        if(!enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)) || !Spells._w.IsReadyPerfectly())
                         {
-                            if (ObjectManager.Player.Distance(enemy) >= Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)
+                            if (ObjectManager.Player.Distance(enemy) >= SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)
                             || !Spells._w.IsReadyPerfectly()
                             || CardSelector.Status != SelectStatus.Selecting
                             || CardSelector.Status != SelectStatus.Selected)

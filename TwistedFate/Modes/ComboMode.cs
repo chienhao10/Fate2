@@ -20,7 +20,7 @@ namespace TwistedFate.Modes
             {
                 if (!enemy.IsDead && enemy != null)
                 {
-                    if (enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 200))
+                    if (enemy.IsKillableAndValidTarget(Spells._w.GetDamage(enemy), Spells._w.DamageType, SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 200))
                     {
                         if (Spells._w.IsReadyPerfectly())
                         {

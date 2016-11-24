@@ -67,9 +67,9 @@ namespace TwistedFate
 
                     if(HasGold)
                     {
-                        if (Orbwalking.InAutoAttackRange(sender))
+                        if (SebbyLib.Orbwalking.InAutoAttackRange(sender))
                         {
-                            if (Orbwalking.CanAttack())
+                            if (SebbyLib.Orbwalking.CanAttack())
                             {
                                 ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, sender);
                             }
@@ -111,9 +111,9 @@ namespace TwistedFate
 
                     if (HasGold)
                     {
-                        if (Orbwalking.InAutoAttackRange(gapcloser.Sender))
+                        if (SebbyLib.Orbwalking.InAutoAttackRange(gapcloser.Sender))
                         {
-                            if (Orbwalking.CanAttack())
+                            if (SebbyLib.Orbwalking.CanAttack())
                             {
                                 ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, gapcloser.Sender);
                             }
@@ -123,14 +123,14 @@ namespace TwistedFate
             }
         }
 
-        public static void OnBeforeAttack(Orbwalking.BeforeAttackEventArgs args)
+        public static void OnBeforeAttack(SebbyLib.Orbwalking.BeforeAttackEventArgs args)
         {
             if (ObjectManager.Player.IsDead)
             {
                 return;
             }
 
-            if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
+            if(Mainframe.Orbwalker.ActiveMode == SebbyLib.Orbwalking.OrbwalkingMode.Combo)
             {
                 if(CardSelector.Status == SelectStatus.Selecting 
                     || CardSelector.Status == SelectStatus.Ready)
@@ -138,7 +138,7 @@ namespace TwistedFate
                     args.Process = false;
                 }
 
-            }else if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+            }else if(Mainframe.Orbwalker.ActiveMode == SebbyLib.Orbwalking.OrbwalkingMode.Mixed)
             {
                 if (CardSelector.Status == SelectStatus.Selecting)
                 {
@@ -146,7 +146,7 @@ namespace TwistedFate
                 }
             }
 
-            if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+            if(Mainframe.Orbwalker.ActiveMode == SebbyLib.Orbwalking.OrbwalkingMode.Mixed)
             {
                 if(HasACard != "empty")
                 {
@@ -158,13 +158,13 @@ namespace TwistedFate
                             {
                                 if (enemy.IsValidTarget(Spells._q.Range))
                                 {
-                                    if((ObjectManager.Player.Distance(enemy) <= Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 100))
+                                    if((ObjectManager.Player.Distance(enemy) <= SebbyLib.Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 100))
                                     {
                                         args.Process = false;
 
-                                        if(Orbwalking.InAutoAttackRange(enemy))
+                                        if(SebbyLib.Orbwalking.InAutoAttackRange(enemy))
                                         {
-                                            if (Orbwalking.CanAttack())
+                                            if (SebbyLib.Orbwalking.CanAttack())
                                             {
                                                 ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, enemy);
                                             }
@@ -176,7 +176,7 @@ namespace TwistedFate
                     }
                 }
             }
-            else if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
+            else if(Mainframe.Orbwalker.ActiveMode == SebbyLib.Orbwalking.OrbwalkingMode.LaneClear)
             {
                 if(HasACard != "none" && HasRed)
                 {
@@ -184,12 +184,12 @@ namespace TwistedFate
 
                     IDictionary<Obj_AI_Minion, int> creeps = new Dictionary<Obj_AI_Minion, int>();
 
-                    foreach (var x in ObjectManager.Get<Obj_AI_Minion>().Where(x => x.Team != ObjectManager.Player.Team && x.Team != GameObjectTeam.Neutral && Orbwalking.InAutoAttackRange(x)))
+                    foreach (var x in ObjectManager.Get<Obj_AI_Minion>().Where(x => x.Team != ObjectManager.Player.Team && x.Team != GameObjectTeam.Neutral && SebbyLib.Orbwalking.InAutoAttackRange(x)))
                     {
                         creeps.Add(x, ObjectManager.Get<Obj_AI_Minion>().Count(y => y.Team != ObjectManager.Player.Team && y.Team != GameObjectTeam.Neutral && y.IsValidTarget() && y.Distance(x.Position) <= 300));
                     }
 
-                    foreach (var x in ObjectManager.Get<Obj_AI_Minion>().Where(x => x.Team == GameObjectTeam.Neutral && Orbwalking.InAutoAttackRange(x)))
+                    foreach (var x in ObjectManager.Get<Obj_AI_Minion>().Where(x => x.Team == GameObjectTeam.Neutral && SebbyLib.Orbwalking.InAutoAttackRange(x)))
                     {
                         creeps.Add(x, ObjectManager.Get<Obj_AI_Minion>().Count(y => y.Team == GameObjectTeam.Neutral && y.IsValidTarget() && y.Distance(x.Position) <= 300));
                     }
@@ -206,7 +206,7 @@ namespace TwistedFate
                         {
                             CardSelector.StartSelecting(Cards.Blue);
 
-                            if (CardSelector.Status == SelectStatus.Selected && Orbwalking.InAutoAttackRange(args.Target))
+                            if (CardSelector.Status == SelectStatus.Selected && SebbyLib.Orbwalking.InAutoAttackRange(args.Target))
                             {
                                 ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, args.Target);
                             }
@@ -253,8 +253,8 @@ namespace TwistedFate
         public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (!Config.PredictQ || ObjectManager.Player.IsDead
-                || (Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo
-                && Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed))
+                || (Mainframe.Orbwalker.ActiveMode != SebbyLib.Orbwalking.OrbwalkingMode.Combo
+                && Mainframe.Orbwalker.ActiveMode != SebbyLib.Orbwalking.OrbwalkingMode.Mixed))
             {
                 return;
             }
@@ -309,8 +309,8 @@ namespace TwistedFate
         public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (!Config.PredictQ || ObjectManager.Player.IsDead
-                || (Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo
-                && Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed))
+                || (Mainframe.Orbwalker.ActiveMode != SebbyLib.Orbwalking.OrbwalkingMode.Combo
+                && Mainframe.Orbwalker.ActiveMode != SebbyLib.Orbwalking.OrbwalkingMode.Mixed))
             {
                 return;
             }

@@ -46,7 +46,7 @@ namespace TwistedFate
             TwistedFateMenu.AddSubMenu(TargetSelectorMenu);
 
             OrbwalkMenu = new Menu("Orbwalker", "orbwalker");
-            Mainframe.Orbwalker = new Orbwalking.Orbwalker(OrbwalkMenu);
+            Mainframe.Orbwalker = new SebbyLib.Orbwalking.Orbwalker(OrbwalkMenu);
             TwistedFateMenu.AddSubMenu(OrbwalkMenu);
 
             QMenu = new Menu("Q Spell", "qSpellMenu");
