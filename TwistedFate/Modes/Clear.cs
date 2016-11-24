@@ -18,15 +18,7 @@ namespace TwistedFate.Modes
             var wMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ManaCost;
             var qMana = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).ManaCost;
 
-            if (ObjectManager.Player.Mana < (wMana*2) + qMana)
-            {
-                return;
-            }
-
-            var jungle = MinionManager.GetMinions(ObjectManager.Player.Position,
-                            ObjectManager.Player.AttackRange + 200, MinionTypes.All, MinionTeam.Neutral)
-                        .Where(x => x.Team == GameObjectTeam.Neutral)
-                        .OrderByDescending(x => x.MaxHealth);
+            var jungle = SebbyLib.Cache.GetMinions(ObjectManager.Player.ServerPosition, 700, MinionTeam.Neutral);
 
             if (!jungle.Any() || jungle.FirstOrDefault() == null)
             {
@@ -77,7 +69,7 @@ namespace TwistedFate.Modes
                         }
                         else
                         {
-                            if (jungle.FirstOrDefault().HealthPercent >= 50 && ObjectManager.Player.HealthPercent < 50)
+                            if (jungle.FirstOrDefault().HealthPercent >= 70 && ObjectManager.Player.HealthPercent < 50)
                             {
                                 switch (CardSelector.Status)
                                 {
@@ -109,11 +101,14 @@ namespace TwistedFate.Modes
 
             if(Spells._q.IsReadyPerfectly())
             {
-                var target = jungle.FirstOrDefault(x => x.IsValidTarget(Spells._q.Range));
-
-                if (target != null)
+                if (ObjectManager.Player.Mana - qMana >= wMana)
                 {
-                    Spells._q.Cast(target);
+                    var target = jungle.FirstOrDefault(x => x.IsValidTarget(Spells._q.Range));
+
+                    if (target != null)
+                    {
+                        Spells._q.Cast(target);
+                    }
                 }
             }
         }

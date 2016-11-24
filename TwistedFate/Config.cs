@@ -93,7 +93,8 @@ namespace TwistedFate
             WGCMenu.AddItem(new MenuItem("wmenu.menu.goldtitle", "Gold Card")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             WGCMenu.AddItem(new MenuItem("wCGold", "Always: Spacebar").SetValue(true));
             WGCMenu.AddItem(new MenuItem("goldInter", "Interrupter").SetValue(true));
-            WGCMenu.AddItem(new MenuItem("goldGap", "Anti-GapCloser").SetValue(true));  
+            WGCMenu.AddItem(new MenuItem("goldGap", "Anti-GapCloser").SetValue(true));
+            WMenu.AddItem(new MenuItem("w.kill", "[Combo] Pick the first card if can kill").SetValue(true));
             WMenu.AddSubMenu(WSHMenu);
             WMenu.AddSubMenu(WKSMenu);
             WMenu.AddSubMenu(WGCMenu);
@@ -181,6 +182,8 @@ namespace TwistedFate
         internal static bool UseInterrupter { get { return IsChecked("goldInter"); } }
 
         internal static bool UseAntiGapCloser { get { return IsChecked("goldGap"); } }
+
+        internal static bool CanKillW { get { return IsChecked("w.kill"); } }
 
         internal static bool GoldKey { get { return TwistedFateMenu.Item("csGold").GetValue<KeyBind>().Active; } }
 
