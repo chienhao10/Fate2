@@ -130,7 +130,7 @@ namespace TwistedFate
                 return;
             }
 
-            if(Mainframe.Orbwalker.ActiveMode == SebbyLib.Orbwalking.OrbwalkingMode.Combo)
+            if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
             {
                 if(CardSelector.Status == SelectStatus.Selecting 
                     || CardSelector.Status == SelectStatus.Ready)
@@ -138,7 +138,7 @@ namespace TwistedFate
                     args.Process = false;
                 }
 
-            }else if(Mainframe.Orbwalker.ActiveMode == SebbyLib.Orbwalking.OrbwalkingMode.Mixed)
+            }else if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
             {
                 if (CardSelector.Status == SelectStatus.Selecting)
                 {
@@ -146,7 +146,7 @@ namespace TwistedFate
                 }
             }
 
-            if(Mainframe.Orbwalker.ActiveMode == SebbyLib.Orbwalking.OrbwalkingMode.Mixed)
+            if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
             {
                 if(HasACard != "empty")
                 {
@@ -176,7 +176,7 @@ namespace TwistedFate
                     }
                 }
             }
-            else if(Mainframe.Orbwalker.ActiveMode == SebbyLib.Orbwalking.OrbwalkingMode.LaneClear)
+            else if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
             {
                 if(HasACard != "none" && HasRed)
                 {
@@ -253,8 +253,8 @@ namespace TwistedFate
         public static void YellowIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (!Config.PredictQ || ObjectManager.Player.IsDead
-                || (Mainframe.Orbwalker.ActiveMode != SebbyLib.Orbwalking.OrbwalkingMode.Combo
-                && Mainframe.Orbwalker.ActiveMode != SebbyLib.Orbwalking.OrbwalkingMode.Mixed))
+                || (Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo
+                && Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed))
             {
                 return;
             }
@@ -309,8 +309,8 @@ namespace TwistedFate
         public static void RedIntoQ(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (!Config.PredictQ || ObjectManager.Player.IsDead
-                || (Mainframe.Orbwalker.ActiveMode != SebbyLib.Orbwalking.OrbwalkingMode.Combo
-                && Mainframe.Orbwalker.ActiveMode != SebbyLib.Orbwalking.OrbwalkingMode.Mixed))
+                || (Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo
+                && Mainframe.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed))
             {
                 return;
             }

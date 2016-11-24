@@ -15,7 +15,7 @@ namespace TwistedFate
     {
         #region Properties
 
-        internal static SebbyLib.Orbwalking.Orbwalker Orbwalker { get; set; }
+        internal static Orbwalking.Orbwalker Orbwalker { get; set; }
 
         #endregion
 
@@ -39,17 +39,17 @@ namespace TwistedFate
             {
                 switch(Orbwalker.ActiveMode)
                 {
-                    case SebbyLib.Orbwalking.OrbwalkingMode.Combo:
+                    case Orbwalking.OrbwalkingMode.Combo:
                     {
                             ComboMode.Execute();
                             break;
                     }
-                    case SebbyLib.Orbwalking.OrbwalkingMode.Mixed:
+                    case Orbwalking.OrbwalkingMode.Mixed:
                     {
                             MixedMode.Execute();
                             break;
                     }
-                    case SebbyLib.Orbwalking.OrbwalkingMode.LaneClear:
+                    case Orbwalking.OrbwalkingMode.LaneClear:
                     {
                             Clear.Execute();
                             break;
