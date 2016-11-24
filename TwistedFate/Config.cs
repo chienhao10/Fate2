@@ -103,8 +103,8 @@ namespace TwistedFate
             ExtraMenu = new Menu("Settings", "extraMenu");
             ExtraMenu.AddItem(new MenuItem("extra.menu.warning", "Recommended: Default")).SetFontStyle(FontStyle.Bold, SharpDX.Color.OrangeRed);
             ExtraMenu.AddItem(new MenuItem("extra.menu.harass", "Harass [Shuffle]")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
-            ExtraMenu.AddItem(new MenuItem("wHRange", "Extra AA Range to start W").SetValue(new Slider(250, 100, 300)));
-            ExtraMenu.AddItem(new MenuItem("wHLock", "Extra AA Range to lock card").SetValue(new Slider(100, 0, 200)));
+            ExtraMenu.AddItem(new MenuItem("wHRange", "Extra AA Range to start W").SetValue(new Slider(200, 100, 300)));
+            ExtraMenu.AddItem(new MenuItem("wHLock", "Extra AA Range to lock card").SetValue(new Slider(80, 0, 200)));
             ExtraMenu.AddItem(new MenuItem("extra.menu.pred", "Prediction [OKTW]")).SetFontStyle(FontStyle.Bold, SharpDX.Color.BlueViolet);
             ExtraMenu.AddItem(
                 new MenuItem("extra.menu.pred.semiq", "Semi-Auto Q").SetValue(
