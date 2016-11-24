@@ -200,7 +200,7 @@ namespace TwistedFate
                 }
                 else if(args.Target is Obj_AI_Turret)
                 {
-                    if(ObjectManager.Player.CountEnemiesInRange(800) < 1)
+                    if(ObjectManager.Player.CountEnemiesInRange(900) == 0)
                     {
                         if(Spells._w.IsReadyPerfectly() && CardSelector.Status == SelectStatus.Ready)
                         {
