@@ -136,7 +136,6 @@ namespace TwistedFate
                     || CardSelector.Status == SelectStatus.Ready)
                 {
                     args.Process = false;
-
                 }
             }
 
@@ -169,7 +168,8 @@ namespace TwistedFate
                         }
                     }
                 }
-            }else if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
+            }
+            else if(Mainframe.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
             {
                 if(HasACard != "none" && HasRed)
                 {
@@ -181,6 +181,7 @@ namespace TwistedFate
                     {
                         creeps.Add(x, ObjectManager.Get<Obj_AI_Minion>().Count(y => y.Team != ObjectManager.Player.Team && y.Team != GameObjectTeam.Neutral && y.IsValidTarget() && y.Distance(x.Position) <= 300));
                     }
+
                     foreach (var x in ObjectManager.Get<Obj_AI_Minion>().Where(x => x.Team == GameObjectTeam.Neutral && Orbwalking.InAutoAttackRange(x)))
                     {
                         creeps.Add(x, ObjectManager.Get<Obj_AI_Minion>().Count(y => y.Team == GameObjectTeam.Neutral && y.IsValidTarget() && y.Distance(x.Position) <= 300));
@@ -189,6 +190,21 @@ namespace TwistedFate
                     var sbire = creeps.OrderByDescending(x => x.Value).FirstOrDefault();
 
                     ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, sbire.Key);
+                }
+                else if(args.Target is Obj_AI_Turret)
+                {
+                    if(ObjectManager.Player.CountEnemiesInRange(800) < 1)
+                    {
+                        if(Spells._w.IsReadyPerfectly() && CardSelector.Status == SelectStatus.Ready)
+                        {
+                            CardSelector.StartSelecting(Cards.Blue);
+
+                            if (CardSelector.Status == SelectStatus.Selected && Orbwalking.InAutoAttackRange(args.Target))
+                            {
+                                ObjectManager.Player.IssueOrder(GameObjectOrder.AttackUnit, args.Target);
+                            }
+                        }
+                    }
                 }
             }
         }
